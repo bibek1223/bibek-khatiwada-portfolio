@@ -1,0 +1,88 @@
+
+    <section id="channels">
+      <div class="wrap contact">
+        <article class="contact-card">
+          <h2 class="card-h">Reach me directly</h2>
+          <div class="contact-list">
+            <div class="contact-row">
+              <a class="contact-link" href="mailto:{{email}}"><span class="contact-icon mail" aria-hidden="true">@</span><span class="contact-meta"><span class="label">Primary email</span><b>{{email}}</b></span></a>
+              <button class="copy-btn" type="button" data-copy="{{email}}" aria-label="Copy email address">Copy</button>
+            </div>
+            <a class="contact-link" href="{{whatsapp}}" target="_blank" rel="noreferrer"><span class="contact-icon whatsapp" aria-hidden="true">WA</span><span class="contact-meta"><span class="label">WhatsApp</span><b>Message me on WhatsApp</b></span></a>
+            <div class="contact-row">
+              <a class="contact-link" href="tel:{{phone_href}}"><span class="contact-icon phone" aria-hidden="true">☎</span><span class="contact-meta"><span class="label">Phone</span><b>{{phone}}</b></span></a>
+              <button class="copy-btn" type="button" data-copy="{{phone}}" aria-label="Copy phone number">Copy</button>
+            </div>
+            <a class="contact-link" href="{{linkedin}}" target="_blank" rel="noreferrer"><span class="contact-icon linkedin" aria-hidden="true">in</span><span class="contact-meta"><span class="label">LinkedIn</span><b>{{linkedin_display}}</b></span></a>
+            <a class="contact-link" href="{{github}}" target="_blank" rel="noreferrer"><span class="contact-icon github" aria-hidden="true">GH</span><span class="contact-meta"><span class="label">GitHub</span><b>{{github_display}}</b></span></a>
+            <a class="contact-link" href="{{google}}" target="_blank" rel="noreferrer"><span class="contact-icon" aria-hidden="true">G</span><span class="contact-meta"><span class="label">Google Business Profile</span><b>View my Google profile</b></span></a>
+          </div>
+        </article>
+
+        <article class="contact-card cta-panel">
+          <h2 class="card-h">Build a quick brief</h2>
+          <p>Answer a few questions and I’ll get a clear picture from the first message. The brief is sent from <b>your</b> email app or WhatsApp—nothing is stored by this website.</p>
+          <form class="brief" id="brief" novalidate>
+            <div class="field">
+              <label for="b-name">Your name <span class="opt">optional</span></label>
+              <input id="b-name" name="name" autocomplete="name" maxlength="80">
+            </div>
+            <div class="field">
+              <label for="b-site">Website</label>
+              <input id="b-site" name="site" inputmode="url" autocomplete="url" placeholder="example.com" maxlength="200" required aria-describedby="b-site-err">
+              <p class="err" id="b-site-err" hidden>Enter a website address, like example.com.</p>
+            </div>
+            <div class="field">
+              <label for="b-topic">What do you need help with?</label>
+              <select id="b-topic" name="topic">
+                <option value="">Not sure yet</option>
+                <optgroup label="Services">{{service_options}}</optgroup>
+                <optgroup label="Similar to a case study">{{case_options}}</optgroup>
+              </select>
+            </div>
+            <fieldset class="field">
+              <legend>Where are things right now?</legend>
+              <div class="choice-row">
+                <label class="choice"><input type="radio" name="stage" value="Traffic dropped"> Traffic dropped</label>
+                <label class="choice"><input type="radio" name="stage" value="New site or launch"> New site / launch</label>
+                <label class="choice"><input type="radio" name="stage" value="Growing, want more"> Growing, want more</label>
+                <label class="choice"><input type="radio" name="stage" value="Need systems or reporting"> Need systems / reporting</label>
+              </div>
+            </fieldset>
+            <div class="field">
+              <label for="b-msg">What’s going on, and what would success look like?</label>
+              <textarea id="b-msg" name="message" rows="5" maxlength="2000" required aria-describedby="b-msg-err b-msg-count"></textarea>
+              <div class="field-foot"><p class="err" id="b-msg-err" hidden>A sentence or two (at least 20 characters) helps me reply usefully.</p><span class="count" id="b-msg-count">0 / 2000</span></div>
+            </div>
+            <div class="brief-preview" aria-live="polite">
+              <div class="mini-note">Preview</div>
+              <pre id="brief-out">Fill in the form to see your message.</pre>
+            </div>
+            <div class="brief-actions">
+              <button class="btn btn-primary" type="submit" data-send="email">Send by email</button>
+              <button class="btn btn-secondary" type="button" data-send="whatsapp">Send on WhatsApp</button>
+              <button class="btn btn-ghost" type="button" data-send="copy">Copy text</button>
+            </div>
+            <p class="form-status" role="status"></p>
+          </form>
+          <p class="fine">See the <a href="{{root}}privacy/">privacy notice</a>.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="expect">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="copy">
+            <span class="eyebrow">What helps</span>
+            <h2>What to include for a useful first reply.</h2>
+          </div>
+        </div>
+        <div class="process">
+          <article class="step"><div class="num">1</div><h3>The site</h3><p>The URL, the platform or CMS it runs on, and roughly how big it is.</p></article>
+          <article class="step"><div class="num">2</div><h3>The symptom</h3><p>What you are seeing—a drop, a plateau, a launch, slow reporting—and roughly when it started.</p></article>
+          <article class="step"><div class="num">3</div><h3>The evidence</h3><p>A Search Console or analytics screenshot, if you have one. It speeds up the diagnosis a lot.</p></article>
+          <article class="step"><div class="num">4</div><h3>The goal</h3><p>What success looks like for the business, and any deadline or constraint I should know about.</p></article>
+        </div>
+      </div>
+    </section>

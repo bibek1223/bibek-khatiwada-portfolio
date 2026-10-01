@@ -1,0 +1,8 @@
+{
+  "name": "bibek-khatiwada-portfolio",
+  "compatibility_date": "2026-10-02",
+  "assets": {
+    "directory": "./design",
+    "not_found_handling": "404-page"
+  }
+}

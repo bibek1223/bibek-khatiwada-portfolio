@@ -150,9 +150,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/site.css?v=3eb37e2e">
+  <link rel="stylesheet" href="../../assets/css/site.css?v=c62b3783">
 </head>
 <body class="page-case">
+  <div class="site-progress" aria-hidden="true"><i></i></div>
+  <div class="site-search" data-site-search hidden>
+    <div class="site-search-backdrop" data-search-close></div>
+    <section class="site-search-panel" role="dialog" aria-modal="true" aria-labelledby="site-search-title">
+      <div class="site-search-head">
+        <div><span class="mini-note">Navigate the portfolio</span><h2 id="site-search-title">Find a page, proof point or service</h2></div>
+        <button type="button" class="search-close" data-search-close aria-label="Close search">×</button>
+      </div>
+      <label class="search-field"><span class="sr-only">Search the portfolio</span><span aria-hidden="true">⌕</span><input type="search" data-search-input placeholder="Try ‘crawl budget’, ‘SaaS’, or ‘process’" autocomplete="off"></label>
+      <div class="search-meta"><span data-search-count></span><span>↑ ↓ move · Enter open · Esc close</span></div>
+      <div class="search-results" data-search-results role="listbox" aria-label="Search results"></div>
+      <p class="search-empty" data-search-empty hidden>No close match. Try a service, industry, case number or technical topic.</p>
+    </section>
+    <script type="application/json" data-search-index>[{"title": "Home", "description": "Overview, selected work and capabilities", "url": "../../", "type": "page"}, {"title": "About Bibek", "description": "Career, background and working style", "url": "../../about/", "type": "page"}, {"title": "Services", "description": "Technical SEO, content systems, automation and AI search", "url": "../../services/", "type": "page"}, {"title": "How I work", "description": "Engagement process, deliverables and collaboration model", "url": "../../process/", "type": "page"}, {"title": "Case studies", "description": "Nine anonymized Search Console case studies", "url": "../../case-studies/", "type": "page"}, {"title": "Tools", "description": "Interactive SEO utilities and system prototypes", "url": "../../tools/", "type": "page"}, {"title": "Frameworks", "description": "Search mechanics and technical playbooks", "url": "../../frameworks/", "type": "page"}, {"title": "Industries", "description": "Search blueprints by market and site model", "url": "../../industries/", "type": "page"}, {"title": "Insights", "description": "Technical writing on search and AI visibility", "url": "../../blog/", "type": "page"}, {"title": "SEO diagnostic", "description": "Build a diagnostic brief in three steps", "url": "../../audit/", "type": "action"}, {"title": "Contact", "description": "Email, WhatsApp and project brief builder", "url": "../../contact/", "type": "action"}, {"title": "Case 01: Medical / YMYL health platform — recovery at scale", "description": "Health / YMYL recovery", "url": "../../case-studies/medical-ymyl-recovery/", "type": "case study"}, {"title": "Case 02: UK vehicle-scrapping service — programmatic at scale", "description": "Programmatic architecture", "url": "../../case-studies/programmatic-vehicle-scrapping/", "type": "case study"}, {"title": "Case 03: Shopify e-commerce — rendering & crawl budget", "description": "Shopify / e-commerce", "url": "../../case-studies/shopify-rendering-crawl-budget/", "type": "case study"}, {"title": "Case 04: Recovery and stability at scale", "description": "Recovery and stability", "url": "../../case-studies/recovery-stability-at-scale/", "type": "case study"}, {"title": "Case 05: Algorithm recovery — Google broad core update", "description": "Google broad core recovery", "url": "../../case-studies/broad-core-update-recovery/", "type": "case study"}, {"title": "Case 06: Education platform — year-over-year growth", "description": "Education platform", "url": "../../case-studies/education-yoy-growth/", "type": "case study"}, {"title": "Case 07: New SaaS platform — fast ramp, strong positions", "description": "New SaaS platform", "url": "../../case-studies/saas-fast-ramp/", "type": "case study"}, {"title": "Case 08: New SaaS platform — organic growth from launch", "description": "SaaS from launch", "url": "../../case-studies/saas-organic-from-launch/", "type": "case study"}, {"title": "Case 09: Medical research platform — topical authority", "description": "Medical research platform", "url": "../../case-studies/medical-research-topical-authority/", "type": "case study"}, {"title": "LLM Tracking: How to Monitor Brand Visibility, Citations, and Retrieval in AI Search", "description": "A technical guide to tracking brand presence across ChatGPT, Perplexity, and Google AI Overviews using automated prompt matrices, RAG chunking, and machine-readable context.", "url": "../../frameworks/llm-tracking/", "type": "framework"}, {"title": "The EAV (Entity-Attribute-Value) Model for Modern Search", "description": "Moving beyond keyword density into knowledge graph triples. How structuring content as Entity-Attribute-Value triples establishes defensible topical authority for semantic search engines.", "url": "../../frameworks/entity-attribute-value-search/", "type": "framework"}, {"title": "AEO & GEO: Engineering Content for LLM Extraction & AI Overviews", "description": "Technical formatting, structured citations, schema grounding, and machine-readable llms.txt endpoints designed to maximize citation rate in Google AI Overviews, Perplexity, and ChatGPT.", "url": "../../frameworks/aeo-geo-playbook/", "type": "framework"}, {"title": "Anatomy of a 130,000-Page YMYL Recovery", "description": "The technical mechanics behind Case 01: crawl budget consolidation, pruning 20,000 dead/duplicate URLs, building structured topic hubs, and recovering visibility across core Google updates.", "url": "../../frameworks/130k-page-ymyl-recovery-mechanics/", "type": "framework"}, {"title": "Home Trades & Multi-Location Services", "description": "HVAC, Plumbing, Electrical, Roofing, and Emergency Services. Optimizing local service-area pages, GBP listings, citation consistency, and hyper-local intent.", "url": "../../industries/home-services-hvac-plumbing/", "type": "industry"}, {"title": "B2B SaaS & Enterprise Tech", "description": "Product-led SEO, documentation search, comparison pages, and high-intent bottom-of-funnel keyword capturing for software platforms.", "url": "../../industries/b2b-saas/", "type": "industry"}, {"title": "Programmatic & Large Inventories", "description": "Automotive marketplaces, directory portals, real estate listings, and large e-commerce catalogs with hundreds of thousands of dynamic URLs.", "url": "../../industries/programmatic-directories/", "type": "industry"}, {"title": "Healthcare, Health Tech & YMYL Platforms", "description": "Medical health platforms, telehealth portals, clinical research databases, and health tech providers requiring strict E-E-A-T trust signals, topic hub authority, and core update resilience.", "url": "../../industries/healthcare-ymyl/", "type": "industry"}, {"title": "LLM Tracking: How to Monitor Brand Visibility, Citations, and Retrieval in AI Search", "description": "A technical guide to tracking brand presence across ChatGPT, Perplexity, and Google AI Overviews using automated prompt matrices, RAG chunking, and machine-readable context.", "url": "../../blog/llm-tracking/", "type": "insight"}, {"title": "Entity-Based Architecture & Topical Maps", "description": "Design semantic topical maps and pillar-cluster systems so content earns authority instead of competing with itself. Knowledge graph triples, EAV modeling, and internal linking networks.", "url": "../../services/#entity-architecture", "type": "service"}, {"title": "Technical Infrastructure & Crawl Forensics", "description": "Fix crawl waste, JavaScript rendering bottlenecks, indexation bloat, and URL architecture across sites scaling to hundreds of thousands of pages.", "url": "../../services/#technical-infrastructure", "type": "service"}, {"title": "AEO, GEO & Generative Engine Visibility", "description": "Engineer web content for extraction and citation in Google AI Overviews, Perplexity, and ChatGPT with structured answer spans, entity grounding, and machine-readable endpoints.", "url": "../../services/#aeo-geo-search", "type": "service"}, {"title": "Algorithmic Core Update Remediation", "description": "Systematic forensic recovery from Google broad core updates, helpful content penalties, and quality reassessments through site-wide quality re-architecting and taxonomy cleanup.", "url": "../../services/#algorithm-recovery", "type": "service"}, {"title": "Custom SEO Automation & Internal Tools", "description": "Turn repetitive SEO bottlenecks into reliable automated workflows, Python scripts, Google Search Console anomaly detectors, and custom data pipelines.", "url": "../../services/#automation-tools", "type": "service"}, {"title": "Content Semantic Flow Checker", "description": "spaCy + sentence-transformers (all-MiniLM-L6-v2) pipeline for analyzing semantic similarity, topic drift, and entity coverage between content headers and search intent.", "url": "../../tools/", "type": "tool"}, {"title": "n8n & Colab GSC Anomaly Detector", "description": "Automated workflow engine monitoring daily Google Search Console API data for unexpected click/impression drops, cannibalization flags, and SERP layout shifts.", "url": "../../tools/", "type": "tool"}, {"title": "Automated llms.txt & Markdown Generator", "description": "Static generator module that automatically parses HTML site structure and builds a standardized, clean markdown /llms.txt file for AI web crawlers.", "url": "../../tools/", "type": "tool"}]</script>
+  </div>
+  <button class="page-outline-toggle" type="button" data-outline-toggle hidden aria-expanded="false" aria-controls="page-outline"><span aria-hidden="true">☰</span><span>On this page</span></button>
+  <aside class="page-outline" id="page-outline" data-page-outline hidden aria-label="On this page">
+    <div class="page-outline-head"><span>On this page</span><button type="button" data-outline-close aria-label="Close section navigation">×</button></div>
+    <nav data-outline-links></nav>
+  </aside>
   <a class="skip" href="#main">Skip to content</a>
   <div class="float-shapes" aria-hidden="true">
     <div class="shape s1"></div>
@@ -175,9 +195,9 @@
         <a href="../../case-studies/" aria-current="page">Case studies</a>
         <a href="../../tools/">Tools</a>
         <a href="../../frameworks/">Frameworks</a>
-        <a href="../../industries/">Industries</a>
-        <a href="../../audit/">Audit</a>
+        <a href="../../roi-calculator/">ROI Calc</a>
         <a href="../../contact/">Contact</a>
+        <button class="search-trigger" type="button" data-search-open aria-haspopup="dialog"><span aria-hidden="true">⌕</span> Search <kbd>⌘K</kbd></button>
         <a class="nav-cta" href="https://wa.me/9779860411440" target="_blank" rel="noreferrer">WhatsApp</a>
       </nav>
       <a class="cta" href="https://wa.me/9779860411440" target="_blank" rel="noreferrer">WhatsApp</a>
@@ -228,6 +248,42 @@
           
           
 
+          <h2 id="stepper">Forensic Implementation Stepper</h2>
+          <div class="stepper-wrap">
+            <div class="stepper-tabs" role="tablist" aria-label="Forensic phases">
+              <button type="button" class="stepper-tab active" data-phase="1" role="tab" aria-selected="true"><span>01</span> Diagnosis</button>
+              <button type="button" class="stepper-tab" data-phase="2" role="tab" aria-selected="false"><span>02</span> Pruning</button>
+              <button type="button" class="stepper-tab" data-phase="3" role="tab" aria-selected="false"><span>03</span> Architecture</button>
+              <button type="button" class="stepper-tab" data-phase="4" role="tab" aria-selected="false"><span>04</span> Verification</button>
+            </div>
+            <div class="stepper-content">
+              <div class="stepper-panel" data-phase="1">
+                <div class="mini-note">Phase 1: Forensic Drop &amp; Crawl Diagnosis</div>
+                <h4>Correlating Losses to Google Updates &amp; Server Logs</h4>
+                <p>Isolating whether search visibility drops resulted from site-wide algorithmic quality reassessment, template-level duplicate risks, or server-level crawl bottlenecks.</p>
+                <div class="stepper-badge">Tools: GSC API Anomaly Engine, Screaming Frog, Log Analyzers</div>
+              </div>
+              <div class="stepper-panel" data-phase="2" hidden>
+                <div class="mini-note">Phase 2: Thin &amp; Duplicate Content Pruning</div>
+                <h4>Consolidating Low-Threshold URLs to Restore Crawl Equity</h4>
+                <p>Pruning low-value parameter URLs, dynamic facets, or thin pages to protect the domain's holistic quality threshold value and prevent cannibalization.</p>
+                <div class="stepper-badge">Technique: 301 Consolidated Hubs, Robots Disallows, Canonicalization</div>
+              </div>
+              <div class="stepper-panel" data-phase="3" hidden>
+                <div class="mini-note">Phase 3: Topic Hubs &amp; Semantic Schema</div>
+                <h4>Restructuring Taxonomies with Entity-Attribute-Value Models</h4>
+                <p>Building structured category-to-pillar information architecture and deploying JSON-LD schema graphs to clearly delineate entity relationships.</p>
+                <div class="stepper-badge">Outcome: Distinct entity triples recognized by Knowledge Graph</div>
+              </div>
+              <div class="stepper-panel" data-phase="4" hidden>
+                <div class="mini-note">Phase 4: Search Console Recovery &amp; AI Readiness</div>
+                <h4>Validating Metric Trajectory &amp; Deploying llms.txt</h4>
+                <p>Tracking weekly impression and CTR recovery in Search Console while standardizing /llms.txt for retrieval in AI Overviews and answer engines.</p>
+                <div class="stepper-badge">Final Metric: 7.7K Clicks · 136K Impressions</div>
+              </div>
+            </div>
+          </div>
+
           <h2 id="disciplines">Disciplines involved</h2>
           <div class="skill-cloud"><span class="skill">Topical authority</span><span class="skill">On-page SEO</span><span class="skill">YMYL content</span><span class="skill">New-site launch</span></div>
 
@@ -239,7 +295,7 @@
         <aside class="cs-side">
           <nav class="toc" aria-label="On this page">
             <div class="mini-note">On this page</div>
-            <a href="#results">Results</a><a href="#situation">The situation</a><a href="#approach">What I did</a><a href="#disciplines">Disciplines</a>
+            <a href="#results">Results</a><a href="#situation">The situation</a><a href="#approach">What I did</a><a href="#stepper">Forensic Stepper</a><a href="#disciplines">Disciplines</a>
           </nav>
           <a class="btn btn-primary side-cta" href="../../contact/?topic=case-09">Discuss a similar project</a>
         </aside>
@@ -319,6 +375,9 @@
         <a href="../../tools/">Tools</a>
         <a href="../../frameworks/">Frameworks</a>
         <a href="../../industries/">Industries</a>
+        <a href="../../roi-calculator/">ROI Calculator</a>
+        <a href="../../glossary/">Search Glossary</a>
+        <a href="../../blog/">Insights</a>
         <a href="../../audit/">Audit Diagnostic</a>
         <a href="../../contact/">Contact</a>
       </nav>
@@ -341,7 +400,8 @@
       <a href="#main" class="to-top">Back to top ↑</a>
     </div>
   </footer>
-  <script src="../../assets/js/site.js?v=8e290946" defer></script>
+  <script src="../../assets/js/site.js?v=9f89effb" defer></script>
   <script src="../../assets/js/case-detail.js?v=661cfa86" defer></script>
+  <script src="../../assets/js/case-stepper.js?v=6df1450a" defer></script>
 </body>
 </html>

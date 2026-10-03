@@ -101,7 +101,7 @@
         <!-- Step 3 -->
         <div class="audit-step" data-step="3">
           <h2>Step 3: Review Diagnostic Brief &amp; Send Direct</h2>
-          <p class="tiny">Your diagnostic brief is auto-compiled below. Enter your email to receive Bibek's initial findings within 24 hours.</p>
+          <p class="tiny">Your diagnostic brief is compiled locally in your browser. Add your email for context, then open the message in your own email app or WhatsApp. This website does not store or send the form itself.</p>
 
           <div class="brief-preview">
             <div class="brief-head">Auto-Compiled Diagnostic Brief</div>
@@ -127,11 +127,126 @@
               <a id="audit-wa-btn" href="https://wa.me/9779860411440" target="_blank" rel="noreferrer" class="btn" style="background:#25D366;color:#fff;border-color:#25D366;text-decoration:none;">
                 <span>Chat Brief via WhatsApp</span>
               </a>
-              <button type="submit" class="btn btn-primary">Send via Email →</button>
+              <button type="submit" class="btn btn-primary">Open in Email →</button>
             </div>
           </div>
+          <p class="form-status" id="audit-status" role="status"></p>
         </div>
       </form>
     </div>
   </div>
 </section>
+
+<!-- Interactive Heuristic Scorer -->
+<section class="heuristic-scorer-section" style="margin-top:3.5rem;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="copy">
+        <span class="eyebrow">Instant Self-Assessment</span>
+        <h2>Forensic Architecture &amp; Algorithmic Risk Scorer</h2>
+        <p>Toggle your platform's architectural attributes to calculate your real-time Search Engine &amp; AI Overview Resilience Index.</p>
+      </div>
+    </div>
+
+    <div class="audit-card" style="background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:2rem;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:1.5rem;">
+        
+        <!-- Toggle 1 -->
+        <div style="background:var(--surface-2);padding:1.25rem;border-radius:14px;border:1px solid var(--line);">
+          <label style="font-weight:700;display:block;margin-bottom:0.4rem;">1. Rendering Architecture</label>
+          <select id="h-render" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-family:inherit;">
+            <option value="ssr">Static HTML / Server-Side Rendered (Fastest indexing)</option>
+            <option value="hybrid">Hybrid (SSR with heavy JS client hydration)</option>
+            <option value="csr">Pure Client-Side React/Vue (Relies on 2-wave render)</option>
+          </select>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;">CSR adds significant render queue latency in Google Search.</div>
+        </div>
+
+        <!-- Toggle 2 -->
+        <div style="background:var(--surface-2);padding:1.25rem;border-radius:14px;border:1px solid var(--line);">
+          <label style="font-weight:700;display:block;margin-bottom:0.4rem;">2. Core Web Vitals (INP / LCP)</label>
+          <select id="h-cwv" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-family:inherit;">
+            <option value="pass">Green (All 75th percentile mobile users pass INP &lt; 200ms)</option>
+            <option value="mixed">Needs Improvement (INP 200ms-500ms or LCP &gt; 2.5s)</option>
+            <option value="fail">Poor (Fails INP &gt; 500ms or LCP &gt; 4.0s on mobile)</option>
+          </select>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;">Field INP failure directly penalizes e-commerce rank stability.</div>
+        </div>
+
+        <!-- Toggle 3 -->
+        <div style="background:var(--surface-2);padding:1.25rem;border-radius:14px;border:1px solid var(--line);">
+          <label style="font-weight:700;display:block;margin-bottom:0.4rem;">3. Entity Schema &amp; Graph Depth</label>
+          <select id="h-schema" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-family:inherit;">
+            <option value="graph">Comprehensive Nested Graph (Organization, Article, ItemList, EAV)</option>
+            <option value="basic">Basic Flat Schema (Standard WordPress/Shopify plugins)</option>
+            <option value="none">Minimal or No JSON-LD Schema</option>
+          </select>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;">Required for AI citations and Knowledge Graph recognition.</div>
+        </div>
+
+        <!-- Toggle 4 -->
+        <div style="background:var(--surface-2);padding:1.25rem;border-radius:14px;border:1px solid var(--line);">
+          <label style="font-weight:700;display:block;margin-bottom:0.4rem;">4. Indexation &amp; URL Parameters</label>
+          <select id="h-urls" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-family:inherit;">
+            <option value="clean">Clean canonical structure (&lt;5% parameter crawl waste)</option>
+            <option value="moderate">Moderate facet bloat (filter/tag URLs partially indexed)</option>
+            <option value="severe">Severe parameter explosion (&gt;30% thin or duplicate URLs)</option>
+          </select>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;">Drains Googlebot crawl budget and dilutes internal PageRank.</div>
+        </div>
+
+        <!-- Toggle 5 -->
+        <div style="background:var(--surface-2);padding:1.25rem;border-radius:14px;border:1px solid var(--line);">
+          <label style="font-weight:700;display:block;margin-bottom:0.4rem;">5. AI Search / AEO Readiness</label>
+          <select id="h-aeo" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-family:inherit;">
+            <option value="ready">Optimized (llms.txt present, 40-word semantic answer spans)</option>
+            <option value="partial">Partial (Good content, but unformatted for RAG retrieval)</option>
+            <option value="unready">Not configured (Zero structured AEO optimization)</option>
+          </select>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;">Determines citation retention in Perplexity, Claude &amp; ChatGPT Search.</div>
+        </div>
+
+        <!-- Toggle 6 -->
+        <div style="background:var(--surface-2);padding:1.25rem;border-radius:14px;border:1px solid var(--line);">
+          <label style="font-weight:700;display:block;margin-bottom:0.4rem;">6. Content Freshness &amp; E-E-A-T</label>
+          <select id="h-eeat" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-family:inherit;">
+            <option value="high">High (Verified bylines, medical/editorial peer review, original data)</option>
+            <option value="moderate">Moderate (Standard generic author bios, routine updates)</option>
+            <option value="low">Low (Thin rehashed content, unverified authorship, YMYL risk)</option>
+          </select>
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-top:0.4rem;">Primary driver of Google Broad Core Update vulnerability.</div>
+        </div>
+
+      </div>
+
+      <!-- Live Score Dashboard -->
+      <div style="margin-top:2rem;background:var(--surface-2);border:1px solid var(--line);border-radius:16px;padding:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;">
+        <div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:0.25rem;">Technical Resilience Score</div>
+          <div style="font-size:2.4rem;font-weight:900;line-height:1;" id="scorer-total">88<span style="font-size:1.2rem;color:var(--text-muted);font-weight:600;">/100</span></div>
+        </div>
+
+        <div>
+          <div style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:0.25rem;">Algorithmic Risk Category</div>
+          <div id="scorer-badge"><span class="badge badge-success" style="font-size:0.9rem;padding:0.4rem 0.85rem;">STABLE &amp; RESILIENT</span></div>
+        </div>
+
+        <div>
+          <button type="button" id="apply-to-intake-btn" class="btn btn-outline" style="border-color:var(--primary);color:var(--primary);">
+            Pre-fill Diagnostic Wizard Above ↑
+          </button>
+        </div>
+      </div>
+
+      <!-- Action Plan -->
+      <div style="margin-top:1.5rem;">
+        <div style="font-size:0.85rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-muted);margin-bottom:0.75rem;">Recommended Engineering Priorities:</div>
+        <div id="scorer-actions" style="display:grid;gap:0.6rem;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+

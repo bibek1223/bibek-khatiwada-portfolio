@@ -4,7 +4,8 @@ import json
 from html import escape
 from pathlib import Path
 
-from data import PERSON, SITE_URL
+from data import (ARTICLES, CASE_STUDIES, FRAMEWORKS, INDUSTRIES_MATRIX, PERSON,
+                  SERVICES, SITE_URL, TOOLS_SHOWCASE)
 
 NAV = [
     ("about", "About", "about/"),
@@ -12,8 +13,7 @@ NAV = [
     ("work", "Case studies", "case-studies/"),
     ("tools", "Tools", "tools/"),
     ("frameworks", "Frameworks", "frameworks/"),
-    ("industries", "Industries", "industries/"),
-    ("audit", "Audit", "audit/"),
+    ("roi", "ROI Calc", "roi-calculator/"),
     ("contact", "Contact", "contact/"),
 ]
 
@@ -127,6 +127,7 @@ def header(active, root):
       </a>
       <nav class="nav" id="site-nav" aria-label="Primary">
         {nav}
+        <button class="search-trigger" type="button" data-search-open aria-haspopup="dialog"><span aria-hidden="true">⌕</span> Search <kbd>⌘K</kbd></button>
         <a class="nav-cta" href="{PERSON['whatsapp']}" target="_blank" rel="noreferrer">WhatsApp</a>
       </nav>
       <a class="cta" href="{PERSON['whatsapp']}" target="_blank" rel="noreferrer">WhatsApp</a>
@@ -135,6 +136,54 @@ def header(active, root):
       </button>
     </div>
   </header>"""
+
+
+def search_overlay(root):
+    """Site-wide command palette. The catalog is generated from the same data as the pages."""
+    entries = [
+        ("Home", "Overview, selected work and capabilities", "", "page"),
+        ("About Bibek", "Career, background and working style", "about/", "page"),
+        ("Services", "Technical SEO, content systems, automation and AI search", "services/", "page"),
+        ("How I work", "Engagement process, deliverables and collaboration model", "process/", "page"),
+        ("Case studies", "Nine anonymized Search Console case studies", "case-studies/", "page"),
+        ("Tools", "Interactive SEO utilities and system prototypes", "tools/", "page"),
+        ("Frameworks", "Search mechanics and technical playbooks", "frameworks/", "page"),
+        ("Industries", "Search blueprints by market and site model", "industries/", "page"),
+        ("Insights", "Technical writing on search and AI visibility", "blog/", "page"),
+        ("SEO diagnostic", "Build a diagnostic brief in three steps", "audit/", "action"),
+        ("Contact", "Email, WhatsApp and project brief builder", "contact/", "action"),
+    ]
+    entries += [(f"Case {c['n']}: {c['short']}", c['chip'], f"case-studies/{c['slug']}/", "case study") for c in CASE_STUDIES]
+    entries += [(f["title"], f["summary"], f"frameworks/{f['slug']}/", "framework") for f in FRAMEWORKS]
+    entries += [(i["title"], i["summary"], f"industries/{i['slug']}/", "industry") for i in INDUSTRIES_MATRIX]
+    entries += [(a["title"], a["summary"], f"blog/{a['slug']}/", "insight") for a in ARTICLES
+                if (Path(__file__).parent / "content" / f"{a['slug']}.html").exists()]
+    entries += [(s["name"], s["summary"], f"services/#{s['id']}", "service") for s in SERVICES]
+    entries += [(t["name"], t["summary"], "tools/", "tool") for t in TOOLS_SHOWCASE]
+    payload = json.dumps([
+        {"title": title, "description": description, "url": root + path, "type": kind}
+        for title, description, path, kind in entries
+    ], ensure_ascii=False).replace("</", "<\\/")
+    return f"""<div class="site-progress" aria-hidden="true"><i></i></div>
+  <div class="site-search" data-site-search hidden>
+    <div class="site-search-backdrop" data-search-close></div>
+    <section class="site-search-panel" role="dialog" aria-modal="true" aria-labelledby="site-search-title">
+      <div class="site-search-head">
+        <div><span class="mini-note">Navigate the portfolio</span><h2 id="site-search-title">Find a page, proof point or service</h2></div>
+        <button type="button" class="search-close" data-search-close aria-label="Close search">×</button>
+      </div>
+      <label class="search-field"><span class="sr-only">Search the portfolio</span><span aria-hidden="true">⌕</span><input type="search" data-search-input placeholder="Try ‘crawl budget’, ‘SaaS’, or ‘process’" autocomplete="off"></label>
+      <div class="search-meta"><span data-search-count></span><span>↑ ↓ move · Enter open · Esc close</span></div>
+      <div class="search-results" data-search-results role="listbox" aria-label="Search results"></div>
+      <p class="search-empty" data-search-empty hidden>No close match. Try a service, industry, case number or technical topic.</p>
+    </section>
+    <script type="application/json" data-search-index>{payload}</script>
+  </div>
+  <button class="page-outline-toggle" type="button" data-outline-toggle hidden aria-expanded="false" aria-controls="page-outline"><span aria-hidden="true">☰</span><span>On this page</span></button>
+  <aside class="page-outline" id="page-outline" data-page-outline hidden aria-label="On this page">
+    <div class="page-outline-head"><span>On this page</span><button type="button" data-outline-close aria-label="Close section navigation">×</button></div>
+    <nav data-outline-links></nav>
+  </aside>"""
 
 
 def footer(root):
@@ -155,6 +204,9 @@ def footer(root):
         <a href="{root}tools/">Tools</a>
         <a href="{root}frameworks/">Frameworks</a>
         <a href="{root}industries/">Industries</a>
+        <a href="{root}roi-calculator/">ROI Calculator</a>
+        <a href="{root}glossary/">Search Glossary</a>
+        <a href="{root}blog/">Insights</a>
         <a href="{root}audit/">Audit Diagnostic</a>
         <a href="{root}contact/">Contact</a>
       </nav>
@@ -191,6 +243,7 @@ def page(meta, body, active="", scripts=()):
 <html lang="en">
 {head(meta, root)}
 <body class="page-{meta.get('slug', 'home')}">
+  {search_overlay(root)}
   {header(active, root)}
 
   <main id="main">

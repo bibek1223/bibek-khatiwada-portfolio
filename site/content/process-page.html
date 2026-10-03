@@ -1,0 +1,71 @@
+<section class="process-intro" id="operating-model">
+  <div class="wrap prose-grid">
+    <div>
+      <span class="eyebrow">The operating model</span>
+      <h2 id="from-finding-to-verification">A finding is not finished until the live result is verified.</h2>
+      <p>The work moves through a visible chain: evidence, decision, implementation, release, measurement. That keeps strategy connected to production and gives every recommendation an owner, an expected outcome, and a way to check whether it worked.</p>
+    </div>
+    <aside class="callout">
+      <div class="mini-note">The rule</div>
+      <p><strong>Finding → plan → implementation → live result → verification.</strong></p>
+      <p>A ticket marked “done” is not proof that search engines received the intended change.</p>
+    </aside>
+  </div>
+</section>
+
+<section id="engagement-planner">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="copy">
+        <span class="eyebrow">Interactive scope builder</span>
+        <h2 id="choose-the-problem">Choose the problem. See the likely first sprint.</h2>
+        <p>This is a planning guide, not an instant diagnosis. Select the situation closest to yours to see the evidence, decisions, and deliverables I would usually prioritize first.</p>
+      </div>
+    </div>
+    <div class="planner" data-process-planner>
+      <div class="planner-options" role="tablist" aria-label="Project situation">
+        <button type="button" role="tab" aria-selected="true" data-plan="drop">Traffic dropped</button>
+        <button type="button" role="tab" aria-selected="false" data-plan="launch" tabindex="-1">New site or launch</button>
+        <button type="button" role="tab" aria-selected="false" data-plan="scale" tabindex="-1">Large site / crawl bloat</button>
+        <button type="button" role="tab" aria-selected="false" data-plan="system" tabindex="-1">Reporting or workflow debt</button>
+      </div>
+      <div class="planner-output" aria-live="polite">
+        <div><span class="mini-note">Start with</span><h3 data-plan-title></h3><p data-plan-summary></p></div>
+        <div class="planner-grid">
+          <div><span class="mini-note">Evidence to inspect</span><ul data-plan-evidence></ul></div>
+          <div><span class="mini-note">First deliverables</span><ul data-plan-deliverables></ul></div>
+          <div><span class="mini-note">Verification signal</span><ul data-plan-verification></ul></div>
+        </div>
+        <a class="btn btn-primary" data-plan-link href="{{root}}contact/?topic=technical">Build a project brief →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stages">
+  <div class="wrap">
+    <div class="section-head"><div class="copy"><span class="eyebrow">Four stages</span><h2 id="the-four-stage-cycle">The delivery cycle stays simple enough to follow.</h2><p>The artifacts change with the problem. The decision logic does not.</p></div></div>
+    <div class="process-stage-grid">
+      <article><span>01</span><h3>Diagnose</h3><p>Reconstruct what changed using Search Console, analytics, crawl data, release history, templates, and business context. Separate symptoms from causes.</p><details><summary>Typical outputs</summary><ul><li>Evidence ledger</li><li>Issue map by template or directory</li><li>Prioritized findings with confidence</li></ul></details></article>
+      <article><span>02</span><h3>Architect</h3><p>Translate findings into page roles, entity relationships, technical rules, ownership, sequencing, and measurable acceptance criteria.</p><details><summary>Typical outputs</summary><ul><li>Page and query map</li><li>Technical specification</li><li>90-day priority plan</li></ul></details></article>
+      <article><span>03</span><h3>Implement</h3><p>Ship changes through the real CMS, templates, content workflow, redirects, schema, internal links, automation, and team handoffs.</p><details><summary>Typical outputs</summary><ul><li>Production-ready briefs</li><li>QA checklist and change log</li><li>Automated monitors or dashboards</li></ul></details></article>
+      <article><span>04</span><h3>Verify</h3><p>Confirm the change is live, crawlable, rendered as intended, and moving the agreed signal. Record what worked and what needs another iteration.</p><details><summary>Typical outputs</summary><ul><li>Release verification</li><li>GSC and analytics annotations</li><li>Outcome review and next queue</li></ul></details></article>
+    </div>
+  </div>
+</section>
+
+<section id="collaboration">
+  <div class="wrap prose-grid">
+    <div>
+      <span class="eyebrow">Working together</span>
+      <h2 id="clear-ownership">Clear ownership beats a black-box retainer.</h2>
+      <p>You should be able to see what is being investigated, why it matters, who owns the next action, and how success will be checked. I can lead the strategy, work alongside an existing team, or translate between content, development, analytics, and leadership.</p>
+    </div>
+    <div class="frameworks">
+      <div class="framework"><b>Weekly decision note</b><span>What changed, what was learned, and which decision follows.</span></div>
+      <div class="framework"><b>Single priority queue</b><span>Impact, confidence, effort, owner, status, and verification criteria in one place.</span></div>
+      <div class="framework"><b>Evidence before scale</b><span>Test the rule on a bounded set before multiplying it across templates or thousands of URLs.</span></div>
+      <div class="framework"><b>Reusable system</b><span>Leave behind the checklist, dashboard, script, or operating rule—not only a slide deck.</span></div>
+    </div>
+  </div>
+</section>

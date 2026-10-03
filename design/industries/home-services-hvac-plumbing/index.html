@@ -115,9 +115,29 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/site.css?v=3eb37e2e">
+  <link rel="stylesheet" href="../../assets/css/site.css?v=c62b3783">
 </head>
 <body class="page-industry">
+  <div class="site-progress" aria-hidden="true"><i></i></div>
+  <div class="site-search" data-site-search hidden>
+    <div class="site-search-backdrop" data-search-close></div>
+    <section class="site-search-panel" role="dialog" aria-modal="true" aria-labelledby="site-search-title">
+      <div class="site-search-head">
+        <div><span class="mini-note">Navigate the portfolio</span><h2 id="site-search-title">Find a page, proof point or service</h2></div>
+        <button type="button" class="search-close" data-search-close aria-label="Close search">×</button>
+      </div>
+      <label class="search-field"><span class="sr-only">Search the portfolio</span><span aria-hidden="true">⌕</span><input type="search" data-search-input placeholder="Try ‘crawl budget’, ‘SaaS’, or ‘process’" autocomplete="off"></label>
+      <div class="search-meta"><span data-search-count></span><span>↑ ↓ move · Enter open · Esc close</span></div>
+      <div class="search-results" data-search-results role="listbox" aria-label="Search results"></div>
+      <p class="search-empty" data-search-empty hidden>No close match. Try a service, industry, case number or technical topic.</p>
+    </section>
+    <script type="application/json" data-search-index>[{"title": "Home", "description": "Overview, selected work and capabilities", "url": "../../", "type": "page"}, {"title": "About Bibek", "description": "Career, background and working style", "url": "../../about/", "type": "page"}, {"title": "Services", "description": "Technical SEO, content systems, automation and AI search", "url": "../../services/", "type": "page"}, {"title": "How I work", "description": "Engagement process, deliverables and collaboration model", "url": "../../process/", "type": "page"}, {"title": "Case studies", "description": "Nine anonymized Search Console case studies", "url": "../../case-studies/", "type": "page"}, {"title": "Tools", "description": "Interactive SEO utilities and system prototypes", "url": "../../tools/", "type": "page"}, {"title": "Frameworks", "description": "Search mechanics and technical playbooks", "url": "../../frameworks/", "type": "page"}, {"title": "Industries", "description": "Search blueprints by market and site model", "url": "../../industries/", "type": "page"}, {"title": "Insights", "description": "Technical writing on search and AI visibility", "url": "../../blog/", "type": "page"}, {"title": "SEO diagnostic", "description": "Build a diagnostic brief in three steps", "url": "../../audit/", "type": "action"}, {"title": "Contact", "description": "Email, WhatsApp and project brief builder", "url": "../../contact/", "type": "action"}, {"title": "Case 01: Medical / YMYL health platform — recovery at scale", "description": "Health / YMYL recovery", "url": "../../case-studies/medical-ymyl-recovery/", "type": "case study"}, {"title": "Case 02: UK vehicle-scrapping service — programmatic at scale", "description": "Programmatic architecture", "url": "../../case-studies/programmatic-vehicle-scrapping/", "type": "case study"}, {"title": "Case 03: Shopify e-commerce — rendering & crawl budget", "description": "Shopify / e-commerce", "url": "../../case-studies/shopify-rendering-crawl-budget/", "type": "case study"}, {"title": "Case 04: Recovery and stability at scale", "description": "Recovery and stability", "url": "../../case-studies/recovery-stability-at-scale/", "type": "case study"}, {"title": "Case 05: Algorithm recovery — Google broad core update", "description": "Google broad core recovery", "url": "../../case-studies/broad-core-update-recovery/", "type": "case study"}, {"title": "Case 06: Education platform — year-over-year growth", "description": "Education platform", "url": "../../case-studies/education-yoy-growth/", "type": "case study"}, {"title": "Case 07: New SaaS platform — fast ramp, strong positions", "description": "New SaaS platform", "url": "../../case-studies/saas-fast-ramp/", "type": "case study"}, {"title": "Case 08: New SaaS platform — organic growth from launch", "description": "SaaS from launch", "url": "../../case-studies/saas-organic-from-launch/", "type": "case study"}, {"title": "Case 09: Medical research platform — topical authority", "description": "Medical research platform", "url": "../../case-studies/medical-research-topical-authority/", "type": "case study"}, {"title": "LLM Tracking: How to Monitor Brand Visibility, Citations, and Retrieval in AI Search", "description": "A technical guide to tracking brand presence across ChatGPT, Perplexity, and Google AI Overviews using automated prompt matrices, RAG chunking, and machine-readable context.", "url": "../../frameworks/llm-tracking/", "type": "framework"}, {"title": "The EAV (Entity-Attribute-Value) Model for Modern Search", "description": "Moving beyond keyword density into knowledge graph triples. How structuring content as Entity-Attribute-Value triples establishes defensible topical authority for semantic search engines.", "url": "../../frameworks/entity-attribute-value-search/", "type": "framework"}, {"title": "AEO & GEO: Engineering Content for LLM Extraction & AI Overviews", "description": "Technical formatting, structured citations, schema grounding, and machine-readable llms.txt endpoints designed to maximize citation rate in Google AI Overviews, Perplexity, and ChatGPT.", "url": "../../frameworks/aeo-geo-playbook/", "type": "framework"}, {"title": "Anatomy of a 130,000-Page YMYL Recovery", "description": "The technical mechanics behind Case 01: crawl budget consolidation, pruning 20,000 dead/duplicate URLs, building structured topic hubs, and recovering visibility across core Google updates.", "url": "../../frameworks/130k-page-ymyl-recovery-mechanics/", "type": "framework"}, {"title": "Home Trades & Multi-Location Services", "description": "HVAC, Plumbing, Electrical, Roofing, and Emergency Services. Optimizing local service-area pages, GBP listings, citation consistency, and hyper-local intent.", "url": "../../industries/home-services-hvac-plumbing/", "type": "industry"}, {"title": "B2B SaaS & Enterprise Tech", "description": "Product-led SEO, documentation search, comparison pages, and high-intent bottom-of-funnel keyword capturing for software platforms.", "url": "../../industries/b2b-saas/", "type": "industry"}, {"title": "Programmatic & Large Inventories", "description": "Automotive marketplaces, directory portals, real estate listings, and large e-commerce catalogs with hundreds of thousands of dynamic URLs.", "url": "../../industries/programmatic-directories/", "type": "industry"}, {"title": "Healthcare, Health Tech & YMYL Platforms", "description": "Medical health platforms, telehealth portals, clinical research databases, and health tech providers requiring strict E-E-A-T trust signals, topic hub authority, and core update resilience.", "url": "../../industries/healthcare-ymyl/", "type": "industry"}, {"title": "LLM Tracking: How to Monitor Brand Visibility, Citations, and Retrieval in AI Search", "description": "A technical guide to tracking brand presence across ChatGPT, Perplexity, and Google AI Overviews using automated prompt matrices, RAG chunking, and machine-readable context.", "url": "../../blog/llm-tracking/", "type": "insight"}, {"title": "Entity-Based Architecture & Topical Maps", "description": "Design semantic topical maps and pillar-cluster systems so content earns authority instead of competing with itself. Knowledge graph triples, EAV modeling, and internal linking networks.", "url": "../../services/#entity-architecture", "type": "service"}, {"title": "Technical Infrastructure & Crawl Forensics", "description": "Fix crawl waste, JavaScript rendering bottlenecks, indexation bloat, and URL architecture across sites scaling to hundreds of thousands of pages.", "url": "../../services/#technical-infrastructure", "type": "service"}, {"title": "AEO, GEO & Generative Engine Visibility", "description": "Engineer web content for extraction and citation in Google AI Overviews, Perplexity, and ChatGPT with structured answer spans, entity grounding, and machine-readable endpoints.", "url": "../../services/#aeo-geo-search", "type": "service"}, {"title": "Algorithmic Core Update Remediation", "description": "Systematic forensic recovery from Google broad core updates, helpful content penalties, and quality reassessments through site-wide quality re-architecting and taxonomy cleanup.", "url": "../../services/#algorithm-recovery", "type": "service"}, {"title": "Custom SEO Automation & Internal Tools", "description": "Turn repetitive SEO bottlenecks into reliable automated workflows, Python scripts, Google Search Console anomaly detectors, and custom data pipelines.", "url": "../../services/#automation-tools", "type": "service"}, {"title": "Content Semantic Flow Checker", "description": "spaCy + sentence-transformers (all-MiniLM-L6-v2) pipeline for analyzing semantic similarity, topic drift, and entity coverage between content headers and search intent.", "url": "../../tools/", "type": "tool"}, {"title": "n8n & Colab GSC Anomaly Detector", "description": "Automated workflow engine monitoring daily Google Search Console API data for unexpected click/impression drops, cannibalization flags, and SERP layout shifts.", "url": "../../tools/", "type": "tool"}, {"title": "Automated llms.txt & Markdown Generator", "description": "Static generator module that automatically parses HTML site structure and builds a standardized, clean markdown /llms.txt file for AI web crawlers.", "url": "../../tools/", "type": "tool"}]</script>
+  </div>
+  <button class="page-outline-toggle" type="button" data-outline-toggle hidden aria-expanded="false" aria-controls="page-outline"><span aria-hidden="true">☰</span><span>On this page</span></button>
+  <aside class="page-outline" id="page-outline" data-page-outline hidden aria-label="On this page">
+    <div class="page-outline-head"><span>On this page</span><button type="button" data-outline-close aria-label="Close section navigation">×</button></div>
+    <nav data-outline-links></nav>
+  </aside>
   <a class="skip" href="#main">Skip to content</a>
   <div class="float-shapes" aria-hidden="true">
     <div class="shape s1"></div>
@@ -140,9 +160,9 @@
         <a href="../../case-studies/">Case studies</a>
         <a href="../../tools/">Tools</a>
         <a href="../../frameworks/">Frameworks</a>
-        <a href="../../industries/" aria-current="page">Industries</a>
-        <a href="../../audit/">Audit</a>
+        <a href="../../roi-calculator/">ROI Calc</a>
         <a href="../../contact/">Contact</a>
+        <button class="search-trigger" type="button" data-search-open aria-haspopup="dialog"><span aria-hidden="true">⌕</span> Search <kbd>⌘K</kbd></button>
         <a class="nav-cta" href="https://wa.me/9779860411440" target="_blank" rel="noreferrer">WhatsApp</a>
       </nav>
       <a class="cta" href="https://wa.me/9779860411440" target="_blank" rel="noreferrer">WhatsApp</a>
@@ -189,71 +209,65 @@
       <li><b>Entity &amp; Brand Grounding:</b> Aligned schema markup to establish clear domain authority.</li>
     </ul>
     
+        <div class="interactive-widget-box" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <span class="eyebrow">Local Trade Interactive Model</span>
+          <h3 style="margin-top:0.35rem">SAB Geo-Radius &amp; Local Pack Authority Model</h3>
+          <p class="tiny">Estimate maximum service area radius without triggering Google Local proximity penalties.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;margin-top:1.25rem;">
+            <div>
+              <label for="sab-radius" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Target Service Radius: <span id="sab-radius-val" style="color:var(--primary);font-weight:800;">15 miles</span></label>
+              <input type="range" id="sab-radius" min="5" max="45" step="1" value="15" style="width:100%;">
+            </div>
+            <div>
+              <label for="sab-locations" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Secondary Cities / Townships:</label>
+              <input type="number" id="sab-locations" value="4" min="1" max="25" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="sab-reviews" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Google Business Reviews:</label>
+              <input type="number" id="sab-reviews" value="75" min="5" max="2000" step="5" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;background:var(--surface-2);border-radius:12px;padding:1.25rem;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;">Local Pack Proximity Index</div>
+              <div style="font-size:1.6rem;font-weight:800;" id="sab-pack-score">50/100</div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;">Required City Landing Pages</div>
+              <div style="font-size:1.6rem;font-weight:800;color:var(--primary);" id="sab-pages-needed">12 landing pages</div>
+            </div>
+            <div id="sab-risk-badge">
+              <span class="badge badge-success">OPTIMAL PACK PROXIMITY</span>
+            </div>
+          </div>
+        </div>
+        
       </div>
 
       <h2 style="margin-top:2.5rem">Relevant Search Console Case Studies</h2>
       <div class="cs-grid">
-        <a class="cs-card" href="../../case-studies/medical-ymyl-recovery/" data-n="01">
-          <span class="cs-card-top"><span class="case-id">Case 01</span><span class="chipline">Health / YMYL recovery</span></span>
-          <span class="cs-card-title">Recovered a large medical platform after a multi-update visibility drop.</span>
-          <span class="cs-card-metric"><strong>21.2M</strong><span>clicks · 16 months</span></span>
-          <div class="cs-sparkline" aria-hidden="true">
-            <svg viewBox="0 0 200 44" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="grad-cs-01" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.25"/>
-                  <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.0"/>
-                </linearGradient>
-              </defs>
-              <path d="M 0 34 C 40 42, 70 36, 100 24 C 130 14, 160 8, 200 4" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M 0 34 C 40 42, 70 36, 100 24 C 130 14, 160 8, 200 4 L 200 44 L 0 44 Z" fill="url(#grad-cs-01)"/>
-              <circle cx="200" cy="4" r="3.5" fill="#7c3aed"/>
-            </svg>
-            <span class="sparkline-label">16-Mo Trajectory · +1.47B Impressions</span>
-          </div>
-          <span class="cs-card-meta"><span>1.47B impr.</span><span>1.4% CTR</span><span>Pos. 7.3</span></span>
+        <a class="cs-card" href="../../case-studies/broad-core-update-recovery/" data-n="05">
+          <span class="cs-card-top"><span class="case-id">Case 05</span><span class="chipline">Google broad core recovery</span></span>
+          <span class="cs-card-title">I rebuilt organic performance after a broad core update.</span>
+          <span class="cs-card-metric"><strong>29K</strong><span>clicks · 16 months</span></span>
+          
+          <span class="cs-card-meta"><span>2.69M impr.</span><span>1.1% CTR</span><span>Pos. 9.7</span></span>
           <span class="cs-card-go" aria-hidden="true">→</span>
         </a>
-<a class="cs-card" href="../../case-studies/programmatic-vehicle-scrapping/" data-n="02">
-          <span class="cs-card-top"><span class="case-id">Case 02</span><span class="chipline">Programmatic architecture</span></span>
-          <span class="cs-card-title">Scaled a UK vehicle-scrapping service without letting pages go thin.</span>
-          <span class="cs-card-metric"><strong>1.12M</strong><span>clicks · 16 months</span></span>
-          <div class="cs-sparkline" aria-hidden="true">
-            <svg viewBox="0 0 200 44" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="grad-cs-02" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#0284c7" stop-opacity="0.25"/>
-                  <stop offset="100%" stop-color="#0284c7" stop-opacity="0.0"/>
-                </linearGradient>
-              </defs>
-              <path d="M 0 40 C 50 38, 90 26, 130 16 C 160 10, 180 6, 200 4" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M 0 40 C 50 38, 90 26, 130 16 C 160 10, 180 6, 200 4 L 200 44 L 0 44 Z" fill="url(#grad-cs-02)"/>
-              <circle cx="200" cy="4" r="3.5" fill="#0284c7"/>
-            </svg>
-            <span class="sparkline-label">Programmatic Scaling · 117M Impr / 1.12M Clicks</span>
-          </div>
-          <span class="cs-card-meta"><span>117M impr.</span><span>1.0% CTR</span><span>Pos. 14.8</span></span>
+<a class="cs-card" href="../../case-studies/education-yoy-growth/" data-n="06">
+          <span class="cs-card-top"><span class="case-id">Case 06</span><span class="chipline">Education platform</span></span>
+          <span class="cs-card-title">I sustained year-over-year growth through content and technical improvements.</span>
+          <span class="cs-card-metric"><strong>+74%</strong><span>clicks, year over year</span></span>
+          
+          <span class="cs-card-meta"><span>1.08M impr.</span><span>3.4% CTR</span><span>Pos. 9</span></span>
           <span class="cs-card-go" aria-hidden="true">→</span>
         </a>
-<a class="cs-card" href="../../case-studies/shopify-rendering-crawl-budget/" data-n="03">
-          <span class="cs-card-top"><span class="case-id">Case 03</span><span class="chipline">Shopify / e-commerce</span></span>
-          <span class="cs-card-title">Fixed crawl waste and rendering issues on a JavaScript-heavy Shopify store.</span>
-          <span class="cs-card-metric"><strong>449K</strong><span>clicks · 16 months</span></span>
-          <div class="cs-sparkline" aria-hidden="true">
-            <svg viewBox="0 0 200 44" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="grad-cs-03" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#059669" stop-opacity="0.25"/>
-                  <stop offset="100%" stop-color="#059669" stop-opacity="0.0"/>
-                </linearGradient>
-              </defs>
-              <path d="M 0 38 C 50 40, 95 30, 135 18 C 165 12, 185 6, 200 4" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M 0 38 C 50 40, 95 30, 135 18 C 165 12, 185 6, 200 4 L 200 44 L 0 44 Z" fill="url(#grad-cs-03)"/>
-              <circle cx="200" cy="4" r="3.5" fill="#059669"/>
-            </svg>
-            <span class="sparkline-label">Post-SSR Surge · 449K Clicks / 40.8M Impr</span>
-          </div>
-          <span class="cs-card-meta"><span>40.8M impr.</span><span>1.1% CTR</span><span>Pos. 8.2</span></span>
+<a class="cs-card" href="../../case-studies/saas-organic-from-launch/" data-n="08">
+          <span class="cs-card-top"><span class="case-id">Case 08</span><span class="chipline">SaaS from launch</span></span>
+          <span class="cs-card-title">I built organic visibility into a new SaaS website from launch.</span>
+          <span class="cs-card-metric"><strong>14K</strong><span>clicks · 16 months</span></span>
+          
+          <span class="cs-card-meta"><span>301K impr.</span><span>4.7% CTR</span><span>Pos. 7.6</span></span>
           <span class="cs-card-go" aria-hidden="true">→</span>
         </a>
       </div>
@@ -301,6 +315,9 @@
         <a href="../../tools/">Tools</a>
         <a href="../../frameworks/">Frameworks</a>
         <a href="../../industries/">Industries</a>
+        <a href="../../roi-calculator/">ROI Calculator</a>
+        <a href="../../glossary/">Search Glossary</a>
+        <a href="../../blog/">Insights</a>
         <a href="../../audit/">Audit Diagnostic</a>
         <a href="../../contact/">Contact</a>
       </nav>
@@ -323,6 +340,7 @@
       <a href="#main" class="to-top">Back to top ↑</a>
     </div>
   </footer>
-  <script src="../../assets/js/site.js?v=8e290946" defer></script>
+  <script src="../../assets/js/site.js?v=9f89effb" defer></script>
+  <script src="../../assets/js/industry-interactive.js?v=7fb7720e" defer></script>
 </body>
 </html>

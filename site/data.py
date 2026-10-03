@@ -308,13 +308,13 @@ PLATFORMS = ["WordPress", "Shopify", "Wix", "BigCommerce", "Squarespace", "Webfl
 
 COUNTRIES = ["United States", "United Kingdom", "Canada", "Australia", "Ireland", "South Africa"]
 
-# Timeline as published on the live homepage (2026-09-15).
+# Verified RankMeTop progression from Bibek Brain / LinkedIn reconciliation.
 TIMELINE = [
-    ("2021", "SEO Intern", "Built the foundation in on-page SEO, keyword research, and client delivery."),
-    ("2022", "SEO Executive", "Expanded into off-page SEO, technical audits, and independent campaign management."),
-    ("2023", "SEO Specialist", "Moved deeper into data analysis, entity-based SEO, and repeatable workflows."),
-    ("2024 — now", "RankMeTop · Team Lead → SEO Strategist",
-     "Progressed into end-to-end strategy across 150+ projects, 100+ niches, six countries, and a 50+ member team."),
+    ("Dec 2023 — Jun 2024", "SEO Intern", "Built the foundation through hands-on research, implementation, checking, and delivery."),
+    ("Jun 2024 — Sep 2025", "SEO Executive", "Expanded into on-page, technical, off-page, local SEO, content strategy, audits, and project delivery."),
+    ("Sep 2025 — Aug 2026", "SEO Team Lead", "Led and mentored client-service associates while coordinating workflow and delivery quality."),
+    ("Aug 2026 — now", "SEO Strategist",
+     "Focuses on higher-level strategy, technical search systems, automation, AI/NLP, and repeatable SEO operations."),
 ]
 
 # Resume "Selected achievements" that carry no open contradiction.
@@ -523,6 +523,198 @@ INDUSTRIES_MATRIX = [
             "Medical consensus conflicts and unverified author credential attribution",
             "Crawl budget exhaustion across tens of thousands of duplicate condition and question pages",
         ],
+    },
+]
+
+# ROI Calculator Benchmarks
+ROI_PRESETS = [
+    {
+        "id": "saas",
+        "name": "B2B SaaS & Tech",
+        "searches": 25000,
+        "current_ctr": 1.6,
+        "target_ctr": 4.2,
+        "conv_rate": 2.2,
+        "avg_value": 1200,
+        "label": "Avg Customer Annual Contract Value (ACV)",
+    },
+    {
+        "id": "ecommerce",
+        "name": "E-Commerce & Retail",
+        "searches": 90000,
+        "current_ctr": 1.2,
+        "target_ctr": 3.4,
+        "conv_rate": 1.8,
+        "avg_value": 85,
+        "label": "Average Order Value (AOV)",
+    },
+    {
+        "id": "local",
+        "name": "Local Trades & Home Services",
+        "searches": 8500,
+        "current_ctr": 2.4,
+        "target_ctr": 6.8,
+        "conv_rate": 5.2,
+        "avg_value": 480,
+        "label": "Average Job / Invoice Value",
+    },
+    {
+        "id": "health",
+        "name": "Healthcare & YMYL",
+        "searches": 65000,
+        "current_ctr": 1.4,
+        "target_ctr": 3.6,
+        "conv_rate": 2.0,
+        "avg_value": 350,
+        "label": "Average Patient / Intake Value",
+    },
+]
+
+# Technical SEO & AI Search Glossary
+GLOSSARY_TERMS = [
+    {
+        "term": "Answer Engine Optimization (AEO)",
+        "slug": "aeo",
+        "category": "AI Search",
+        "definition": "The practice of formatting and structuring website content to be selected as the primary source in conversational AI answers, including Google AI Overviews, Perplexity, and ChatGPT Search.",
+        "details": "Focuses on explicit entity definitions, concise 40-word answer spans directly below H2/H3 tags, and structured schema grounding.",
+        "related_framework": "aeo-geo-playbook",
+    },
+    {
+        "term": "Canonicalization",
+        "slug": "canonicalization",
+        "category": "Technical SEO",
+        "definition": "The technical method of specifying which URL represents the master copy of a webpage using rel='canonical' tags, preventing duplicate content penalties across dynamic or filtered query strings.",
+        "details": "Crucial on large Shopify and programmatic catalogs where identical products exist under multiple category hierarchies.",
+        "related_framework": "130k-page-ymyl-recovery-mechanics",
+    },
+    {
+        "term": "Citation Share of Voice (C-SoV)",
+        "slug": "citation-share-of-voice",
+        "category": "AI Search",
+        "definition": "The percentage of AI-generated answers for a specific prompt cluster that cite a particular brand or domain relative to all cited competitor domains.",
+        "details": "Replaces traditional SERP position tracking in zero-click and generative search environments.",
+        "related_framework": "llm-tracking",
+    },
+    {
+        "term": "Core Web Vitals (CWV)",
+        "slug": "core-web-vitals",
+        "category": "Technical SEO",
+        "definition": "Google's standardized user experience metrics measuring real-world web performance: Largest Contentful Paint (LCP), Interaction to Next Paint (INP), and Cumulative Layout Shift (CLS).",
+        "details": "Poor CWV scores deplete Googlebot crawl frequency and negatively impact algorithmic ranking weights.",
+        "related_framework": "130k-page-ymyl-recovery-mechanics",
+    },
+    {
+        "term": "Crawl Budget",
+        "slug": "crawl-budget",
+        "category": "Technical SEO",
+        "definition": "The volume of requests search engine spiders (like Googlebot) are willing and able to execute on a website within a given timeframe without overloading the host server.",
+        "details": "Waste occurs when bots spend requests fetching faceted navigation, duplicate search queries, or broken redirect loops instead of revenue pages.",
+        "related_framework": "130k-page-ymyl-recovery-mechanics",
+    },
+    {
+        "term": "Directory Consolidation (301 Migration)",
+        "slug": "directory-consolidation",
+        "category": "Architecture",
+        "definition": "The deliberate structural consolidation of fragmented, thin subfolders or orphaned blog posts into unified authoritative topic hubs via permanent 301 redirects.",
+        "details": "Protects overall domain threshold value and eliminates internal page cannibalization in post-core-update environments.",
+        "related_framework": "130k-page-ymyl-recovery-mechanics",
+    },
+    {
+        "term": "E-E-A-T (Experience, Expertise, Authoritativeness, Trust)",
+        "slug": "eeat",
+        "category": "Quality & YMYL",
+        "definition": "The quality benchmark used by Google Search raters and algorithmic quality systems to evaluate whether content creators and domains possess genuine real-world authority.",
+        "details": "Mandatory in medical, financial, and legal verticals. Grounded via Person schema, professional credentials, and editorial policies.",
+        "related_framework": "130k-page-ymyl-recovery-mechanics",
+    },
+    {
+        "term": "Entity-Attribute-Value (EAV) Model",
+        "slug": "eav-model",
+        "category": "Semantic Architecture",
+        "definition": "A knowledge graph data model representing concepts as distinct Subject (Entity) -> Predicate (Attribute) -> Object (Value) triples, allowing search engines and LLMs to understand relationship context.",
+        "details": "Elevates content beyond flat keyword repetition into verifiable semantic nodes that withstand search engine algorithm updates.",
+        "related_framework": "entity-attribute-value-search",
+    },
+    {
+        "term": "Generative Engine Optimization (GEO)",
+        "slug": "geo",
+        "category": "AI Search",
+        "definition": "The engineering discipline of preparing digital ecosystems for consumption, retrieval, and attribution by generative artificial intelligence models and large language models (LLMs).",
+        "details": "Combines /llms.txt deployment, high-density entity summaries, and deterministic retrieval-augmented generation (RAG) structures.",
+        "related_framework": "aeo-geo-playbook",
+    },
+    {
+        "term": "Googlebot JavaScript Rendering (SSR vs CSR)",
+        "slug": "javascript-rendering-ssr",
+        "category": "Technical SEO",
+        "definition": "The two-wave indexing process where Googlebot crawls raw HTML first, then defers JavaScript execution (CSR) until headless rendering resources become available.",
+        "details": "Server-Side Rendering (SSR) ensures critical internal links, product prices, and body copy are indexed instantly in the first wave.",
+        "related_framework": "130k-page-ymyl-recovery-mechanics",
+    },
+    {
+        "term": "Keyword Cannibalization",
+        "slug": "keyword-cannibalization",
+        "category": "Architecture",
+        "definition": "A search architecture failure where two or more pages on the same domain compete for the exact same query intent, splitting authority and causing volatile SERP rankings.",
+        "details": "Resolved by merging competing pages into a master parent pillar or differentiating search intents through distinct EAV attributes.",
+        "related_framework": "entity-attribute-value-search",
+    },
+    {
+        "term": "llms.txt Standard",
+        "slug": "llms-txt-standard",
+        "category": "AI Search",
+        "definition": "A proposed web standard located at /llms.txt that provides a clean, machine-readable markdown index of a website's core entities, documentation, and authoritative pages specifically for AI crawlers.",
+        "details": "Eliminates HTML layout noise, navigation menus, and tracking scripts so LLMs ingest exact factual source context.",
+        "related_framework": "aeo-geo-playbook",
+    },
+    {
+        "term": "Log File Forensics",
+        "slug": "log-file-forensics",
+        "category": "Technical SEO",
+        "definition": "Analyzing raw web server access logs to observe the exact timestamps, HTTP status codes, and user-agent frequencies of Googlebot and AI crawlers.",
+        "details": "The only source of truth for crawl behavior before data reaches Google Search Console reporting.",
+        "related_framework": "130k-page-ymyl-recovery-mechanics",
+    },
+    {
+        "term": "Programmatic SEO",
+        "slug": "programmatic-seo",
+        "category": "Architecture",
+        "definition": "Building structured template-driven landing page architectures powered by a dataset (e.g., location pages, vehicle specs, directory entries) to capture long-tail search demand at scale.",
+        "details": "Requires strict unique value checks, custom attribute mapping, and indexing controls to avoid thin-content penalties.",
+        "related_framework": "130k-page-ymyl-recovery-mechanics",
+    },
+    {
+        "term": "Retrieval-Augmented Generation (RAG)",
+        "slug": "rag",
+        "category": "AI Search",
+        "definition": "An AI architecture that retrieves authoritative external document chunks matching a user prompt before generating the final conversational response.",
+        "details": "Search systems (e.g. Perplexity, ChatGPT Search) use RAG to cite websites. Content must be structured in cohesive 30-50 word answer chunks to avoid chunk pruning.",
+        "related_framework": "llm-tracking",
+    },
+    {
+        "term": "Schema.org Graph (JSON-LD)",
+        "slug": "schema-json-ld",
+        "category": "Semantic Architecture",
+        "definition": "A machine-readable linked data markup format placed in <script type='application/ld+json'> tags that communicates entity relationships directly to search crawlers.",
+        "details": "Nested @graph schemas link Organization, WebSite, WebPage, Article, and Person into an interconnected knowledge web.",
+        "related_framework": "entity-attribute-value-search",
+    },
+    {
+        "term": "Topical Authority",
+        "slug": "topical-authority",
+        "category": "Semantic Architecture",
+        "definition": "A search engine's assessment of a website's depth, breadth, and reliability across an entire knowledge domain, rather than on single isolated keywords.",
+        "details": "Achieved by systematically covering core concepts, adjacent subtopics, and practitioner questions in structured pillar-cluster networks.",
+        "related_framework": "entity-attribute-value-search",
+    },
+    {
+        "term": "Zero-Click Search",
+        "slug": "zero-click-search",
+        "category": "AI Search",
+        "definition": "A search query where the user's intent is fully satisfied directly on the search engine results page (via AI Overviews, Knowledge Panels, or Featured Snippets) without clicking through to any website.",
+        "details": "Requires brands to pivot from tracking raw impressions to optimizing for direct entity citation and mid-funnel consultative queries.",
+        "related_framework": "llm-tracking",
     },
 ]
 

@@ -103,4 +103,152 @@ document.addEventListener('DOMContentLoaded', () => {
       llmsOutput.textContent = text;
     });
   }
+
+  // 3. GSC Statistical Anomaly Detector Simulator
+  const anomMean = document.getElementById('anomaly-mean');
+  const anomStd = document.getElementById('anomaly-stddev');
+  const anomObserved = document.getElementById('anomaly-observed');
+  const anomObservedVal = document.getElementById('anomaly-observed-val');
+  const anomThreshold = document.getElementById('anomaly-threshold');
+  const anomThresholdVal = document.getElementById('anomaly-threshold-val');
+  const anomZDisplay = document.getElementById('anomaly-zscore-display');
+  const anomDeltaDisplay = document.getElementById('anomaly-delta-display');
+  const anomStatusBadge = document.getElementById('anomaly-status-badge');
+  const anomJsonOutput = document.getElementById('anomaly-json-output');
+  const copyAnomalyBtn = document.getElementById('copy-anomaly-json-btn');
+
+  function updateAnomalySimulator() {
+    if (!anomMean || !anomStd || !anomObserved || !anomThreshold || !anomZDisplay) return;
+
+    const mean = parseFloat(anomMean.value) || 3000;
+    const std = parseFloat(anomStd.value) || 250;
+    const observed = parseFloat(anomObserved.value) || 2000;
+    const thresh = parseFloat(anomThreshold.value) || 2.0;
+
+    anomObservedVal.textContent = Number(observed).toLocaleString();
+    anomThresholdVal.textContent = '-' + thresh.toFixed(2) + 'σ';
+
+    const delta = observed - mean;
+    const pct = ((delta / mean) * 100).toFixed(1);
+    const zScore = (delta / std);
+
+    anomZDisplay.textContent = `Z = ${zScore > 0 ? '+' : ''}${zScore.toFixed(2)}σ`;
+    anomDeltaDisplay.textContent = `${delta > 0 ? '+' : ''}${Number(Math.round(delta)).toLocaleString()} clicks (${pct > 0 ? '+' : ''}${pct}%)`;
+
+    const isCritical = zScore <= -thresh;
+    const isWarning = zScore <= -1.2 && !isCritical;
+
+    if (isCritical) {
+      anomStatusBadge.innerHTML = '<span class="badge badge-error">CRITICAL ANOMALY DETECTED</span>';
+      anomZDisplay.style.color = '#ef4444';
+      anomDeltaDisplay.style.color = '#ef4444';
+    } else if (isWarning) {
+      anomStatusBadge.innerHTML = '<span class="badge" style="background:#f59e0b;color:#1e1b2e;">ELEVATED VARIANCE (WATCH)</span>';
+      anomZDisplay.style.color = '#f59e0b';
+      anomDeltaDisplay.style.color = '#f59e0b';
+    } else {
+      anomStatusBadge.innerHTML = '<span class="badge badge-success">WITHIN NORMAL NOISE BAND</span>';
+      anomZDisplay.style.color = '#10b981';
+      anomDeltaDisplay.style.color = '#10b981';
+    }
+
+    const payload = {
+      timestamp: new Date().toISOString(),
+      event_type: isCritical ? "CRITICAL_GSC_TRAFFIC_DROP_ANOMALY" : (isWarning ? "ELEVATED_VARIANCE_WARNING" : "NORMAL_MONITORING_PULSE"),
+      severity: isCritical ? "CRITICAL" : (isWarning ? "WARNING" : "INFO"),
+      statistical_telemetry: {
+        baseline_90d_mean: mean,
+        standard_deviation: std,
+        observed_clicks_last_24h: observed,
+        absolute_delta: delta,
+        percentage_deviation: `${pct}%`,
+        z_score: Number(zScore.toFixed(2)),
+        configured_alert_threshold: `-${thresh.toFixed(2)}σ`,
+        anomaly_detected: isCritical
+      },
+      recommended_triage_protocol: isCritical ? [
+        "1. Cross-reference Google Search Status Dashboard & Search Central update rollouts.",
+        "2. Query BigQuery GSC partitioned table for URL directory-level drops.",
+        "3. Inspect server access logs for crawler 4xx/5xx spike or robots.txt blockages.",
+        "4. Audit Core Web Vitals field data (LCP/INP) for degradation."
+      ] : [
+        "Routine automated pulse. No manual intervention required."
+      ],
+      dispatched_to: "#seo-telemetry-alerts",
+      engineer: "Bibek Khatiwada (bibek-khatiwada.com.np)"
+    };
+
+    if (anomJsonOutput) {
+      anomJsonOutput.textContent = JSON.stringify(payload, null, 2);
+    }
+  }
+
+  if (anomMean && anomStd && anomObserved && anomThreshold) {
+    [anomMean, anomStd, anomObserved, anomThreshold].forEach(el => {
+      el.addEventListener('input', updateAnomalySimulator);
+    });
+    updateAnomalySimulator();
+  }
+
+  if (copyAnomalyBtn && anomJsonOutput) {
+    copyAnomalyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(anomJsonOutput.textContent).then(() => {
+        const orig = copyAnomalyBtn.textContent;
+        copyAnomalyBtn.textContent = 'Copied!';
+        setTimeout(() => { copyAnomalyBtn.textContent = orig; }, 1800);
+      });
+    });
+  }
+
+  // 4. AI Crawler Robots.txt Configurator
+  const botOaiSearch = document.getElementById('bot-oai-search');
+  const botPerplexity = document.getElementById('bot-perplexity');
+  const botClaudebot = document.getElementById('bot-claudebot');
+  const botGptbot = document.getElementById('bot-gptbot');
+  const botGoogleExt = document.getElementById('bot-google-extended');
+  const botBytespider = document.getElementById('bot-bytespider');
+  const robotsOutput = document.getElementById('robots-code-output');
+  const copyRobotsBtn = document.getElementById('copy-robots-btn');
+
+  function updateRobotsConfig() {
+    if (!robotsOutput) return;
+
+    let txt = `# Enterprise AI Crawler & Search Engine Policy\n# Configured via Bibek Khatiwada Architecture Suite\n\n`;
+    txt += `User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin/\nDisallow: /*?*filter=\n\n`;
+
+    const bots = [
+      { id: botOaiSearch, name: 'OAI-SearchBot', purpose: 'OpenAI Search Citations' },
+      { id: botPerplexity, name: 'PerplexityBot', purpose: 'Perplexity AI Search Cards' },
+      { id: botClaudebot, name: 'ClaudeBot', purpose: 'Anthropic Real-time Grounding' },
+      { id: botGptbot, name: 'GPTBot', purpose: 'OpenAI Foundation Model Training' },
+      { id: botGoogleExt, name: 'Google-Extended', purpose: 'Google Gemini Training Scraper' },
+      { id: botBytespider, name: 'Bytespider', purpose: 'ByteDance Scraper' }
+    ];
+
+    bots.forEach(b => {
+      if (b.id) {
+        txt += `# ${b.purpose}\nUser-agent: ${b.name}\n${b.id.checked ? 'Allow: /' : 'Disallow: /'}\n\n`;
+      }
+    });
+
+    txt += `Sitemap: https://yourdomain.com/sitemap.xml\n`;
+    robotsOutput.textContent = txt.trim();
+  }
+
+  const botCheckboxes = [botOaiSearch, botPerplexity, botClaudebot, botGptbot, botGoogleExt, botBytespider];
+  botCheckboxes.forEach(cb => {
+    if (cb) cb.addEventListener('change', updateRobotsConfig);
+  });
+  updateRobotsConfig();
+
+  if (copyRobotsBtn && robotsOutput) {
+    copyRobotsBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(robotsOutput.textContent).then(() => {
+        const orig = copyRobotsBtn.textContent;
+        copyRobotsBtn.textContent = 'Copied!';
+        setTimeout(() => { copyRobotsBtn.textContent = orig; }, 1800);
+      });
+    });
+  }
 });
+

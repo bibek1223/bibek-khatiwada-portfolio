@@ -1,7 +1,20 @@
 <section class="frameworks-section">
   <div class="wrap">
-    <div class="fw-grid">
+    <div class="framework-filter-bar" style="margin-bottom:2rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+      <div style="flex:1;min-width:260px;position:relative;">
+        <input type="text" id="fw-search-input" placeholder="Search frameworks by topic, concept, or discipline..." style="width:100%;padding:0.75rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--surface);font-family:inherit;font-size:0.95rem;">
+      </div>
+      <div class="filter-chips" style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+        <button type="button" class="btn btn-outline fw-chip active" data-filter="all" style="padding:0.4rem 0.85rem;font-size:0.82rem;background:var(--primary);color:#fff;">All Frameworks</button>
+        <button type="button" class="btn btn-outline fw-chip" data-filter="ai" style="padding:0.4rem 0.85rem;font-size:0.82rem;">AI &amp; GEO</button>
+        <button type="button" class="btn btn-outline fw-chip" data-filter="recovery" style="padding:0.4rem 0.85rem;font-size:0.82rem;">Recovery &amp; YMYL</button>
+        <button type="button" class="btn btn-outline fw-chip" data-filter="architecture" style="padding:0.4rem 0.85rem;font-size:0.82rem;">EAV &amp; Architecture</button>
+      </div>
+    </div>
+    <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:1rem;" id="fw-count-display">Showing 4 of 4 technical playbooks</div>
+    <div class="fw-grid" id="fw-grid">
       {{framework_cards}}
     </div>
   </div>
 </section>
+

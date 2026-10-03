@@ -10,8 +10,8 @@ from html import escape
 from pathlib import Path
 
 from data import (ACHIEVEMENTS, ARTICLES, CASE_STUDIES, COUNTRIES, FILTERS, FRAMEWORKS,
-                  INDUSTRIES_MATRIX, PERSON, PLATFORMS, SERVICES, SITE_URL,
-                  TIMELINE, TOOLS, TOOLS_SHOWCASE)
+                  GLOSSARY_TERMS, INDUSTRIES_MATRIX, PERSON, PLATFORMS, ROI_PRESETS,
+                  SERVICES, SITE_URL, TIMELINE, TOOLS, TOOLS_SHOWCASE)
 from layout import breadcrumbs, page, person_node, person_ref
 
 SRC = Path(__file__).parent
@@ -128,7 +128,9 @@ def article_card(art):
 
 
 def cta_band(title, text, primary=("Write me a brief", "contact/"), secondary=None):
-    sec = f'<a class="btn btn-secondary" href="{secondary[1]}">{secondary[0]}</a>' if secondary else ""
+    def href(path):
+        return path if path.startswith("{{root}}") or re.match(r"^(?:https?:|mailto:|tel:)", path) else "{{root}}" + path
+    sec = f'<a class="btn btn-secondary" href="{href(secondary[1])}">{secondary[0]}</a>' if secondary else ""
     return f"""
     <section class="cta-band">
       <div class="wrap cta-band-in">
@@ -138,7 +140,7 @@ def cta_band(title, text, primary=("Write me a brief", "contact/"), secondary=No
           <p>{text}</p>
         </div>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="{{{{root}}}}{primary[1]}">{primary[0]} <span aria-hidden="true">→</span></a>
+          <a class="btn btn-primary" href="{href(primary[1])}">{primary[0]} <span aria-hidden="true">→</span></a>
           {sec}
         </div>
       </div>
@@ -216,7 +218,7 @@ def build_about():
     meta = {"path": "about/", "slug": "about", "graph": graph,
             "title": "About Bibek Khatiwada | SEO Strategist in Kathmandu",
             "description": "Bibek Khatiwada's background: BCA-trained SEO strategist, career timeline from SEO Intern to SEO Strategist, leadership, tools, and how he works."}
-    return write("about/", page(meta, body, "about"))
+    return write("about/", page(meta, body, "about", ["about-interactive.js"]))
 
 
 def build_services():
@@ -258,6 +260,7 @@ def build_services():
       </div>
     </section>
 """
+    body += fragment("services-scope.html")
     body += fragment("process.html")
     body += fragment("services-faq.html",
                      platforms=", ".join(PLATFORMS[:-1]) + ", and custom CMS environments",
@@ -271,7 +274,29 @@ def build_services():
     meta = {"path": "services/", "slug": "services", "graph": graph,
             "title": "SEO Services: Technical, Content, Automation & AI Search | Bibek Khatiwada",
             "description": "Technical SEO, content architecture, automation, on-page, off-page, reporting, AI search and LLM tracking, local and e-commerce SEO: what each service includes and where it was used."}
-    return write("services/", page(meta, body, "services", ["tabs.js"]))
+    return write("services/", page(meta, body, "services", ["tabs.js", "services-scope.js"]))
+
+
+def build_process():
+    body = page_hero(
+        "How I work",
+        'From a search problem to a <span class="accent-text">verified production result</span>.',
+        "A systems-first engagement connects evidence, decisions, implementation, and measurement. Explore the delivery model, then use the interactive scope builder to see what a sensible first sprint could include.",
+        [("Home", ""), ("How I work", None)],
+        aside="""<dl class="glance process-glance">
+          <div><dt>01</dt><dd>Diagnose</dd></div><div><dt>02</dt><dd>Architect</dd></div>
+          <div><dt>03</dt><dd>Implement</dd></div><div><dt>04</dt><dd>Verify</dd></div>
+        </dl>""")
+    body += fragment("process-page.html")
+    body += cta_band("Have a problem that does not fit a neat category?",
+                     "Bring the symptom, the evidence you have, and the business constraint. We can shape the right first investigation together.",
+                     primary=("Build a project brief", "contact/?topic=strategy"),
+                     secondary=("Run the SEO diagnostic", "{{root}}audit/"))
+    graph = webpage("process/", "How Bibek Works", [("Home", ""), ("How I work", "process/")])
+    meta = {"path": "process/", "slug": "process", "graph": graph,
+            "title": "How I Work: SEO Strategy, Delivery & Verification | Bibek Khatiwada",
+            "description": "Bibek Khatiwada's systems-first SEO process: diagnose with evidence, architect the solution, implement with the team, and verify the live result."}
+    return write("process/", page(meta, body, "process", ["process-planner.js"]))
 
 
 def explorer_data():
@@ -427,6 +452,42 @@ def build_case_detail(i, cs):
           {"<h2 id='technical-diff'>Before &amp; After Technical Architecture</h2><div class='diff-grid'><div class='diff-card diff-before'><div class='diff-head'><span class='badge badge-error'>BEFORE</span> Scaled Duplicate URLs &amp; Risk</div><ul><li>20,000 duplicate URLs creating scaled-content-abuse risk across core updates</li><li>Fragmented query targeting causing internal keyword cannibalization</li><li>Crawl budget waste on untracked zero-click parameter pages</li></ul></div><div class='diff-card diff-after'><div class='diff-head'><span class='badge badge-success'>AFTER</span> Topic Hubs &amp; Consolidation</div><ul><li>Consolidated blog-to-category taxonomy &amp; Pregnancy Questions Center hub</li><li>301 directory consolidation protecting overall domain threshold value</li><li>Machine-readable llms.txt &amp; schema grounding for AI search readiness</li></ul></div></div>" if cs['n'] == "01" else ""}
           {"<h2 id='technical-diff'>Before &amp; After Technical Architecture</h2><div class='diff-grid'><div class='diff-card diff-before'><div class='diff-head'><span class='badge badge-error'>BEFORE</span> Client-Side JavaScript Bottlenecks</div><ul><li>Client-side JavaScript rendering delaying Googlebot indexation</li><li>Crawl budget exhausted on non-revenue parameter &amp; tag URLs</li><li>Unstructured product attribute schemas causing Merchant Center disconnects</li></ul></div><div class='diff-card diff-after'><div class='diff-head'><span class='badge badge-success'>AFTER</span> SSR &amp; Collection Controls</div><ul><li>Server-Side Rendering (SSR) checks &amp; pre-rendered collection templates</li><li>Strict canonicalization, robots.txt disallows, &amp; dynamic URL pruning</li><li>Dynamic schema integration matching Google Merchant Center feeds</li></ul></div></div>" if cs['n'] == "03" else ""}
 
+          <h2 id="stepper">Forensic Implementation Stepper</h2>
+          <div class="stepper-wrap">
+            <div class="stepper-tabs" role="tablist" aria-label="Forensic phases">
+              <button type="button" class="stepper-tab active" data-phase="1" role="tab" aria-selected="true"><span>01</span> Diagnosis</button>
+              <button type="button" class="stepper-tab" data-phase="2" role="tab" aria-selected="false"><span>02</span> Pruning</button>
+              <button type="button" class="stepper-tab" data-phase="3" role="tab" aria-selected="false"><span>03</span> Architecture</button>
+              <button type="button" class="stepper-tab" data-phase="4" role="tab" aria-selected="false"><span>04</span> Verification</button>
+            </div>
+            <div class="stepper-content">
+              <div class="stepper-panel" data-phase="1">
+                <div class="mini-note">Phase 1: Forensic Drop &amp; Crawl Diagnosis</div>
+                <h4>Correlating Losses to Google Updates &amp; Server Logs</h4>
+                <p>Isolating whether search visibility drops resulted from site-wide algorithmic quality reassessment, template-level duplicate risks, or server-level crawl bottlenecks.</p>
+                <div class="stepper-badge">Tools: GSC API Anomaly Engine, Screaming Frog, Log Analyzers</div>
+              </div>
+              <div class="stepper-panel" data-phase="2" hidden>
+                <div class="mini-note">Phase 2: Thin &amp; Duplicate Content Pruning</div>
+                <h4>Consolidating Low-Threshold URLs to Restore Crawl Equity</h4>
+                <p>Pruning low-value parameter URLs, dynamic facets, or thin pages to protect the domain's holistic quality threshold value and prevent cannibalization.</p>
+                <div class="stepper-badge">Technique: 301 Consolidated Hubs, Robots Disallows, Canonicalization</div>
+              </div>
+              <div class="stepper-panel" data-phase="3" hidden>
+                <div class="mini-note">Phase 3: Topic Hubs &amp; Semantic Schema</div>
+                <h4>Restructuring Taxonomies with Entity-Attribute-Value Models</h4>
+                <p>Building structured category-to-pillar information architecture and deploying JSON-LD schema graphs to clearly delineate entity relationships.</p>
+                <div class="stepper-badge">Outcome: Distinct entity triples recognized by Knowledge Graph</div>
+              </div>
+              <div class="stepper-panel" data-phase="4" hidden>
+                <div class="mini-note">Phase 4: Search Console Recovery &amp; AI Readiness</div>
+                <h4>Validating Metric Trajectory &amp; Deploying llms.txt</h4>
+                <p>Tracking weekly impression and CTR recovery in Search Console while standardizing /llms.txt for retrieval in AI Overviews and answer engines.</p>
+                <div class="stepper-badge">Final Metric: {cs['clicks_d']} Clicks · {cs['impr_d']} Impressions</div>
+              </div>
+            </div>
+          </div>
+
           <h2 id="disciplines">Disciplines involved</h2>
           <div class="skill-cloud">{disciplines}</div>
 
@@ -438,7 +499,7 @@ def build_case_detail(i, cs):
         <aside class="cs-side">
           <nav class="toc" aria-label="On this page">
             <div class="mini-note">On this page</div>
-            <a href="#results">Results</a><a href="#situation">The situation</a><a href="#approach">What I did</a><a href="#disciplines">Disciplines</a>
+            <a href="#results">Results</a><a href="#situation">The situation</a><a href="#approach">What I did</a><a href="#stepper">Forensic Stepper</a><a href="#disciplines">Disciplines</a>
           </nav>
           <a class="btn btn-primary side-cta" href="{{{{root}}}}contact/?topic=case-{cs['n']}">Discuss a similar project</a>
         </aside>
@@ -471,7 +532,7 @@ def build_case_detail(i, cs):
                 f"({cs['ctr']}% CTR, average position {cs['pos']:g}). The situation, what I did, and the results.")
     meta = {"path": path, "slug": "case", "graph": graph, "og_type": "article",
             "title": f"Case {cs['n']}: {cs['short']} | Bibek Khatiwada", "description": desc}
-    return write(path, page(meta, body, "work", ["case-detail.js"]))
+    return write(path, page(meta, body, "work", ["case-detail.js", "case-stepper.js"]))
 
 
 def build_tools():
@@ -533,7 +594,7 @@ def build_frameworks():
     for f in FRAMEWORKS:
         tags = "".join(f'<span class="skill">{escape(t)}</span>' for t in f["tags"])
         cards.append(f"""
-        <article class="cs-card fw-card">
+        <article class="cs-card fw-card" data-title="{escape(f['title'])}" data-tags="{','.join(f['tags'])}" data-chip="{escape(f['chip'])}">
           <span class="cs-card-top"><span class="chipline">{escape(f['chip'])}</span><span class="tiny">{escape(f['read_time'])}</span></span>
           <a class="cs-card-title" href="{{{{root}}}}frameworks/{f['slug']}/">{escape(f['title'])}</a>
           <p class="tiny" style="color:var(--text-muted);margin-top:.5rem">{escape(f['summary'])}</p>
@@ -553,44 +614,204 @@ def build_frameworks():
     meta = {"path": "frameworks/", "slug": "frameworks", "graph": graph,
             "title": "Technical SEO Frameworks & AI Search Playbooks | Bibek Khatiwada",
             "description": "Technical essays by Bibek Khatiwada: Entity-Attribute-Value search modeling, AEO/GEO engineering, and 130k-page YMYL recovery mechanics."}
-    return write("frameworks/", page(meta, body, "frameworks"))
+    return write("frameworks/", page(meta, body, "frameworks", ["framework-filter.js"]))
+
 
 
 def build_framework_detail(f):
     takeaways = "".join(f'<li>{escape(t)}</li>' for t in f["takeaways"])
     disciplines = "".join(f'<span class="skill">{escape(d)}</span>' for d in f["disciplines"])
-    
-    body_prose = f"""
-    <h2 id="overview">Overview &amp; Core Concept</h2>
-    <p>{escape(f['summary'])}</p>
-    <p>Modern search engines like Google and AI answer engines (ChatGPT, Perplexity) evaluate web content not as isolated keywords, but as interconnected entity nodes inside a structured knowledge graph.</p>
+    framework_bodies = {
+        "llm-tracking": """
+    <h2 id="overview">What an LLM visibility system must measure</h2>
+    <p>Rank tracking observes a stable results page. Generative answers vary by prompt wording, model, location, retrieval set, and time. A useful tracker therefore stores the prompt, engine, answer, citations, brand mentions, answer position, and run timestamp—not only a screenshot.</p>
+    <h2 id="technical-mechanics">A repeatable evaluation loop</h2>
+    <ol><li>Define a prompt matrix across informational, comparative, diagnostic, and entity-validation intent.</li><li>Run prompts with controlled settings and record the raw response.</li><li>Extract cited domains, brand mentions, surrounding claims, and token distance.</li><li>Compare citation share of voice and answer inclusion over repeated runs.</li><li>Connect changes back to pages, passages, schema, and third-party corroboration.</li></ol>
+    <h2 id="execution-code">Minimum event schema</h2>
+    <div class="sandbox-card"><div class="sandbox-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="sandbox-title">llm_observation.json</span></div><pre class="sandbox-code"><code>{
+  "prompt_id": "commercial-01",
+  "engine": "answer-engine",
+  "brand_mentioned": true,
+  "cited_urls": ["https://example.com/guide"],
+  "claim_context": "recommended for technical teams",
+  "observed_at": "2026-10-03T00:00:00Z"
+}</code></pre></div>
+    <h2 id="takeaways">How to interpret movement</h2><p>A single answer is anecdotal. Direction becomes useful only when the same prompt set, extraction rules, and scoring method are repeated. Report model changes and sampling limits beside the trend.</p>""",
+        "entity-attribute-value-search": """
+    <h2 id="overview">Use EAV as a planning model, not keyword decoration</h2>
+    <p>An Entity–Attribute–Value model forces a page to state what thing it covers, which property is being discussed, and which value answers the question. It is useful for defining page scope, spotting missing attributes, and preventing two URLs from competing for the same semantic job.</p>
+    <h2 id="technical-mechanics">From entity inventory to page architecture</h2>
+    <ol><li>Name the central entity and the search task the page must satisfy.</li><li>List attributes that are relevant, contextual, and expected by the audience.</li><li>Separate values that belong on the same page from those that deserve distinct page roles.</li><li>Express stable relationships in visible copy and matching structured data.</li><li>Use internal links to connect parent entities, subtypes, comparisons, and evidence.</li></ol>
+    <h2 id="execution-code">Example triple set</h2>
+    <div class="sandbox-card"><div class="sandbox-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="sandbox-title">page_scope.json</span></div><pre class="sandbox-code"><code>[
+  {"entity":"SEO audit","attribute":"input","value":"crawl + GSC data"},
+  {"entity":"SEO audit","attribute":"output","value":"prioritized findings"},
+  {"entity":"SEO audit","attribute":"verification","value":"live change check"}
+]</code></pre></div>
+    <h2 id="takeaways">The boundary that matters</h2><p>Schema cannot rescue vague content. The visible page, internal-link context, metadata, and JSON-LD should describe the same entity and the same role.</p>""",
+        "aeo-geo-playbook": """
+    <h2 id="overview">Design passages that can survive extraction</h2>
+    <p>Answer engines retrieve passages, compare sources, and synthesize a response. A page must still earn ordinary crawlability and relevance, but its most useful claims also need to remain clear when removed from the surrounding design.</p>
+    <h2 id="technical-mechanics">The extraction-ready page pattern</h2>
+    <ul><li><b>Answer first:</b> state the definition, comparison, number, or recommendation before adding explanation.</li><li><b>Keep the subject explicit:</b> avoid paragraphs full of pronouns whose meaning disappears outside the page.</li><li><b>Separate evidence from opinion:</b> attach dates, units, methods, and primary sources to factual claims.</li><li><b>Ground the entity:</b> keep author, organization, product, and topical schema consistent with visible content.</li><li><b>Make discovery easy:</b> use canonical URLs, stable HTML, internal links, sitemaps, and optional machine-readable summaries.</li></ul>
+    <h2 id="execution-code">A compact answer block</h2>
+    <div class="sandbox-card"><div class="sandbox-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="sandbox-title">answer-span.html</span></div><pre class="sandbox-code"><code>&lt;h2&gt;What is citation share of voice?&lt;/h2&gt;
+&lt;p&gt;Citation share of voice is the percentage of tracked AI answers
+that cite a brand or domain for a defined prompt set and time window.&lt;/p&gt;</code></pre></div>
+    <h2 id="takeaways">Optimize the evidence chain</h2><p>There is no guaranteed citation switch. Improve the odds by making the claim easy to retrieve, easy to understand, and easy to verify against consistent first- and third-party evidence.</p>""",
+        "130k-page-ymyl-recovery-mechanics": """
+    <h2 id="overview">Large-site recovery starts with segmentation</h2>
+    <p>A 130,000-page health platform cannot be diagnosed through a handful of example URLs. Recovery work begins by segmenting performance, crawl behavior, indexation, templates, directories, intent, and change dates so the loss can be located instead of averaged away.</p>
+    <h2 id="technical-mechanics">The recovery sequence</h2>
+    <ol><li>Overlay traffic and visibility changes with algorithm, release, hosting, and template events.</li><li>Inventory URLs by directory, template, status, canonical target, clicks, impressions, and last crawl.</li><li>Separate valuable historical URLs from duplicates, thin variants, and dead inventory.</li><li>Repair taxonomy and consolidation rules before expanding content.</li><li>Test changes on bounded cohorts, then monitor crawl, indexation, queries, and unintended loss.</li></ol>
+    <h2 id="execution-code">A decision table before redirects</h2>
+    <div class="sandbox-card"><div class="sandbox-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span><span class="sandbox-title">url_decisions.csv</span></div><pre class="sandbox-code"><code>url,history,intent,target,action,verification
+/old-question,valuable,duplicate,/topic-hub,301,target indexed
+/thin-variant,none,redundant,,410,removed from index
+/core-guide,growing,unique,,keep,queries stable</code></pre></div>
+    <h2 id="takeaways">Protect the site while simplifying it</h2><p>Pruning is not a volume target. Each merge, redirect, removal, and template rule needs a reason, a destination where relevant, and a post-release check. In YMYL, editorial trust and medical accuracy remain separate workstreams from technical consolidation.</p>""",
+    }
+    body_prose = framework_bodies[f["slug"]]
 
-    <h2 id="technical-mechanics">Technical Mechanics</h2>
-    <p>To ensure content is properly extracted, indexed, and cited, search engineering must align with machine-readable representations.</p>
-    <ul>
-      <li><b>Structured Entity Grounding:</b> Explicit schema.org JSON-LD definitions connecting Subject, Predicate, and Object triples.</li>
-      <li><b>Machine-Readable Endpoints:</b> Deploying <code>/llms.txt</code> files that expose canonical markdown links for AI web crawlers.</li>
-      <li><b>Crawl &amp; Rendering Hygiene:</b> Consolidating thin or redundant URLs to maintain high domain threshold values.</li>
-    </ul>
-
-    <h2 id="execution-code">Implementation &amp; Code Example</h2>
-    <div class="sandbox-card">
-      <div class="sandbox-header">
-        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        <span class="sandbox-title">eav_triple_generator.py</span>
-      </div>
-      <pre class="sandbox-code"><code><span class="comment"># Entity-Attribute-Value (EAV) Knowledge Graph Triple Structurer</span>
-eav_triplets = [
-    {{"subject": "{escape(f['title'])}", "predicate": "hasCategory", "object": "{escape(f['chip'])}"}},
-    {{"subject": "{escape(f['title'])}", "predicate": "author", "object": "Bibek Khatiwada"}},
-    {{"subject": "{escape(f['title'])}", "predicate": "targetEngine", "object": "Google Knowledge Graph & LLM Retrieval"}}
-]
-<span class="fn">print</span>(eav_triplets)</code></pre>
-    </div>
-
-    <h2 id="takeaways">Summary &amp; Strategic Value</h2>
-    <p>By shifting from legacy keyword targeting to structured entity modeling, brands build defensible search authority that survives Google core updates and excels in AI answer engines.</p>
-    """
+    # Inject interactive framework widget
+    if f["slug"] == "llm-tracking":
+        body_prose += """
+        <div class="interactive-widget-box" id="widget-csov" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <div class="widget-header">
+            <span class="eyebrow">Interactive Calculation Model</span>
+            <h3 style="margin-top:0.35rem">Citation Share of Voice (C-SoV) Calculator</h3>
+            <p class="tiny">Model your brand's AI search visibility across Perplexity, Claude, and ChatGPT Search against two direct competitors.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:1rem;margin-top:1.25rem;">
+            <div>
+              <label for="csov-prompts" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Evaluated Prompts:</label>
+              <input type="number" id="csov-prompts" value="50" min="5" max="500" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="csov-brand" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Your Brand Citations:</label>
+              <input type="number" id="csov-brand" value="18" min="0" max="500" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="csov-comp-a" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Competitor A Citations:</label>
+              <input type="number" id="csov-comp-a" value="22" min="0" max="500" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="csov-comp-b" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Competitor B Citations:</label>
+              <input type="number" id="csov-comp-b" value="14" min="0" max="500" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;background:var(--surface-2);border-radius:12px;padding:1.25rem;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Brand Prompt Citation Rate</div>
+              <div style="font-size:1.6rem;font-weight:800;" id="csov-cit-rate">36.0%</div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Citation Share of Voice (C-SoV)</div>
+              <div style="font-size:1.6rem;font-weight:800;color:var(--primary);" id="csov-share-rate">33.3%</div>
+            </div>
+            <div id="csov-verdict">
+              <span class="badge" style="background:#f59e0b;color:#1e1b2e;">CONTESTED VISIBILITY</span>
+            </div>
+          </div>
+        </div>
+        """
+    elif f["slug"] == "entity-attribute-value-search":
+        body_prose += """
+        <div class="interactive-widget-box" id="widget-eav" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <div class="widget-header">
+            <span class="eyebrow">Interactive Builder</span>
+            <h3 style="margin-top:0.35rem">Live EAV Knowledge Graph Schema Generator</h3>
+            <p class="tiny">Construct verifiable Subject-Predicate-Object triples and generate standard-compliant JSON-LD schema for AI search engines.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;margin-top:1.25rem;">
+            <div>
+              <label for="eav-subject" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Entity Subject (Primary Node):</label>
+              <input type="text" id="eav-subject" value="Heat Pump Installation" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="eav-attr1" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Predicate 1 (Property : Value):</label>
+              <input type="text" id="eav-attr1" value="efficiencyRating : Up to 24 SEER2" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="eav-attr2" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Predicate 2 (Property : Value):</label>
+              <input type="text" id="eav-attr2" value="installationTimeHours : 6 to 10" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;background:#1e1b2e;border-radius:12px;padding:1.25rem;border:1px solid rgba(255,255,255,0.1);">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+              <span style="font-size:0.72rem;color:rgba(255,255,255,0.6);font-family:monospace;">PREVIEW: VALIDATED JSON-LD SCHEMA</span>
+              <button type="button" id="copy-eav-btn" class="btn btn-outline" style="padding:0.25rem 0.6rem;font-size:0.72rem;color:white;border-color:rgba(255,255,255,0.2);">Copy Schema</button>
+            </div>
+            <pre id="eav-json-output" style="color:#f8eede;font-family:monospace;font-size:0.82rem;line-height:1.5;margin:0;white-space:pre-wrap;"></pre>
+          </div>
+        </div>
+        """
+    elif f["slug"] == "aeo-geo-playbook":
+        body_prose += """
+        <div class="interactive-widget-box" id="widget-aeo" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <div class="widget-header">
+            <span class="eyebrow">AEO Content Validator</span>
+            <h3 style="margin-top:0.35rem">40-Word Semantic Answer Chunk Scorer</h3>
+            <p class="tiny">Test whether an introductory heading paragraph fulfills LLM retrieval criteria (word count brevity, direct definition structure, zero fluff).</p>
+          </div>
+          <div style="margin-top:1rem;">
+            <textarea id="aeo-text" rows="3" style="width:100%;padding:0.75rem;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;font-size:0.9rem;">Heat pump efficiency is measured in SEER2 for cooling and HSPF2 for heating. Modern inverter heat pumps achieve up to 24 SEER2, reducing electrical consumption by up to 50% compared to standard baseboard heaters.</textarea>
+          </div>
+          <div style="margin-top:1rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;background:var(--surface-2);padding:1.25rem;border-radius:12px;border:1px solid var(--line);">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Word Count (Target: 35-50)</div>
+              <div style="font-size:1.5rem;font-weight:800;" id="aeo-words">31 words</div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Definition Syntax</div>
+              <div style="font-size:1.5rem;font-weight:800;color:var(--primary);" id="aeo-def-detected">Detected ✓</div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">RAG Retention Score</div>
+              <div style="font-size:1.5rem;font-weight:800;color:#10b981;" id="aeo-score">94% (High)</div>
+            </div>
+          </div>
+        </div>
+        """
+    elif f["slug"] == "130k-page-ymyl-recovery-mechanics":
+        body_prose += """
+        <div class="interactive-widget-box" id="widget-prune" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <div class="widget-header">
+            <span class="eyebrow">Recovery Simulation</span>
+            <h3 style="margin-top:0.35rem">Crawl Budget &amp; Directory 301 Pruning Simulator</h3>
+            <p class="tiny">Model how removing thin or cannibalizing URLs accelerates Googlebot re-indexing across your authoritative topic hubs.</p>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:1rem;margin-top:1.25rem;">
+            <div>
+              <label style="font-size:0.82rem;font-weight:700;display:block;margin-bottom:0.25rem;">Baseline Indexed Scale:</label>
+              <div style="font-size:1.1rem;font-weight:800;">130,000 URLs</div>
+              <span style="font-size:0.75rem;color:var(--text-muted);">Historical medical catalog</span>
+            </div>
+            <div>
+              <label for="prune-slider" style="font-size:0.82rem;font-weight:700;display:block;margin-bottom:0.25rem;">Duplicate/Thin URLs Pruned: <span id="prune-count-val" style="color:var(--primary);font-weight:800;">20,000</span></label>
+              <input type="range" id="prune-slider" min="0" max="60000" step="2500" value="20000" style="width:100%;">
+            </div>
+            <div>
+              <label for="crawl-slider" style="font-size:0.82rem;font-weight:700;display:block;margin-bottom:0.25rem;">Daily Googlebot Request Budget: <span id="crawl-rate-val" style="color:var(--accent);font-weight:800;">4,500/day</span></label>
+              <input type="range" id="crawl-slider" min="1000" max="15000" step="500" value="4500" style="width:100%;">
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;background:var(--surface-2);border-radius:12px;padding:1.25rem;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Full Catalog Crawl Turnaround</div>
+              <div style="font-size:1.5rem;font-weight:800;" id="prune-days-saved">24.4 days <span style="font-size:0.85rem;color:#10b981;font-weight:600;">(4.5 days faster)</span></div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Crawl Waste Eliminated</div>
+              <div style="font-size:1.5rem;font-weight:800;color:var(--primary);" id="prune-waste-pct">15.4%</div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.05em;">Domain Authority Focus</div>
+              <div style="font-size:1.5rem;font-weight:800;color:#10b981;">+18.2% Concentration</div>
+            </div>
+          </div>
+        </div>
+        """
 
     body = page_hero(
         f"Framework · {escape(f['chip'])}",
@@ -610,7 +831,8 @@ eav_triplets = [
     graph = webpage(path, f["title"], [("Home", ""), ("Frameworks", "frameworks/"), (f["short"], path)], [article_ld])
     meta = {"path": path, "slug": "framework", "graph": graph, "og_type": "article",
             "title": f"{f['title']} | Bibek Khatiwada", "description": f["summary"]}
-    return write(path, page(meta, body, "frameworks"))
+    return write(path, page(meta, body, "frameworks", ["framework-interactive.js"]))
+
 
 
 def build_industries():
@@ -664,7 +886,148 @@ def build_industry_detail(ind):
     </ul>
     """
 
-    rel_cases = "\n".join(case_card(cs) for cs in CASE_STUDIES[:3])
+    # Inject interactive industry calculator
+    if ind["slug"] == "home-services-hvac-plumbing":
+        approach += """
+        <div class="interactive-widget-box" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <span class="eyebrow">Local Trade Interactive Model</span>
+          <h3 style="margin-top:0.35rem">SAB Geo-Radius &amp; Local Pack Authority Model</h3>
+          <p class="tiny">Estimate maximum service area radius without triggering Google Local proximity penalties.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;margin-top:1.25rem;">
+            <div>
+              <label for="sab-radius" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Target Service Radius: <span id="sab-radius-val" style="color:var(--primary);font-weight:800;">15 miles</span></label>
+              <input type="range" id="sab-radius" min="5" max="45" step="1" value="15" style="width:100%;">
+            </div>
+            <div>
+              <label for="sab-locations" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Secondary Cities / Townships:</label>
+              <input type="number" id="sab-locations" value="4" min="1" max="25" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="sab-reviews" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Google Business Reviews:</label>
+              <input type="number" id="sab-reviews" value="75" min="5" max="2000" step="5" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;background:var(--surface-2);border-radius:12px;padding:1.25rem;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;">Local Pack Proximity Index</div>
+              <div style="font-size:1.6rem;font-weight:800;" id="sab-pack-score">50/100</div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;">Required City Landing Pages</div>
+              <div style="font-size:1.6rem;font-weight:800;color:var(--primary);" id="sab-pages-needed">12 landing pages</div>
+            </div>
+            <div id="sab-risk-badge">
+              <span class="badge badge-success">OPTIMAL PACK PROXIMITY</span>
+            </div>
+          </div>
+        </div>
+        """
+    elif ind["slug"] == "b2b-saas":
+        approach += """
+        <div class="interactive-widget-box" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <span class="eyebrow">Enterprise Valuation Model</span>
+          <h3 style="margin-top:0.35rem">SaaS High-Intent Pipeline &amp; CAC Payback Model</h3>
+          <p class="tiny">Calculate the enterprise pipeline and Google Ads cost-replacement value created by commercial search intent.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;margin-top:1.25rem;">
+            <div>
+              <label for="saas-acv" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Annual Contract Value (ACV $):</label>
+              <input type="number" id="saas-acv" value="18000" min="1000" max="250000" step="1000" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="saas-traffic" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Monthly High-Intent Clicks: <span id="saas-traffic-val" style="color:var(--primary);font-weight:800;">3,500</span></label>
+              <input type="range" id="saas-traffic" min="500" max="25000" step="250" value="3500" style="width:100%;">
+            </div>
+            <div>
+              <label for="saas-cvr" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Demo Booking CVR (%):</label>
+              <input type="number" id="saas-cvr" value="1.5" min="0.2" max="10.0" step="0.1" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;background:var(--surface-2);border-radius:12px;padding:1.25rem;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;">Annualized Revenue Pipeline</div>
+              <div style="font-size:1.6rem;font-weight:800;color:var(--primary);" id="saas-pipeline">$2,489,400</div>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;">Google Ads Equivalent Value</div>
+              <div style="font-size:1.6rem;font-weight:800;" id="saas-ad-equiv">$50,750/mo</div>
+            </div>
+          </div>
+        </div>
+        """
+    elif ind["slug"] == "programmatic-directories":
+        approach += """
+        <div class="interactive-widget-box" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <span class="eyebrow">Catalog Diagnostics</span>
+          <h3 style="margin-top:0.35rem">Programmatic Thin-Content &amp; De-indexation Risk Scorer</h3>
+          <p class="tiny">Test your faceted navigation and catalog template depth against Google soft-404 and spam thresholds.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));gap:1rem;margin-top:1.25rem;">
+            <div>
+              <label for="prog-urls" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Dynamic Filter URLs: <span id="prog-urls-val" style="color:var(--primary);font-weight:800;">50,000</span></label>
+              <input type="range" id="prog-urls" min="5000" max="250000" step="5000" value="50000" style="width:100%;">
+            </div>
+            <div>
+              <label for="prog-words" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Average Unique Words per Page:</label>
+              <input type="number" id="prog-words" value="280" min="30" max="1500" step="10" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+            <div>
+              <label for="prog-links" style="font-size:0.8rem;font-weight:700;display:block;margin-bottom:0.25rem;">Internal Inbound Links / Node:</label>
+              <input type="number" id="prog-links" value="5" min="1" max="50" style="width:100%;padding:0.6rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;">
+            </div>
+          </div>
+          <div style="margin-top:1.25rem;background:var(--surface-2);border-radius:12px;padding:1.25rem;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;">Algorithmic Pruning Risk</div>
+              <div style="font-size:1.6rem;font-weight:800;" id="prog-risk-score">45% Risk</div>
+            </div>
+            <div id="prog-badge">
+              <span class="badge" style="background:#f59e0b;color:#1e1b2e;">MODERATE THIN CONTENT DRIFT</span>
+            </div>
+          </div>
+        </div>
+        """
+    elif ind["slug"] == "healthcare-ymyl":
+        approach += """
+        <div class="interactive-widget-box" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
+          <span class="eyebrow">Clinical E-E-A-T Auditor</span>
+          <h3 style="margin-top:0.35rem">Medical YMYL E-E-A-T Quality Checklist &amp; Scorecard</h3>
+          <p class="tiny">Verify whether your clinic or health portal fulfills Google Search Quality Rater Guidelines for medical information.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:0.75rem;margin-top:1.25rem;">
+            <label style="display:flex;align-items:center;gap:0.6rem;background:var(--surface-2);padding:0.75rem;border-radius:8px;border:1px solid var(--line);cursor:pointer;">
+              <input type="checkbox" class="ymyl-check" checked>
+              <span style="font-size:0.85rem;">Credentialed MD/DO Author Byline</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:0.6rem;background:var(--surface-2);padding:0.75rem;border-radius:8px;border:1px solid var(--line);cursor:pointer;">
+              <input type="checkbox" class="ymyl-check" checked>
+              <span style="font-size:0.85rem;">PubMed / Clinical Trial Citations</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:0.6rem;background:var(--surface-2);padding:0.75rem;border-radius:8px;border:1px solid var(--line);cursor:pointer;">
+              <input type="checkbox" class="ymyl-check" checked>
+              <span style="font-size:0.85rem;">Medical Reviewer Timestamp &amp; Policy</span>
+            </label>
+            <label style="display:flex;align-items:center;gap:0.6rem;background:var(--surface-2);padding:0.75rem;border-radius:8px;border:1px solid var(--line);cursor:pointer;">
+              <input type="checkbox" class="ymyl-check">
+              <span style="font-size:0.85rem;">Doctor / MedicalOrganization JSON-LD</span>
+            </label>
+          </div>
+          <div style="margin-top:1.25rem;background:var(--surface-2);border-radius:12px;padding:1.25rem;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+            <div>
+              <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;">E-E-A-T Quality Score</div>
+              <div style="font-size:1.6rem;font-weight:800;" id="ymyl-score">75<span style="font-size:1.1rem;color:var(--text-muted);font-weight:600;">/100</span></div>
+            </div>
+            <div id="ymyl-badge">
+              <span class="badge" style="background:#f59e0b;color:#1e1b2e;">PARTIAL COMPLIANCE (CORE VULNERABLE)</span>
+            </div>
+          </div>
+        </div>
+        """
+
+    industry_cases = {
+        "home-services-hvac-plumbing": ["05", "06", "08"],
+        "b2b-saas": ["07", "08", "06"],
+        "programmatic-directories": ["02", "03", "01"],
+        "healthcare-ymyl": ["01", "09", "05"],
+    }
+    rel_cases = "\n".join(case_card(BY_N[n]) for n in industry_cases[ind["slug"]])
 
     body = page_hero(
         f"Industry Blueprint · {escape(ind['chip'])}",
@@ -682,7 +1045,84 @@ def build_industry_detail(ind):
     graph = webpage(path, ind["title"], [("Home", ""), ("Industries", "industries/"), (ind["title"], path)])
     meta = {"path": path, "slug": "industry", "graph": graph,
             "title": f"{ind['title']} Search Blueprint | Bibek Khatiwada", "description": ind["summary"]}
-    return write(path, page(meta, body, "industries"))
+    return write(path, page(meta, body, "industries", ["industry-interactive.js"]))
+
+
+
+def build_roi_calculator():
+    body = page_hero(
+        "Organic Growth Modeling",
+        'Interactive SEO <span class="accent-text">ROI &amp; Revenue Forecast</span>.',
+        "Model the incremental pipeline, leads, and annual revenue driven by fixing technical crawl bottlenecks, building entity topic hubs, and winning high-intent search real estate.",
+        [("Home", ""), ("ROI Calculator", None)])
+    body += fragment("roi-calculator.html")
+    body += cta_band("Ready to build this pipeline for your domain?",
+                     "Send me your site URL and current Search Console numbers. I will prepare a customized forensic strategy roadmap.",
+                     primary=("Get Strategic Forecast", "contact/?topic=roi-forecast"))
+    graph = webpage("roi-calculator/", "SEO ROI & Revenue Growth Calculator", [("Home", ""), ("ROI Calculator", "roi-calculator/")])
+    graph.append({
+        "@type": "WebApplication",
+        "@id": f"{SITE_URL}/roi-calculator/#app",
+        "name": "Bibek Khatiwada SEO ROI Calculator",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "All",
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    })
+    meta = {"path": "roi-calculator/", "slug": "roi-calc", "graph": graph,
+            "title": "Interactive SEO ROI & Revenue Calculator | Bibek Khatiwada",
+            "description": "Calculate projected organic clicks, conversions, and annualized revenue pipeline based on search demand, current vs target CTR, and customer lifetime value."}
+    return write("roi-calculator/", page(meta, body, "roi", ["roi-calculator.js"]))
+
+
+def build_glossary():
+    terms_cards = []
+    for t in GLOSSARY_TERMS:
+        rel = ""
+        if t.get("related_framework"):
+            rel = f'<div class="glossary-meta"><a href="{{{{root}}}}frameworks/{t["related_framework"]}/" class="glossary-link">Read Deep-Dive Framework →</a></div>'
+        terms_cards.append(f"""
+        <article class="glossary-card" data-term="{escape(t['term'])}" data-cat="{escape(t['category'])}">
+          <div class="glossary-head">
+            <span class="chipline">{escape(t['category'])}</span>
+            <h2 id="{t['slug']}">{escape(t['term'])}</h2>
+          </div>
+          <p class="glossary-def">{escape(t['definition'])}</p>
+          <div class="glossary-details">
+            <div class="mini-note">Engineering Context</div>
+            <p>{escape(t['details'])}</p>
+          </div>
+          {rel}
+        </article>""")
+    terms_html = "\n".join(terms_cards)
+    body = page_hero(
+        "Search Knowledge Graph",
+        'Technical SEO &amp; AI Search <span class="accent-text">Engineering Glossary</span>.',
+        "Definitive reference guide covering Entity-Attribute-Value (EAV) modeling, Generative Engine Optimization (GEO), RAG chunking, and modern search engine mechanics.",
+        [("Home", ""), ("Glossary", None)])
+    body += fragment("glossary.html", terms_html=terms_html, total_terms=str(len(GLOSSARY_TERMS)))
+    body += cta_band("Need an advanced search architecture audit?",
+                     "Let's evaluate your website's entity schema, crawl efficiency, and AI search readiness.")
+    
+    defined_terms = [{
+        "@type": "DefinedTerm",
+        "name": t["term"],
+        "description": t["definition"],
+        "inDefinedTermSet": f"{SITE_URL}/glossary/#termset"
+    } for t in GLOSSARY_TERMS]
+    
+    graph = webpage("glossary/", "Technical SEO & AI Search Glossary", [("Home", ""), ("Glossary", "glossary/")], [
+        {
+            "@type": "DefinedTermSet",
+            "@id": f"{SITE_URL}/glossary/#termset",
+            "name": "Modern Technical SEO & Generative Search Engineering Glossary",
+            "hasDefinedTerm": defined_terms
+        }
+    ])
+    meta = {"path": "glossary/", "slug": "glossary", "graph": graph,
+            "title": "Technical SEO & AI Search Glossary | Bibek Khatiwada",
+            "description": "Comprehensive reference glossary of technical SEO, AEO, GEO, and entity architecture concepts by Bibek Khatiwada."}
+    return write("glossary/", page(meta, body, "glossary", ["glossary.js"]))
+
 
 
 def build_blog():
@@ -727,8 +1167,9 @@ def build_blog():
 
 
 def build_article_detail(i, art):
-    prev_art = ARTICLES[i - 1] if i > 0 else None
-    next_art = ARTICLES[i + 1] if i + 1 < len(ARTICLES) else None
+    published = [item for item in ARTICLES if (SRC / "content" / f"{item['slug']}.html").exists()]
+    prev_art = published[i - 1] if i > 0 else None
+    next_art = published[i + 1] if i + 1 < len(published) else None
     disciplines = "".join(f'<span class="skill">{escape(d)}</span>' for d in art["disciplines"])
     if prev_art:
         pager = f'<a class="pager-prev" href="../{prev_art["slug"]}/"><span>← Previous</span>{escape(prev_art["short"])}</a>'
@@ -930,13 +1371,14 @@ Case-study figures are Google Search Console data. Client names are confidential
 
 def main():
     published_articles = [art for art in ARTICLES if (SRC / "content" / f"{art['slug']}.html").exists()]
-    paths = [build_home(), build_about(), build_services(), build_case_index(), build_blog()]
+    paths = [build_home(), build_about(), build_services(), build_process(), build_case_index(), build_blog()]
     paths += [build_case_detail(i, cs) for i, cs in enumerate(CASE_STUDIES)]
     paths += [build_article_detail(i, art) for i, art in enumerate(published_articles)]
     paths += [build_tools(), build_audit(), build_frameworks()]
     paths += [build_framework_detail(f) for f in FRAMEWORKS]
     paths += [build_industries()]
     paths += [build_industry_detail(ind) for ind in INDUSTRIES_MATRIX]
+    paths += [build_roi_calculator(), build_glossary()]
     paths += [build_contact(), build_privacy()]
     build_404()
     build_sitemap(paths)
@@ -946,4 +1388,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

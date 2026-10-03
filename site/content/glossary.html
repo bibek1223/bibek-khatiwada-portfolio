@@ -1,0 +1,40 @@
+<section class="glossary-section">
+  <div class="wrap">
+    <div class="glossary-controls">
+      <div class="search-box">
+        <label for="glossary-search" class="sr-only">Search technical terms</label>
+        <input type="text" id="glossary-search" placeholder="Filter terms (e.g. EAV, C-SoV, RAG, Crawl Budget, Canonicalization)..." autocomplete="off">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+      </div>
+
+      <div class="glossary-filter-bar">
+        <div class="filter-group letter-chips" role="group" aria-label="Filter by letter range">
+          <button type="button" class="filter-chip active" data-range="all">All</button>
+          <button type="button" class="filter-chip" data-range="A-E">A – E</button>
+          <button type="button" class="filter-chip" data-range="F-J">F – J</button>
+          <button type="button" class="filter-chip" data-range="K-O">K – O</button>
+          <button type="button" class="filter-chip" data-range="P-T">P – T</button>
+          <button type="button" class="filter-chip" data-range="U-Z">U – Z</button>
+        </div>
+
+        <div class="filter-group cat-chips" role="group" aria-label="Filter by category">
+          <button type="button" class="tag-chip active" data-cat="all">All Categories</button>
+          <button type="button" class="tag-chip" data-cat="AI Search">AI Search</button>
+          <button type="button" class="tag-chip" data-cat="Technical SEO">Technical SEO</button>
+          <button type="button" class="tag-chip" data-cat="Semantic Architecture">Semantic Architecture</button>
+          <button type="button" class="tag-chip" data-cat="Quality &amp; YMYL">Quality &amp; YMYL</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="glossary-status" aria-live="polite">
+      <span>Showing <strong id="glossary-count">{{total_terms}}</strong> search engineering terms</span>
+    </div>
+
+    <p class="explorer-empty" id="glossary-empty" hidden>No technical terms match your search filter.</p>
+
+    <div class="glossary-grid" id="glossary-grid">
+      {{terms_html}}
+    </div>
+  </div>
+</section>

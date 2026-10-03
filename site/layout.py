@@ -10,7 +10,10 @@ NAV = [
     ("about", "About", "about/"),
     ("services", "Services", "services/"),
     ("work", "Case studies", "case-studies/"),
-    ("process", "Process", "#process"),
+    ("tools", "Tools", "tools/"),
+    ("frameworks", "Frameworks", "frameworks/"),
+    ("industries", "Industries", "industries/"),
+    ("audit", "Audit", "audit/"),
     ("contact", "Contact", "contact/"),
 ]
 
@@ -149,6 +152,10 @@ def footer(root):
         <a href="{root}about/">About</a>
         <a href="{root}services/">Services</a>
         <a href="{root}case-studies/">Case studies</a>
+        <a href="{root}tools/">Tools</a>
+        <a href="{root}frameworks/">Frameworks</a>
+        <a href="{root}industries/">Industries</a>
+        <a href="{root}audit/">Audit Diagnostic</a>
         <a href="{root}contact/">Contact</a>
       </nav>
       <nav aria-label="Elsewhere">

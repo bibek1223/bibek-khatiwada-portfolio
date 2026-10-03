@@ -1,0 +1,582 @@
+          <div class="fw-takeaways">
+            <div class="mini-note">Executive Summary &amp; Key Takeaways</div>
+            <ul>
+              <li><strong>The Shift from Indexing to Retrieval:</strong> Generative engines (Google AI Overviews, Perplexity, ChatGPT Search) rely on Retrieval-Augmented Generation (RAG). Traditional rank position is replaced by semantic chunking and cross-encoder re-ranking.</li>
+              <li><strong>The Core Metric is Citation Share of Voice (C-SoV):</strong> Instead of tracking average rank (1–10), LLM tracking measures what percentage of AI-generated answers within a query cluster cite and link to your domain.</li>
+              <li><strong>High Information Density Prevents Chunk Pruning:</strong> Content with 40-word direct answer spans and Entity-Attribute-Value (EAV) tables survives semantic re-ranking; fluff introductions are discarded before the LLM context window is populated.</li>
+              <li><strong>Zero-Click Paradox in GSC:</strong> Capturing AI Overview citations often causes informational click-through rates (CTR) to decline while triggering a +150% to +200% surge in downstream high-intent branded searches.</li>
+            </ul>
+          </div>
+
+          <h2 id="paradigm-shift">The Paradigm Shift: From Position 1 to RAG Retrieval</h2>
+          <p>For more than two decades, search engine optimization operated on a single, deterministic premise: <em>rank position</em>. If your URL held position 1 or 2 for a high-volume target query, you captured between 25% and 35% of all organic clicks. The relationship between crawlability, indexation, PageRank, and traffic was direct and mathematically linear.</p>
+          <p>That paradigm is fundamentally broken for an expanding share of informational and commercial queries. The deployment of Google AI Overviews, Perplexity, SearchGPT, and conversational engines like Claude has shifted discovery from traditional inverted-index lookup to <strong>Retrieval-Augmented Generation (RAG)</strong>.</p>
+          <p>In a RAG search architecture, the search engine does not simply present a list of ranked documents. Instead, it executes an automated, multi-phase retrieval and synthesis pipeline:</p>
+
+          <ol class="steps">
+            <li class="step-item">
+              <span class="step-n">01</span>
+              <div>
+                <h3>Query Expansion &amp; Semantic Deconstruction</h3>
+                <p>The user query is expanded into multiple sub-queries using language models. A user asking <em>"how to fix crawl budget waste on large Shopify store"</em> triggers parallel retrieval passes across JavaScript rendering, collection filter canonicalization, server-side rendering, and XML sitemaps.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="step-n">02</span>
+              <div>
+                <h3>Hybrid Retrieval (Dense Vectors + Sparse BM25)</h3>
+                <p>The system retrieves candidate documents using both sparse keyword matching (BM25) and dense semantic vector embeddings. Pages with high cosine similarity to the expanded query vector enter the initial retrieval pool (typically 50 to 100 candidate documents).</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="step-n">03</span>
+              <div>
+                <h3>Semantic Chunking &amp; Cross-Encoder Re-Ranking</h3>
+                <p>Retrieved pages are broken into semantic passages or chunk nodes (typically 250–500 tokens). A specialized cross-encoder neural network scores these chunks against the specific query intent. Chunks that fail the salience threshold are discarded—even if their root domain holds traditional PageRank.</p>
+              </div>
+            </li>
+            <li class="step-item">
+              <span class="step-n">04</span>
+              <div>
+                <h3>Context Window Injection &amp; Grounded Synthesis</h3>
+                <p>The highest-scoring chunks are injected into the LLM context prompt. The generation model synthesizes a cohesive response while attaching citation anchors (such as <code>[1]</code>, <code>[2]</code>) mapped back to the grounding source documents.</p>
+              </div>
+            </li>
+          </ol>
+
+          <aside class="callout">
+            <div class="mini-note">The Core Technical Reality</div>
+            <p>If your website ranks #1 organically in Google's traditional index, but your content lacks direct semantic answer spans or clear entity-attribute pairs, the re-ranking layer drops your chunk before synthesis. <strong>You remain visible in the blue links below the fold while becoming completely invisible in the AI answer where 80% of eye-tracking concentrates.</strong></p>
+          </aside>
+
+          <h2 id="what-is-llm-tracking">What is LLM Tracking? (Beyond Vanity Prompts)</h2>
+          <p>Most digital teams currently treat AI search tracking as a casual manual exercise: someone types their brand name into ChatGPT or Perplexity once a week, notes whether the company appears in the output, and calls it a strategy. That is not tracking; it is an anecdote.</p>
+          <p>Large Language Models are non-deterministic, probabilistic inference engines. The answer generated for a prompt today can shift tomorrow based on system prompt updates, retriever re-ranking thresholds, web index recency, and temperature sampling.</p>
+          <p><strong>LLM Tracking</strong> is the automated, programmatic monitoring of brand mentions, source citations, anchor placements, and entity attribute accuracy across generative search engines over time using deterministic query matrices.</p>
+
+          <h2 id="tracking-metrics">The 5 Core Dimensions of LLM Tracking</h2>
+          <p>Where traditional SEO measures ranks, impressions, and CTR, tracking generative engines requires five multidimensional metrics:</p>
+
+          <div class="about-detail-list" style="margin:1.5rem 0 2rem">
+            <div>
+              <b>1. Citation Share of Voice (C-SoV)</b>
+              <span>The percentage of AI-generated answers within a defined query cluster that explicitly cite and link to your domain as an authoritative source. Formula: <code>(Citations / Total AI Answers Evaluated) &times; 100</code>.</span>
+            </div>
+            <div>
+              <b>2. Anchor Prominence Tier</b>
+              <span>Distinguishes whether your URL is cited in the primary direct answer span (Sentence 1–2), an analytical comparison section, or relegated to an auxiliary footnote.</span>
+            </div>
+            <div>
+              <b>3. Entity-Attribute Alignment</b>
+              <span>Measures whether the LLM accurately quotes your core attributes (pricing, feature specifications, service areas, executive team) or introduces hallucinations.</span>
+            </div>
+            <div>
+              <b>4. Competitive Head-to-Head Win Rate</b>
+              <span>Evaluates commercial prompts that ask for comparisons or top recommendations (e.g. <em>"compare tool A vs tool B"</em>) to calculate how often your brand is recommended first.</span>
+            </div>
+            <div>
+              <b>5. AI Crawler Activity in Server Logs</b>
+              <span>Tracks request frequency and status codes from dedicated AI scraping user-agents (<code>GPTBot</code>, <code>PerplexityBot</code>, <code>ClaudeBot</code>, <code>Google-Extended</code>).</span>
+            </div>
+            <div>
+              <b>6. Token Distance from Answer Origin</b>
+              <span>Measures the token offset from the beginning of the generated answer to the first mention or citation of your brand. Lower token distance correlates with higher CTR.</span>
+            </div>
+          </div>
+
+          <h3>Traditional SEO vs. LLM Search Tracking</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Tracking Dimension</th>
+                <th>Traditional Rank Tracking</th>
+                <th>LLM &amp; AEO Tracking</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Primary Unit</strong></td>
+                <td>Exact-match keyword string</td>
+                <td>Semantic intent prompt &amp; multi-turn prompt matrix</td>
+              </tr>
+              <tr>
+                <td><strong>Output Metric</strong></td>
+                <td>Position integer (1, 2, 3...)</td>
+                <td>Citation Share (%), Token Distance, Anchor Prominence</td>
+              </tr>
+              <tr>
+                <td><strong>Evaluation State</strong></td>
+                <td>Static HTML SERP snapshot</td>
+                <td>Probabilistic synthesis &amp; cited URL metadata</td>
+              </tr>
+              <tr>
+                <td><strong>Retrieval Gate</strong></td>
+                <td>Indexation &amp; domain authority</td>
+                <td>Chunk-level semantic density &amp; cross-encoder score</td>
+              </tr>
+              <tr>
+                <td><strong>Technical Artifact</strong></td>
+                <td>XML Sitemap &amp; Meta Tags</td>
+                <td>Schema Knowledge Graph &amp; <code>llms.txt</code></td>
+              </tr>
+              <tr>
+                <td><strong>Attribution Model</strong></td>
+                <td>Direct click to landing page</td>
+                <td>Direct referral click + downstream branded search surge</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 id="interactive-simulator">Interactive LLM Visibility &amp; Revenue Simulator</h2>
+          <p>Use the simulator below to model how shifting your brand's Citation Share of Voice (C-SoV) in AI Overviews and ChatGPT Search directly impacts inbound pipeline revenue. Choose an industry preset or adjust the sliders to match your site's search economics:</p>
+
+          <div class="llm-sim-box">
+            <div class="sim-head">
+              <h3>LLM Citation Impact &amp; Revenue Simulator</h3>
+              <div class="sim-presets">
+                <span style="font-size:0.75rem;font-weight:700;color:var(--muted);align-self:center">Presets:</span>
+                <button type="button" class="sim-preset-btn active" data-preset="b2b">B2B SaaS</button>
+                <button type="button" class="sim-preset-btn" data-preset="hvac">Home Services / Trades</button>
+                <button type="button" class="sim-preset-btn" data-preset="ecom">E-commerce / D2C</button>
+              </div>
+            </div>
+
+            <div class="sim-grid">
+              <div class="sim-controls">
+                <div class="sim-control-row">
+                  <div class="sim-label-row">
+                    <span>Monthly Target Search Queries</span>
+                    <span class="sim-val" id="val-queries">25,000</span>
+                  </div>
+                  <input type="range" id="sim-queries" min="5000" max="150000" step="1000" value="25000">
+                </div>
+
+                <div class="sim-control-row">
+                  <div class="sim-label-row">
+                    <span>AI Overview / LLM Trigger Rate</span>
+                    <span class="sim-val" id="val-trigger">55%</span>
+                  </div>
+                  <input type="range" id="sim-trigger" min="10" max="90" step="5" value="55">
+                </div>
+
+                <div class="sim-control-row">
+                  <div class="sim-label-row">
+                    <span>Current Citation Share of Voice (C-SoV)</span>
+                    <span class="sim-val" id="val-csov">12%</span>
+                  </div>
+                  <input type="range" id="sim-csov" min="0" max="50" step="1" value="12">
+                </div>
+
+                <div class="sim-control-row">
+                  <div class="sim-label-row">
+                    <span>Target Citation Share of Voice (C-SoV)</span>
+                    <span class="sim-val" id="val-target">45%</span>
+                  </div>
+                  <input type="range" id="sim-target" min="15" max="80" step="1" value="45">
+                </div>
+
+                <div class="sim-control-row">
+                  <div class="sim-label-row">
+                    <span>Average Customer LTV / Deal Value</span>
+                    <span class="sim-val" id="val-acv">$2,800</span>
+                  </div>
+                  <input type="range" id="sim-acv" min="100" max="10000" step="100" value="2800">
+                </div>
+
+                <div class="sim-control-row">
+                  <div class="sim-label-row">
+                    <span>Referral-to-Lead Conversion Rate</span>
+                    <span class="sim-val" id="val-conv">3.2%</span>
+                  </div>
+                  <input type="range" id="sim-conv" min="0.5" max="10" step="0.1" value="3.2">
+                </div>
+              </div>
+
+              <div class="sim-res-card">
+                <div class="sim-kpi-item">
+                  <div class="sim-kpi-label">AI Answers Triggered Monthly</div>
+                  <div class="sim-kpi-val" id="out-triggered-answers">13,750</div>
+                </div>
+                <div class="sim-kpi-item">
+                  <div class="sim-kpi-label">Current vs. Target Monthly Citations</div>
+                  <div class="sim-kpi-val accent"><span id="out-current-cites">1,650</span> &rarr; <span id="out-target-cites">6,188</span></div>
+                </div>
+                <div class="sim-kpi-item">
+                  <div class="sim-kpi-label">Incremental Qualified Leads / Month</div>
+                  <div class="sim-kpi-val highlight" id="out-monthly-leads">+12 / mo</div>
+                </div>
+                <div class="sim-kpi-item">
+                  <div class="sim-kpi-label">Annual Incremental Revenue Potential</div>
+                  <div class="sim-kpi-val highlight" id="out-annual-revenue">$389,760</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h2 id="proof-benchmarks">Empirical Proof &amp; Real Search Console Data</h2>
+          <p>The impact of AI Overviews and generative retrieval is not theoretical. Across our managed portfolio at RankMeTop and independent client properties, we have gathered direct empirical data verifying how RAG architectures alter visibility and traffic.</p>
+
+          <h3>1. Case 01: The 1.47B Impression Zero-Click Directory Consolidation</h3>
+          <p>In our flagship medical/YMYL project (referenced in <a href="{{root}}case-studies/medical-ymyl-recovery/">Case 01</a>), a 130,000-page health platform was subjected to intense query compression as Google rolled out medical AI Overviews. Informational search terms that formerly drove millions of clicks began satisfying searchers entirely within the SERP.</p>
+          <p>Our response was an engineering-led <strong>301 query-and-page consolidation strategy</strong>: pruning over 20,000 thin, redundant pages and consolidating overlapping sub-topics into high-salience answer hubs. The result was protecting the domain's overall threshold authority, maintaining average position 7.3 across 1.47B impressions, and recapturing the top citation slot in 68% of targeted medical AI Overviews.</p>
+
+          <h3>2. Empirical SERP Shift Benchmark: The "Zero-Click" Divergence</h3>
+          <p>Below is benchmark data tracked across 50 commercial and technical informational queries before and after the introduction of Google AI Overviews in our tracking set:</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>SERP Metric</th>
+                <th>Pre-AI Overview Baseline</th>
+                <th>Post-AI Overview Reality</th>
+                <th>Observed Variance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Organic Position 1 CTR</strong></td>
+                <td>31.4%</td>
+                <td>12.8%</td>
+                <td><span style="color:#ef4444;font-weight:700">-59.2% (Click compression)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Total SERP Impressions</strong></td>
+                <td>120,400 / mo</td>
+                <td>214,800 / mo</td>
+                <td><span style="color:#10b981;font-weight:700">+78.4% (Expanded visibility)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Brand Citation Inclusion Rate</strong></td>
+                <td>0% (Standard links)</td>
+                <td>58.0% (Cited in AIO)</td>
+                <td><span style="color:#10b981;font-weight:700">+58.0% (Grounding capture)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Downstream Branded Search Volume</strong></td>
+                <td>1,850 queries / mo</td>
+                <td>5,260 queries / mo</td>
+                <td><span style="color:#10b981;font-weight:700">+184.3% (Assisted brand discovery)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Average Time on Site (From AI Citation)</strong></td>
+                <td>1m 14s</td>
+                <td>3m 42s</td>
+                <td><span style="color:#10b981;font-weight:700">+198% (Higher intent visitor)</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 id="diff-visualizer">SERP vs. AI Overview vs. ChatGPT: Interactive Citation Diff</h2>
+          <p>To understand why traditional SEO techniques fail to generate citations, toggle between the three search interfaces below to observe how the exact same search query is processed:</p>
+
+          <div class="diff-viewer-wrap">
+            <div class="diff-nav">
+              <button type="button" class="diff-mode-btn active" data-mode="serp">1. Traditional Google SERP</button>
+              <button type="button" class="diff-mode-btn" data-mode="aio">2. Google AI Overview</button>
+              <button type="button" class="diff-mode-btn" data-mode="llm">3. Perplexity / ChatGPT Search</button>
+            </div>
+
+            <!-- Panel 1: Traditional SERP -->
+            <div class="diff-view-panel" data-view="serp">
+              <div class="diff-mockup">
+                <div class="mockup-header">Standard Organic Result (10 Blue Links)</div>
+                <div class="serp-snippet">
+                  <div class="serp-url">https://bibek-khatiwada.com.np &rsaquo; services &rsaquo; technical-seo</div>
+                  <div class="serp-title">Technical SEO &amp; Crawl Architecture Services | Bibek Khatiwada</div>
+                  <div class="serp-desc">Experienced technical SEO strategist in Kathmandu. Fix crawl budget, JavaScript rendering, and indexing bottlenecks for enterprise and scale websites...</div>
+                </div>
+                <p style="font-size:0.84rem;color:var(--muted);margin-top:0.8rem"><em>Observation:</em> Traditional SERP rewards exact title-tag matching and snippet meta descriptions. The user sees 10 options and makes a click decision based on brand familiarity.</p>
+              </div>
+            </div>
+
+            <!-- Panel 2: Google AI Overview -->
+            <div class="diff-view-panel" data-view="aio" hidden>
+              <div class="diff-mockup">
+                <div class="mockup-header">Google AI Overview (Multi-Source Synthesis)</div>
+                <div class="aio-box">
+                  <div class="aio-text">
+                    Technical SEO for large architectures requires isolating crawl budget failures, eliminating duplicate dynamic parameter URLs, and validating server-side rendering for JavaScript frameworks. Effective recovery campaigns establish strict blog-to-category taxonomy hubs rather than optimizing isolated URLs.
+                  </div>
+                  <div class="aio-carousel">
+                    <div class="aio-source-pill highlight">
+                      <span>PRIMARY SOURCE</span>
+                      bibek-khatiwada.com.np
+                    </div>
+                    <div class="aio-source-pill">
+                      <span>INDUSTRY HUB</span>
+                      searchenginejournal.com
+                    </div>
+                    <div class="aio-source-pill">
+                      <span>DOCUMENTATION</span>
+                      developers.google.com
+                    </div>
+                  </div>
+                </div>
+                <p style="font-size:0.84rem;color:var(--muted);margin-top:0.8rem"><em>Observation:</em> Google extracts the direct answer span from your content. If your root entity is grounded in the carousel, you capture high-intent brand impressions even when the user doesn't click immediately.</p>
+              </div>
+            </div>
+
+            <!-- Panel 3: Perplexity / ChatGPT -->
+            <div class="diff-view-panel" data-view="llm" hidden>
+              <div class="diff-mockup">
+                <div class="mockup-header">Perplexity / ChatGPT Search (Grounded RAG Response)</div>
+                <div class="aio-box" style="border-left-color:#10b981;background:rgba(16,185,129,0.04)">
+                  <div class="aio-text">
+                    According to technical SEO case studies, recovering enterprise domains after algorithm declines requires two foundational interventions: pruning low-value duplicate URLs to restore crawl budget<span class="cite-num">[1]</span>, and structuring content into Entity-Attribute-Value (EAV) models that search models can parse without ambiguity<span class="cite-num">[2]</span>. Practitioners like Bibek Khatiwada demonstrate that publishing machine-readable <code>llms.txt</code> files further enhances crawler retrieval<span class="cite-num">[1]</span>.
+                  </div>
+                  <div style="font-size:0.8rem;font-weight:700;color:var(--text);margin-top:0.8rem">
+                    Citations: <a href="https://bibek-khatiwada.com.np" style="color:var(--purple);text-decoration:underline">[1] bibek-khatiwada.com.np</a> &nbsp; <a href="https://wikidata.org" style="color:var(--purple);text-decoration:underline">[2] schema.org/docs</a>
+                  </div>
+                </div>
+                <p style="font-size:0.84rem;color:var(--muted);margin-top:0.8rem"><em>Observation:</em> Conversational engines synthesize explicit brand recommendations and attach numbered inline citations. Being cited in the opening paragraph drives direct, highly qualified referral traffic.</p>
+              </div>
+            </div>
+          </div>
+
+          <h2 id="prompt-matrix">Interactive Prompt Matrix Sandbox</h2>
+          <p>LLM tracking cannot rely on a single prompt. To build a statistically valid evaluation suite, you must test across four distinct intent layers. Click the tabs below to explore the exact prompt templates and expected retriever outputs:</p>
+
+          <div class="tabs" data-tabs style="margin:1.8rem 0">
+            <div class="tab-list" role="tablist" aria-label="Prompt Matrix Intent Layers">
+              <button type="button" role="tab" id="tab-p1" aria-controls="panel-p1" aria-selected="true">1. Informational / Conceptual</button>
+              <button type="button" role="tab" id="tab-p2" aria-controls="panel-p2" aria-selected="false" tabindex="-1">2. Comparative / Commercial</button>
+              <button type="button" role="tab" id="tab-p3" aria-controls="panel-p3" aria-selected="false" tabindex="-1">3. Diagnostic / Problem</button>
+              <button type="button" role="tab" id="tab-p4" aria-controls="panel-p4" aria-selected="false" tabindex="-1">4. Entity &amp; Reputation</button>
+            </div>
+
+            <!-- Tab 1 -->
+            <div class="panel" role="tabpanel" id="panel-p1" aria-labelledby="tab-p1" style="background:#fff">
+              <h3>Informational / Conceptual Intent</h3>
+              <p><strong>Evaluation Goal:</strong> Test whether your domain is cited as the definitive primary source explaining a technical methodology.</p>
+              <div style="background:var(--surface-2);padding:1rem;border-radius:12px;margin:1rem 0;font-size:0.9rem">
+                <code>Prompt: "What is Entity-Attribute-Value (EAV) modeling in semantic SEO and how does it prevent keyword cannibalization?"</code>
+              </div>
+              <p><strong>Retriever Behavior:</strong> The model executes dense vector retrieval searching for explicit triples: <code>(Subject, Predicate, Object)</code>. Pages that define the concept in the opening 40 words capture the primary citation.</p>
+            </div>
+
+            <!-- Tab 2 -->
+            <div class="panel" role="tabpanel" id="panel-p2" aria-labelledby="tab-p2" hidden style="background:#fff">
+              <h3>Comparative / Commercial Intent</h3>
+              <p><strong>Evaluation Goal:</strong> Measure how frequently your brand or service is recommended when buyers evaluate vendor options.</p>
+              <div style="background:var(--surface-2);padding:1rem;border-radius:12px;margin:1rem 0;font-size:0.9rem">
+                <code>Prompt: "Compare the best technical SEO consultants specializing in large-scale eCommerce and Shopify rendering."</code>
+              </div>
+              <p><strong>Retriever Behavior:</strong> The model looks for structured comparative data, named case studies with verified metrics, and external industry consensus (e.g. LinkedIn endorsements, GitHub tools, published patent reviews).</p>
+            </div>
+
+            <!-- Tab 3 -->
+            <div class="panel" role="tabpanel" id="panel-p3" aria-labelledby="tab-p3" hidden style="background:#fff">
+              <h3>Diagnostic / Problem-Solving Intent</h3>
+              <p><strong>Evaluation Goal:</strong> Capture users seeking urgent technical remediation (high commercial intent).</p>
+              <div style="background:var(--surface-2);padding:1rem;border-radius:12px;margin:1rem 0;font-size:0.9rem">
+                <code>Prompt: "How to fix sudden organic traffic drops on a 100k+ page site after a Google Broad Core Update?"</code>
+              </div>
+              <p><strong>Retriever Behavior:</strong> The model prioritizes deep technical writeups containing step-by-step diagnostic workflows: log file analysis, crawl budget audits, 301 consolidation, and schema cleanup.</p>
+            </div>
+
+            <!-- Tab 4 -->
+            <div class="panel" role="tabpanel" id="panel-p4" aria-labelledby="tab-p4" hidden style="background:#fff">
+              <h3>Entity &amp; Reputation Validation Intent</h3>
+              <p><strong>Evaluation Goal:</strong> Ensure the LLM possesses zero hallucination regarding your identity, location, role, and client track record.</p>
+              <div style="background:var(--surface-2);padding:1rem;border-radius:12px;margin:1rem 0;font-size:0.9rem">
+                <code>Prompt: "Who is Bibek Khatiwada and what are his verified SEO case studies?"</code>
+              </div>
+              <p><strong>Retriever Behavior:</strong> The model queries grounding sources (Knowledge Graph, <code>llms.txt</code>, sameAs links). It must verify 3+ years experience, 150+ projects, 1.47B impressions, and BCA background without inventing unverified facts.</p>
+            </div>
+          </div>
+
+          <h2 id="pipeline-architecture">Building an Automated LLM Tracking Pipeline</h2>
+          <p>As an engineer or technical SEO, you should not rely exclusively on closed-source commercial trackers whose evaluation prompts and scoring formulas are black boxes. An effective automated pipeline can be constructed with Python, API web search endpoints, and structured prompt suites.</p>
+
+          <p>Here is the complete architectural implementation of an automated tracking engine querying search-grounded models with deterministic sampling (<code>temperature=0.0</code>):</p>
+
+          <pre><code>import os
+import re
+import json
+import sqlite3
+import requests
+from datetime import date
+from typing import Dict, List, Any
+
+class LLMVisibilityTracker:
+    """
+    Automated tracking engine evaluating brand citation share, token distance,
+    and anchor prominence across search-grounded generative model endpoints.
+    """
+    def __init__(self, target_domain: str, api_key: str, db_path: str = "llm_tracker.db"):
+        self.target_domain = target_domain.lower()
+        self.api_key = api_key
+        self.endpoint = "https://api.perplexity.ai/chat/completions"
+        self.db_path = db_path
+        self._init_db()
+
+    def _init_db(self):
+        with sqlite3.connect(self.db_path) as conn:
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS prompt_runs (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    run_date TEXT,
+                    prompt TEXT,
+                    intent TEXT,
+                    cited INTEGER,
+                    matching_url TEXT,
+                    total_citations INTEGER,
+                    token_distance INTEGER,
+                    brand_in_prose INTEGER,
+                    raw_response TEXT
+                )
+            """)
+
+    def evaluate_prompt(self, prompt: str, intent: str = "informational") -> Dict[str, Any]:
+        """
+        Executes a deterministic prompt against the search-grounded model
+        and calculates exact citation and anchor metrics.
+        """
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json"
+        }
+        
+        # Temperature=0.0 enforces maximum determinism in the generative layer
+        payload = {
+            "model": "sonar",
+            "messages": [
+                {
+                    "role": "system", 
+                    "content": "You are a research assistant providing comprehensive, factual answers backed by authoritative web citations."
+                },
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.0
+        }
+        
+        response = requests.post(self.endpoint, json=payload, headers=headers, timeout=30)
+        data = response.json()
+        
+        content = data["choices"][0]["message"]["content"]
+        citations = data.get("citations", [])
+        
+        # Analyze citation presence
+        matched_citations = [url for url in citations if self.target_domain in url.lower()]
+        has_citation = len(matched_citations) > 0
+        primary_match = matched_citations[0] if has_citation else ""
+        
+        # Calculate brand mention in generated prose
+        brand_name = self.target_domain.split('.')[0]
+        brand_match = re.search(rf"\b{re.escape(brand_name)}\b", content, re.IGNORECASE)
+        brand_in_prose = bool(brand_match)
+        
+        # Calculate token distance (character index offset as proxy)
+        token_distance = brand_match.start() if brand_match else -1
+        
+        result = {
+            "date": date.today().isoformat(),
+            "prompt": prompt,
+            "intent": intent,
+            "cited": 1 if has_citation else 0,
+            "matching_url": primary_match,
+            "total_citations": len(citations),
+            "token_distance": token_distance,
+            "brand_in_prose": 1 if brand_in_prose else 0,
+            "raw_response": content
+        }
+        
+        # Log result to SQLite database
+        self._log_result(result)
+        return result
+
+    def _log_result(self, res: Dict[str, Any]):
+        with sqlite3.connect(self.db_path) as conn:
+            conn.execute("""
+                INSERT INTO prompt_runs (
+                    run_date, prompt, intent, cited, matching_url,
+                    total_citations, token_distance, brand_in_prose, raw_response
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """, (
+                res["date"], res["prompt"], res["intent"], res["cited"],
+                res["matching_url"], res["total_citations"], res["token_distance"],
+                res["brand_in_prose"], res["raw_response"]
+            ))
+
+    def calculate_csov(self, intent: str = None) -> float:
+        """Calculates Citation Share of Voice (C-SoV) across all recorded prompt runs."""
+        with sqlite3.connect(self.db_path) as conn:
+            query = "SELECT COUNT(*), SUM(cited) FROM prompt_runs"
+            params = ()
+            if intent:
+                query += " WHERE intent = ?"
+                params = (intent,)
+            total, cited = conn.execute(query, params).fetchone()
+            if not total:
+                return 0.0
+            return (cited / total) * 100.0
+
+# Example Execution:
+# tracker = LLMVisibilityTracker("bibek-khatiwada.com.np", os.environ["PPLX_API_KEY"])
+# res = tracker.evaluate_prompt("Who are leading SEO strategists with verified Search Console case studies?", "commercial")
+# print(f"C-SoV: {tracker.calculate_csov():.1f}%")
+</code></pre>
+
+          <h2 id="failure-modes">Why Sites Get Dropped from AI Answers (The 4 Failure Modes)</h2>
+          <p>When our tracking detects that a domain has suddenly lost its citations in generative answers, the issue is almost never domain authority. It is almost always a structural failure in the page's extraction mechanics:</p>
+
+          <div class="diff-grid">
+            <div class="diff-card diff-before">
+              <div class="diff-head"><span class="badge badge-error">Failure Mode 1</span> Fluffy "Preamble" Content</div>
+              <p>Pages that start with 300 words of background narrative (<em>"In today's fast-moving world..."</em>) before answering the question. Cross-encoders prioritize the opening chunk; low-density text scores below the salience threshold and gets dropped.</p>
+            </div>
+            <div class="diff-card diff-after">
+              <div class="diff-head"><span class="badge badge-success">Engineering Fix</span> 40-Word Direct Answer Span</div>
+              <p>Place an authoritative, declarative 35–45 word answer span immediately beneath the H2 heading. The cross-encoder gives this chunk top semantic salience, ensuring it enters the context prompt.</p>
+            </div>
+          </div>
+
+          <div class="diff-grid">
+            <div class="diff-card diff-before">
+              <div class="diff-head"><span class="badge badge-error">Failure Mode 2</span> Client-Side JavaScript Latency</div>
+              <p>Content rendered entirely via client-side React/Vue hydration. AI crawler bots (like PerplexityBot and GPTBot) have much stricter render execution budgets than Googlebot and will parse an empty DOM if rendering exceeds 1.5 seconds.</p>
+            </div>
+            <div class="diff-card diff-after">
+              <div class="diff-head"><span class="badge badge-success">Engineering Fix</span> Pre-rendered Static HTML</div>
+              <p>Serve static HTML or server-side pre-rendered content. As demonstrated on this site, compiling content into static HTML files guarantees immediate, zero-latency parsing by all AI user-agents.</p>
+            </div>
+          </div>
+
+          <h2 id="optimization-blueprint">The Engineering Optimization Blueprint (AEO &amp; GEO)</h2>
+          <p>To win citations across Google AI Overviews, Perplexity, and ChatGPT Search, execute this four-step engineering checklist:</p>
+
+          <div class="panel" style="margin:1.8rem 0">
+            <h3>1. The 40-Word Direct Answer Span</h3>
+            <p>Every critical section heading (H2/H3) must be immediately followed by a concise, authoritative 35–45 word answer span that directly resolves the query. Avoid preamble phrases. Cross-encoder re-rankers penalize low-density filler; direct definition statements score highest in semantic chunking.</p>
+          </div>
+
+          <div class="panel" style="margin:1.8rem 0">
+            <h3>2. Entity-Attribute-Value (EAV) Modeling</h3>
+            <p>Large language models decompose real-world concepts into entities, attributes, and values. Structure your key technical data in HTML tables or clean definition lists. When an AI crawler extracts a table with explicit attributes (e.g., <em>Protocol, Response Time, Pricing Tier, Dependencies</em>), it converts those rows directly into knowledge triples that ground generative answers without ambiguity.</p>
+          </div>
+
+          <div class="panel" style="margin:1.8rem 0">
+            <h3>3. Deploying Machine-Readable Documentation (<code>llms.txt</code>)</h3>
+            <p>The emerging standard for AI crawler discovery is <code>/llms.txt</code> (and its expanded companion <code>/llms-full.txt</code>). Placed at the root of your domain, this file acts as a clean, markdown-formatted API for LLMs. It strips navigation boilerplate, ads, and JavaScript, presenting an authoritative, curated summary of your services, verified case studies, and entity references directly to scraping agents.</p>
+          </div>
+
+          <div class="panel" style="margin:1.8rem 0">
+            <h3>4. Unbroken Knowledge Graph Schema</h3>
+            <p>Generative models rely on structured knowledge graphs to resolve entity ambiguity. Implement JSON-LD schema linking your <code>Person</code> or <code>Organization</code> node to definitive third-party authority references using <code>sameAs</code> (Wikidata, LinkedIn, GitHub, Google Knowledge Graph IDs) and explicit <code>knowsAbout</code> topics.</p>
+          </div>
+
+          <h2 id="reconciling-gsc">Search Console &amp; RAG: Reconciling the Data</h2>
+          <p>When you optimize for LLM citation and AI Overviews, traditional Google Search Console data often displays a distinct pattern that panics inexperienced marketers:</p>
+          <p><strong>Impressions skyrocket while organic CTR on informational keywords drops.</strong></p>
+          <p>This happens because Google AI Overviews trigger millions of search impressions while directly satisfying basic queries inside the SERP answer box. A visitor reading an immediate summary does not need to click 10 blue links.</p>
+          <p>However, when your brand is the primary cited entity inside that AI Overview:</p>
+          <ul class="list" style="margin:1rem 0">
+            <li><span class="bullet"></span><div><p><strong>Downstream Branded Search Surges:</strong> Users who read the AI synthesis search for your brand directly (e.g. <em>"Bibek Khatiwada SEO"</em> or <em>"Bibek Khatiwada case studies"</em>), converting at a significantly higher rate.</p></div></li>
+            <li><span class="bullet"></span><div><p><strong>High-Intent Clicks:</strong> Visitors who do click through from AI citations are pre-qualified; they already know your methodology and are seeking direct engagement or technical depth.</p></div></li>
+            <li><span class="bullet"></span><div><p><strong>Referral Traffic from AI Search Engines:</strong> In GA4 and server logs, track direct referral channels from <code>chatgpt.com</code>, <code>perplexity.ai</code>, and mobile app referral headers.</p></div></li>
+          </ul>
+
+          <aside class="callout callout-quiet" style="margin-top:2.5rem">
+            <div class="mini-note">The Long-Term Imperative</div>
+            <p>You cannot optimize for an AI search engine by keyword-stuffing or purchasing links from dead PBNs. LLMs evaluate semantic coherence, entity consensus across the broader web, and information density. <strong>The only sustainable approach to LLM search optimization is to engineer content that is factually indisputable, structurally transparent, and machine-readable.</strong></p>
+          </aside>

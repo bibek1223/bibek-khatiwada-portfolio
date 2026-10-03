@@ -9,7 +9,27 @@ Case-study figures are Google Search Console data. Client names are confidential
 - [About](https://bibek-khatiwada.com.np/about/): background, career timeline, education (BCA, Tribhuvan University), tools
 - [Services](https://bibek-khatiwada.com.np/services/): what each service includes
 - [Case studies](https://bibek-khatiwada.com.np/case-studies/): all nine studies with filters and comparison charts
+- [Tools Showcase](https://bibek-khatiwada.com.np/tools/): custom & open-source Python, n8n, and llms.txt tools
+- [Audit Diagnostic](https://bibek-khatiwada.com.np/audit/): 3-step qualifying diagnostic form
+- [Technical Frameworks](https://bibek-khatiwada.com.np/frameworks/): EAV modeling, AEO/GEO engineering, and YMYL recovery mechanics
+- [Industry Matrix](https://bibek-khatiwada.com.np/industries/): local trades, B2B SaaS, and programmatic inventory blueprints
 - [Contact](https://bibek-khatiwada.com.np/contact/): bibekkhatiwada2@gmail.com, WhatsApp +977 986 041 1440
+
+## Technical Frameworks
+- [LLM Tracking: How to Monitor Brand Visibility, Citations, and Retrieval in AI Search](https://bibek-khatiwada.com.np/frameworks/llm-tracking/): A technical guide to tracking brand presence across ChatGPT, Perplexity, and Google AI Overviews using automated prompt matrices, RAG chunking, and machine-readable context.
+- [The EAV (Entity-Attribute-Value) Model for Modern Search](https://bibek-khatiwada.com.np/frameworks/entity-attribute-value-search/): Moving beyond keyword density into knowledge graph triples. How structuring content as Entity-Attribute-Value triples establishes defensible topical authority for semantic search engines.
+- [AEO & GEO: Engineering Content for LLM Extraction & AI Overviews](https://bibek-khatiwada.com.np/frameworks/aeo-geo-playbook/): Technical formatting, structured citations, schema grounding, and machine-readable llms.txt endpoints designed to maximize citation rate in Google AI Overviews, Perplexity, and ChatGPT.
+- [Anatomy of a 130,000-Page YMYL Recovery](https://bibek-khatiwada.com.np/frameworks/130k-page-ymyl-recovery-mechanics/): The technical mechanics behind Case 01: crawl budget consolidation, pruning 20,000 dead/duplicate URLs, building structured topic hubs, and recovering visibility across core Google updates.
+
+## Tools Showcase
+- [Content Semantic Flow Checker](https://bibek-khatiwada.com.np/tools/): spaCy + sentence-transformers (all-MiniLM-L6-v2) pipeline for analyzing semantic similarity, topic drift, and entity coverage between content headers and search intent.
+- [n8n & Colab GSC Anomaly Detector](https://bibek-khatiwada.com.np/tools/): Automated workflow engine monitoring daily Google Search Console API data for unexpected click/impression drops, cannibalization flags, and SERP layout shifts.
+- [Automated llms.txt & Markdown Generator](https://bibek-khatiwada.com.np/tools/): Static generator module that automatically parses HTML site structure and builds a standardized, clean markdown /llms.txt file for AI web crawlers.
+
+## Industry Blueprints
+- [Home Trades & Multi-Location Services](https://bibek-khatiwada.com.np/industries/home-services-hvac-plumbing/): HVAC, Plumbing, Electrical, Roofing, and Emergency Services. Optimizing local service-area pages, GBP listings, citation consistency, and hyper-local intent.
+- [B2B SaaS & Enterprise Tech](https://bibek-khatiwada.com.np/industries/b2b-saas/): Product-led SEO, documentation search, comparison pages, and high-intent bottom-of-funnel keyword capturing for software platforms.
+- [Programmatic & Large Inventories](https://bibek-khatiwada.com.np/industries/programmatic-directories/): Automotive marketplaces, directory portals, real estate listings, and large e-commerce catalogs with hundreds of thousands of dynamic URLs.
 
 ## Case studies
 - [Medical / YMYL health platform — recovery at scale](https://bibek-khatiwada.com.np/case-studies/medical-ymyl-recovery/): 21.2M clicks, 1.47B impressions, 1.4% CTR, average position 7.3 over 16 months

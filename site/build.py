@@ -9,8 +9,9 @@ from datetime import date
 from html import escape
 from pathlib import Path
 
-from data import (ACHIEVEMENTS, CASE_STUDIES, COUNTRIES, FILTERS, PERSON, PLATFORMS,
-                  SERVICES, SITE_URL, TIMELINE, TOOLS)
+from data import (ACHIEVEMENTS, ARTICLES, CASE_STUDIES, COUNTRIES, FILTERS, FRAMEWORKS,
+                  INDUSTRIES_MATRIX, PERSON, PLATFORMS, SERVICES, SITE_URL,
+                  TIMELINE, TOOLS, TOOLS_SHOWCASE)
 from layout import breadcrumbs, page, person_node, person_ref
 
 SRC = Path(__file__).parent
@@ -66,6 +67,17 @@ def case_card(cs):
         </a>"""
 
 
+def article_card(art):
+    """Card for blog and technical frameworks."""
+    return f"""<a class="cs-card" href="{{{{root}}}}blog/{art['slug']}/">
+          <span class="cs-card-top"><span class="case-id">{escape(art['date'])}</span><span class="chipline">{escape(art['chip'])}</span></span>
+          <span class="cs-card-title">{escape(art['title'])}</span>
+          <p style="margin-top:.6rem;font-size:.9rem;line-height:1.55;color:var(--muted)">{escape(art['summary'])}</p>
+          <span class="cs-card-meta" style="margin-top:auto;padding-top:1rem"><span>{escape(art['read_time'])}</span><span>{escape(art['author'])}</span></span>
+          <span class="cs-card-go" aria-hidden="true">→</span>
+        </a>"""
+
+
 def cta_band(title, text, primary=("Write me a brief", "contact/"), secondary=None):
     sec = f'<a class="btn btn-secondary" href="{secondary[1]}">{secondary[0]}</a>' if secondary else ""
     return f"""
@@ -113,7 +125,8 @@ def build_home():
     meta = {"path": "", "slug": "home", "og_type": "profile", "graph": graph,
             "title": "Bibek Khatiwada | SEO Strategist, Automation & AI Search",
             "description": "Bibek Khatiwada is an SEO strategist specializing in technical SEO, content systems, automation, AI search visibility, and Search Console-led growth."}
-    return write("", page(meta, fragment("home.html")))
+    body = fragment("home.html") + fragment("calculator.html") + fragment("leakage-funnel.html")
+    return write("", page(meta, body, "", ["calculator.js"]))
 
 
 def build_about():
@@ -357,6 +370,9 @@ def build_case_detail(i, cs):
           <ol class="steps">{steps}</ol>
           {update}
 
+          {"<h2 id='technical-diff'>Before &amp; After Technical Architecture</h2><div class='diff-grid'><div class='diff-card diff-before'><div class='diff-head'><span class='badge badge-error'>BEFORE</span> Scaled Duplicate URLs &amp; Risk</div><ul><li>20,000 duplicate URLs creating scaled-content-abuse risk across core updates</li><li>Fragmented query targeting causing internal keyword cannibalization</li><li>Crawl budget waste on untracked zero-click parameter pages</li></ul></div><div class='diff-card diff-after'><div class='diff-head'><span class='badge badge-success'>AFTER</span> Topic Hubs &amp; Consolidation</div><ul><li>Consolidated blog-to-category taxonomy &amp; Pregnancy Questions Center hub</li><li>301 directory consolidation protecting overall domain threshold value</li><li>Machine-readable llms.txt &amp; schema grounding for AI search readiness</li></ul></div></div>" if cs['n'] == "01" else ""}
+          {"<h2 id='technical-diff'>Before &amp; After Technical Architecture</h2><div class='diff-grid'><div class='diff-card diff-before'><div class='diff-head'><span class='badge badge-error'>BEFORE</span> Client-Side JavaScript Bottlenecks</div><ul><li>Client-side JavaScript rendering delaying Googlebot indexation</li><li>Crawl budget exhausted on non-revenue parameter &amp; tag URLs</li><li>Unstructured product attribute schemas causing Merchant Center disconnects</li></ul></div><div class='diff-card diff-after'><div class='diff-head'><span class='badge badge-success'>AFTER</span> SSR &amp; Collection Controls</div><ul><li>Server-Side Rendering (SSR) checks &amp; pre-rendered collection templates</li><li>Strict canonicalization, robots.txt disallows, &amp; dynamic URL pruning</li><li>Dynamic schema integration matching Google Merchant Center feeds</li></ul></div></div>" if cs['n'] == "03" else ""}
+
           <h2 id="disciplines">Disciplines involved</h2>
           <div class="skill-cloud">{disciplines}</div>
 
@@ -402,6 +418,343 @@ def build_case_detail(i, cs):
     meta = {"path": path, "slug": "case", "graph": graph, "og_type": "article",
             "title": f"Case {cs['n']}: {cs['short']} | Bibek Khatiwada", "description": desc}
     return write(path, page(meta, body, "work", ["case-detail.js"]))
+
+
+def build_tools():
+    cards = []
+    for t in TOOLS_SHOWCASE:
+        stack = "".join(f'<span class="skill">{escape(s)}</span>' for s in t["tech_stack"])
+        feats = "".join(f'<li>{escape(f)}</li>' for f in t["features"])
+        cards.append(f"""
+        <article class="tool-card">
+          <div class="tool-head">
+            <span class="chipline">{escape(t['chip'])}</span>
+            <h2>{escape(t['name'])}</h2>
+            <p>{escape(t['summary'])}</p>
+          </div>
+          <div class="tool-body">
+            <div class="mini-note">Technologies</div>
+            <div class="skill-cloud">{stack}</div>
+            <div class="mini-note" style="margin-top:1rem">Key Capabilities</div>
+            <ul class="svc-list">{feats}</ul>
+            <div class="tool-actions">
+              <a class="btn btn-secondary" href="{t['github']}" target="_blank" rel="noreferrer">GitHub Repo →</a>
+            </div>
+          </div>
+        </article>""")
+    cards_html = "\n".join(cards)
+    body = page_hero(
+        "Tools Showcase",
+        'Open-Source &amp; Custom <span class="accent-text">SEO Systems Showcase</span>.',
+        "Give tangible form to the Computer Science &amp; Automation Engineer identity. Explore Python NLP scripts, n8n automated workflow pipelines, and custom static generators.",
+        [("Home", ""), ("Tools", None)])
+    body += fragment("tools.html", tools_cards=cards_html)
+    body += cta_band("Need a custom SEO automation tool or crawler?",
+                     "Tell me your manual reporting or auditing bottleneck and I will build an automated workflow.")
+    graph = webpage("tools/", "SEO Tools Showcase", [("Home", ""), ("Tools", "tools/")])
+    meta = {"path": "tools/", "slug": "tools", "graph": graph,
+            "title": "Open-Source & Custom SEO Tools | Bibek Khatiwada",
+            "description": "Custom SEO automation tools built by Bibek Khatiwada: spaCy semantic flow checker, n8n GSC anomaly detector, and automated llms.txt generator."}
+    return write("tools/", page(meta, body, "tools"))
+
+
+def build_audit():
+    body = page_hero(
+        "Audit Diagnostic",
+        'Qualifying <span class="accent-text">3-Step SEO Diagnostic</span>.',
+        "Identify crawl waste, Google update visibility drops, or zero-click AI Overview leaks. Compile your diagnostic brief in 3 minutes.",
+        [("Home", ""), ("Audit", None)])
+    body += fragment("audit-intake.html")
+    body += cta_band("Prefer a direct conversation?", "Send an email or message on WhatsApp for immediate strategy discussion.",
+                     primary=("Chat on WhatsApp", PERSON["whatsapp"]))
+    graph = webpage("audit/", "Qualifying SEO Audit Diagnostic", [("Home", ""), ("Audit", "audit/")])
+    meta = {"path": "audit/", "slug": "audit", "graph": graph,
+            "title": "3-Step SEO Diagnostic Audit | Bibek Khatiwada",
+            "description": "Get a qualifying 3-step diagnostic audit for your website. Isolate algorithm drops, AI Overview traffic leaks, and crawl budget issues."}
+    return write("audit/", page(meta, body, "audit", ["audit.js"]))
+
+
+def build_frameworks():
+    cards = []
+    for f in FRAMEWORKS:
+        tags = "".join(f'<span class="skill">{escape(t)}</span>' for t in f["tags"])
+        cards.append(f"""
+        <article class="cs-card fw-card">
+          <span class="cs-card-top"><span class="chipline">{escape(f['chip'])}</span><span class="tiny">{escape(f['read_time'])}</span></span>
+          <a class="cs-card-title" href="{{{{root}}}}frameworks/{f['slug']}/">{escape(f['title'])}</a>
+          <p class="tiny" style="color:var(--text-muted);margin-top:.5rem">{escape(f['summary'])}</p>
+          <div class="skill-cloud" style="margin-top:1rem">{tags}</div>
+          <a class="cs-card-go" href="{{{{root}}}}frameworks/{f['slug']}/" aria-label="Read framework">Read article →</a>
+        </article>""")
+    cards_html = "\n".join(cards)
+    body = page_hero(
+        "Technical Frameworks",
+        'Search Mechanics &amp; <span class="accent-text">Technical Playbooks</span>.',
+        "In-depth technical essays on Entity-Attribute-Value (EAV) modeling, Generative Engine Optimization (GEO), and algorithm recovery mechanics.",
+        [("Home", ""), ("Frameworks", None)])
+    body += fragment("framework-index.html", framework_cards=cards_html)
+    body += cta_band("Have a complex search architecture question?",
+                     "Discuss entity modeling, LLM retrieval readiness, or taxonomy structuring.")
+    graph = webpage("frameworks/", "Technical Frameworks Hub", [("Home", ""), ("Frameworks", "frameworks/")])
+    meta = {"path": "frameworks/", "slug": "frameworks", "graph": graph,
+            "title": "Technical SEO Frameworks & AI Search Playbooks | Bibek Khatiwada",
+            "description": "Technical essays by Bibek Khatiwada: Entity-Attribute-Value search modeling, AEO/GEO engineering, and 130k-page YMYL recovery mechanics."}
+    return write("frameworks/", page(meta, body, "frameworks"))
+
+
+def build_framework_detail(f):
+    takeaways = "".join(f'<li>{escape(t)}</li>' for t in f["takeaways"])
+    disciplines = "".join(f'<span class="skill">{escape(d)}</span>' for d in f["disciplines"])
+    
+    body_prose = f"""
+    <h2 id="overview">Overview &amp; Core Concept</h2>
+    <p>{escape(f['summary'])}</p>
+    <p>Modern search engines like Google and AI answer engines (ChatGPT, Perplexity) evaluate web content not as isolated keywords, but as interconnected entity nodes inside a structured knowledge graph.</p>
+
+    <h2 id="technical-mechanics">Technical Mechanics</h2>
+    <p>To ensure content is properly extracted, indexed, and cited, search engineering must align with machine-readable representations.</p>
+    <ul>
+      <li><b>Structured Entity Grounding:</b> Explicit schema.org JSON-LD definitions connecting Subject, Predicate, and Object triples.</li>
+      <li><b>Machine-Readable Endpoints:</b> Deploying <code>/llms.txt</code> files that expose canonical markdown links for AI web crawlers.</li>
+      <li><b>Crawl &amp; Rendering Hygiene:</b> Consolidating thin or redundant URLs to maintain high domain threshold values.</li>
+    </ul>
+
+    <h2 id="execution-code">Implementation &amp; Code Example</h2>
+    <div class="sandbox-card">
+      <div class="sandbox-header">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="sandbox-title">eav_triple_generator.py</span>
+      </div>
+      <pre class="sandbox-code"><code><span class="comment"># Entity-Attribute-Value (EAV) Knowledge Graph Triple Structurer</span>
+eav_triplets = [
+    {{"subject": "{escape(f['title'])}", "predicate": "hasCategory", "object": "{escape(f['chip'])}"}},
+    {{"subject": "{escape(f['title'])}", "predicate": "author", "object": "Bibek Khatiwada"}},
+    {{"subject": "{escape(f['title'])}", "predicate": "targetEngine", "object": "Google Knowledge Graph & LLM Retrieval"}}
+]
+<span class="fn">print</span>(eav_triplets)</code></pre>
+    </div>
+
+    <h2 id="takeaways">Summary &amp; Strategic Value</h2>
+    <p>By shifting from legacy keyword targeting to structured entity modeling, brands build defensible search authority that survives Google core updates and excels in AI answer engines.</p>
+    """
+
+    body = page_hero(
+        f"Framework · {escape(f['chip'])}",
+        escape(f["title"]),
+        escape(f["summary"]),
+        [("Home", ""), ("Frameworks", "frameworks/"), (f["short"], None)])
+    body += fragment("framework-detail.html",
+                     date=f["date"], read_time=f["read_time"], author=f["author"],
+                     takeaways_list=takeaways, body_html=body_prose, disciplines_cloud=disciplines)
+    body += cta_band("Want to apply this framework to your site?",
+                     "Let's discuss how to structure your domain's entity graph or recover visibility.")
+    
+    path = f"frameworks/{f['slug']}/"
+    article_ld = {"@type": "TechArticle", "@id": f"{SITE_URL}/{path}#article", "headline": f["title"],
+                  "description": f["summary"], "author": person_ref(), "publisher": person_ref(),
+                  "datePublished": f["date"], "inLanguage": "en"}
+    graph = webpage(path, f["title"], [("Home", ""), ("Frameworks", "frameworks/"), (f["short"], path)], [article_ld])
+    meta = {"path": path, "slug": "framework", "graph": graph, "og_type": "article",
+            "title": f"{f['title']} | Bibek Khatiwada", "description": f["summary"]}
+    return write(path, page(meta, body, "frameworks"))
+
+
+def build_industries():
+    cards = []
+    for ind in INDUSTRIES_MATRIX:
+        niches = "".join(f'<span class="skill">{escape(n)}</span>' for n in ind["niches"])
+        pains = "".join(f'<li>{escape(p)}</li>' for p in ind["pain_points"])
+        cards.append(f"""
+        <article class="tool-card ind-card">
+          <div class="tool-head">
+            <span class="chipline">{escape(ind['chip'])}</span>
+            <h2><a href="{{{{root}}}}industries/{ind['slug']}/">{escape(ind['title'])}</a></h2>
+            <p>{escape(ind['summary'])}</p>
+          </div>
+          <div class="tool-body">
+            <div class="mini-note">Key Niches Covered</div>
+            <div class="skill-cloud">{niches}</div>
+            <div class="mini-note" style="margin-top:1rem">Common Sector Bottlenecks</div>
+            <ul class="svc-list">{pains}</ul>
+            <div class="tool-actions">
+              <a class="btn btn-secondary" href="{{{{root}}}}industries/{ind['slug']}/">View Industry Blueprint →</a>
+            </div>
+          </div>
+        </article>""")
+    cards_html = "\n".join(cards)
+    body = page_hero(
+        "Industry Matrix",
+        'Target Industry <span class="accent-text">Search Blueprints</span>.',
+        "Tailored search strategies, crawl budget management, and topical authority blueprints across 20+ verified industry verticals.",
+        [("Home", ""), ("Industries", None)])
+    body += fragment("industry-index.html", industry_cards=cards_html)
+    body += cta_band("Don't see your exact vertical?", "I have delivered search campaigns across 20+ industries. Contact me to discuss your specific domain.")
+    graph = webpage("industries/", "Industry Search Blueprints", [("Home", ""), ("Industries", "industries/")])
+    meta = {"path": "industries/", "slug": "industries", "graph": graph,
+            "title": "Industry Search Blueprints: Local, SaaS & Programmatic | Bibek Khatiwada",
+            "description": "Tailored SEO strategies across Home Services & Local Trades, B2B SaaS, and Programmatic / E-commerce Marketplaces."}
+    return write("industries/", page(meta, body, "industries"))
+
+
+def build_industry_detail(ind):
+    niches = "".join(f'<span class="skill">{escape(n)}</span>' for n in ind["niches"])
+    pains = "".join(f'<li><span class="bullet"></span><div><p>{escape(p)}</p></div></li>' for p in ind["pain_points"])
+    
+    approach = f"""
+    <p>{escape(ind['summary'])}</p>
+    <p>In this sector, search performance relies on solving specific infrastructure and intent challenges:</p>
+    <ul class="svc-list">
+      <li><b>Topical Hub Architecture:</b> Grouping service locations or software modules into structured parent hubs.</li>
+      <li><b>Technical Hardening:</b> Ensuring crawl budget is spent on high-converting landing pages rather than dynamic parameters.</li>
+      <li><b>Entity &amp; Brand Grounding:</b> Aligned schema markup to establish clear domain authority.</li>
+    </ul>
+    """
+
+    rel_cases = "\n".join(case_card(cs) for cs in CASE_STUDIES[:3])
+
+    body = page_hero(
+        f"Industry Blueprint · {escape(ind['chip'])}",
+        escape(ind["title"]),
+        escape(ind["summary"]),
+        [("Home", ""), ("Industries", "industries/"), (ind["title"], None)])
+    body += fragment("industry-detail.html",
+                     title=escape(ind["title"]), summary=escape(ind["summary"]), slug=ind["slug"],
+                     niches_cloud=niches, pain_points_list=pains, approach_html=approach, related_cases=rel_cases)
+    body += cta_band(f"Need a search plan for {escape(ind['title'])}?",
+                     "Let's audit your domain structure and design a custom search growth roadmap.",
+                     primary=("Get Sector Strategy", f"contact/?industry={ind['slug']}"))
+    
+    path = f"industries/{ind['slug']}/"
+    graph = webpage(path, ind["title"], [("Home", ""), ("Industries", "industries/"), (ind["title"], path)])
+    meta = {"path": path, "slug": "industry", "graph": graph,
+            "title": f"{ind['title']} Search Blueprint | Bibek Khatiwada", "description": ind["summary"]}
+    return write(path, page(meta, body, "industries"))
+
+
+def build_blog():
+    published = [art for art in ARTICLES if (SRC / "content" / f"{art['slug']}.html").exists()]
+    cards = "\n        ".join(article_card(art) for art in published)
+    body = page_hero(
+        "Blog & Frameworks",
+        'Engineering perspectives on <span class="accent-text">modern search & AI visibility</span>.',
+        "Technical writeups on entity modeling, LLM tracking, prompt evaluation matrices, and search systems from real client projects and experiments.",
+        [("Home", ""), ("Blog", None)],
+        aside="""<div class="agg" aria-live="polite">
+            <div class="agg-row"><strong>AI & Systems</strong><span>Core focus</span></div>
+            <div class="agg-row"><strong>Deterministic</strong><span>Test methods</span></div>
+            <div class="agg-row"><strong>Verified</strong><span>Code & data</span></div>
+          </div>""")
+    body += f"""
+    <section class="explorer" id="blog-grid">
+      <div class="wrap">
+        <div class="section-head" style="margin-bottom:1.5rem">
+          <div class="copy">
+            <span class="eyebrow">Articles</span>
+            <h2>Systems, research & frameworks</h2>
+          </div>
+        </div>
+        <div class="cs-grid">
+        {cards}
+        </div>
+      </div>
+    </section>
+"""
+    body += cta_band("Have a complex search or AI-visibility challenge?",
+                     "From LLM brand tracking to corpus-level technical recoveries, let's look at the data.")
+    items = [{"@type": "ListItem", "position": i + 1, "url": f"{SITE_URL}/blog/{art['slug']}/",
+              "name": art["title"]} for i, art in enumerate(published)]
+    graph = webpage("blog/", "Blog & Technical Frameworks", [("Home", ""), ("Blog", "blog/")],
+                    [{"@type": "ItemList", "@id": f"{SITE_URL}/blog/#list", "itemListElement": items}])
+    graph[2]["@type"] = "CollectionPage"
+    meta = {"path": "blog/", "slug": "blog", "graph": graph,
+            "title": "Blog & SEO Engineering Frameworks | Bibek Khatiwada",
+            "description": "Technical insights on LLM tracking, AEO, GEO, entity architecture, and search systems by SEO strategist Bibek Khatiwada."}
+    return write("blog/", page(meta, body, "blog"))
+
+
+def build_article_detail(i, art):
+    prev_art = ARTICLES[i - 1] if i > 0 else None
+    next_art = ARTICLES[i + 1] if i + 1 < len(ARTICLES) else None
+    disciplines = "".join(f'<span class="skill">{escape(d)}</span>' for d in art["disciplines"])
+    if prev_art:
+        pager = f'<a class="pager-prev" href="../{prev_art["slug"]}/"><span>← Previous</span>{escape(prev_art["short"])}</a>'
+    else:
+        pager = "<span></span>"
+    if next_art:
+        pager += f'<a class="pager-next" href="../{next_art["slug"]}/"><span>Next →</span>{escape(next_art["short"])}</a>'
+    glance = [("Topic", art["chip"]), ("Date", art["date"]), ("Read time", art["read_time"]),
+              ("Author", art["author"])]
+    glance_html = "".join(f"<div><dt>{k}</dt><dd>{escape(v)}</dd></div>" for k, v in glance)
+
+    article_content = fragment(f"{art['slug']}.html")
+
+    body = '    <div class="progress" aria-hidden="true"><i></i></div>\n'
+    body += page_hero(f"{escape(art['chip'])} · {escape(art['date'])}", escape(art["title"]), escape(art["summary"]),
+                      [("Home", ""), ("Blog", "blog/"), (art["short"], None)],
+                      aside=f'<dl class="glance">{glance_html}</dl>')
+    body += f"""
+    <section class="cs-body">
+      <div class="wrap cs-layout">
+        <article class="cs-main">
+          {article_content}
+
+          <h2 id="disciplines">Disciplines & Topics</h2>
+          <div class="skill-cloud">{disciplines}</div>
+
+          <aside class="callout callout-quiet" style="margin-top:2.5rem">
+            <div class="mini-note">Author</div>
+            <p>Written by <strong>Bibek Khatiwada</strong>, an SEO strategist based in Kathmandu specializing in entity-based SEO, crawl architecture, automation, and AI search visibility.</p>
+          </aside>
+        </article>
+        <aside class="cs-side">
+          <nav class="toc" aria-label="On this page">
+            <div class="mini-note">Contents</div>
+            <a href="#paradigm-shift">The Paradigm Shift</a>
+            <a href="#what-is-llm-tracking">What is LLM Tracking?</a>
+            <a href="#tracking-metrics">Core Tracking Metrics</a>
+            <a href="#interactive-simulator">Citation Calculator</a>
+            <a href="#proof-benchmarks">Empirical Proof & GSC Data</a>
+            <a href="#diff-visualizer">SERP vs. AIO vs. LLM</a>
+            <a href="#prompt-matrix">Interactive Prompt Matrix</a>
+            <a href="#pipeline-architecture">Pipeline Architecture</a>
+            <a href="#failure-modes">Why Sites Get Dropped</a>
+            <a href="#optimization-blueprint">Optimization Blueprint</a>
+            <a href="#reconciling-gsc">Search Console & RAG</a>
+          </nav>
+          <a class="btn btn-primary side-cta" href="{{{{root}}}}contact/?topic=llm-tracking">Consult on AI Search</a>
+        </aside>
+      </div>
+    </section>
+
+    <section class="related">
+      <div class="wrap">
+        <nav class="pager" aria-label="Article navigation">{pager}</nav>
+      </div>
+    </section>"""
+    body += cta_band("Want to build LLM tracking into your search stack?",
+                     "Let's evaluate how your brand currently appears in Google AI Overviews and ChatGPT Search.",
+                     primary=("Get in touch", "contact/?topic=ai-search"))
+    path = f"blog/{art['slug']}/"
+    article_schema = {
+        "@type": "BlogPosting",
+        "@id": f"{SITE_URL}/{path}#article",
+        "headline": art["title"],
+        "description": art["summary"],
+        "datePublished": art["date"],
+        "dateModified": art["date"],
+        "author": person_ref(),
+        "publisher": person_ref(),
+        "mainEntityOfPage": {"@id": f"{SITE_URL}/{path}#webpage"},
+        "inLanguage": "en",
+        "image": f"{SITE_URL}/assets/bibek-khatiwada-profile.webp",
+        "keywords": ", ".join(art["disciplines"]),
+        "about": [{"@type": "Thing", "name": d} for d in art["disciplines"][:4]]
+    }
+    graph = webpage(path, art["title"], [("Home", ""), ("Blog", "blog/"), (art["short"], path)],
+                    [article_schema])
+    meta = {"path": path, "slug": "article", "graph": graph, "og_type": "article",
+            "title": f"{art['title']} | Bibek Khatiwada", "description": art["summary"]}
+    return write(path, page(meta, body, "blog", ["case-detail.js", "tabs.js", "llm-interactive.js"]))
 
 
 def build_contact():
@@ -473,6 +826,16 @@ def build_llms_txt():
            else f"{cs['clicks_d']} clicks, {cs['impr_d']} impressions, {cs['ctr']}% CTR, average position {cs['pos']:g} over {cs['window']}")
         for cs in CASE_STUDIES)
     services = "\n".join(f"- [{s['name']}]({SITE_URL}/services/#{s['id']}): {s['summary']}" for s in SERVICES)
+    frameworks = "\n".join(
+        f"- [{fw['title']}]({SITE_URL}/frameworks/{fw['slug']}/): {fw['summary']}"
+        for fw in FRAMEWORKS)
+    tools = "\n".join(
+        f"- [{t['name']}]({SITE_URL}/tools/): {t['summary']}"
+        for t in TOOLS_SHOWCASE)
+    industries = "\n".join(
+        f"- [{ind['title']}]({SITE_URL}/industries/{ind['slug']}/): {ind['summary']}"
+        for ind in INDUSTRIES_MATRIX)
+
     (OUT / "llms.txt").write_text(f"""# Bibek Khatiwada, SEO Strategist
 
 > Kathmandu-based SEO strategist, open to remote work, specializing in entity-based and semantic SEO, technical SEO, content systems, SEO automation, and AI search visibility (AEO, GEO, llms.txt). 3+ years of experience with clients in {len(COUNTRIES)} countries: {", ".join(COUNTRIES)}.
@@ -484,7 +847,20 @@ Case-study figures are Google Search Console data. Client names are confidential
 - [About]({SITE_URL}/about/): background, career timeline, education (BCA, Tribhuvan University), tools
 - [Services]({SITE_URL}/services/): what each service includes
 - [Case studies]({SITE_URL}/case-studies/): all nine studies with filters and comparison charts
+- [Tools Showcase]({SITE_URL}/tools/): custom & open-source Python, n8n, and llms.txt tools
+- [Audit Diagnostic]({SITE_URL}/audit/): 3-step qualifying diagnostic form
+- [Technical Frameworks]({SITE_URL}/frameworks/): EAV modeling, AEO/GEO engineering, and YMYL recovery mechanics
+- [Industry Matrix]({SITE_URL}/industries/): local trades, B2B SaaS, and programmatic inventory blueprints
 - [Contact]({SITE_URL}/contact/): {PERSON['email']}, WhatsApp {PERSON['phone_display']}
+
+## Technical Frameworks
+{frameworks}
+
+## Tools Showcase
+{tools}
+
+## Industry Blueprints
+{industries}
 
 ## Case studies
 {cases}
@@ -499,8 +875,14 @@ Case-study figures are Google Search Console data. Client names are confidential
 
 
 def main():
-    paths = [build_home(), build_about(), build_services(), build_case_index()]
+    published_articles = [art for art in ARTICLES if (SRC / "content" / f"{art['slug']}.html").exists()]
+    paths = [build_home(), build_about(), build_services(), build_case_index(), build_blog()]
     paths += [build_case_detail(i, cs) for i, cs in enumerate(CASE_STUDIES)]
+    paths += [build_article_detail(i, art) for i, art in enumerate(published_articles)]
+    paths += [build_tools(), build_audit(), build_frameworks()]
+    paths += [build_framework_detail(f) for f in FRAMEWORKS]
+    paths += [build_industries()]
+    paths += [build_industry_detail(ind) for ind in INDUSTRIES_MATRIX]
     paths += [build_contact(), build_privacy()]
     build_404()
     build_sitemap(paths)
@@ -510,3 +892,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

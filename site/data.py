@@ -355,3 +355,192 @@ ACHIEVEMENTS = [
     "Reinstated a suspended Google Business Profile.",
     "Set up and verified a Google Business Profile for a business with no physical storefront.",
 ]
+
+# Technical Frameworks & Essays (Phase E Content Engine)
+FRAMEWORKS = [
+    {
+        "slug": "llm-tracking",
+        "title": "LLM Tracking: How to Monitor Brand Visibility, Citations, and Retrieval in AI Search",
+        "short": "LLM Tracking: Brand Visibility in AI Search",
+        "chip": "AI Search & AEO",
+        "date": "2026-10-02",
+        "read_time": "12 min read",
+        "author": "Bibek Khatiwada",
+        "summary": "A technical guide to tracking brand presence across ChatGPT, Perplexity, and Google AI Overviews using automated prompt matrices, RAG chunking, and machine-readable context.",
+        "tags": ["ai-search", "llm-tracking", "aeo", "geo", "technical"],
+        "disciplines": [
+            "LLM Tracking",
+            "Answer Engine Optimization (AEO)",
+            "Generative Engine Optimization (GEO)",
+            "llms.txt",
+            "Knowledge Graphs",
+            "RAG Retrieval",
+        ],
+        "takeaways": [
+            "Traditional rank tracking fails in generative search; LLM tracking monitors Citation Share of Voice (C-SoV), token distance, and anchor placement.",
+            "Retrieval-Augmented Generation (RAG) relies on semantic chunking and cross-encoder re-ranking; high-density 40-word answer spans prevent chunk pruning.",
+            "Deterministic prompt evaluation matrices (temperature=0.0) combined with /llms.txt and entity schema establish verifiable machine visibility.",
+        ],
+    },
+    {
+        "slug": "entity-attribute-value-search",
+        "title": "The EAV (Entity-Attribute-Value) Model for Modern Search",
+        "short": "EAV Model for Semantic Search",
+        "chip": "Semantic Architecture",
+        "date": "2026-10-02",
+        "read_time": "10 min read",
+        "author": "Bibek Khatiwada",
+        "summary": "Moving beyond keyword density into knowledge graph triples. How structuring content as Entity-Attribute-Value triples establishes defensible topical authority for semantic search engines.",
+        "tags": ["semantic-seo", "eav-model", "knowledge-graphs", "technical"],
+        "disciplines": [
+            "Entity-Attribute-Value (EAV)",
+            "Semantic SEO",
+            "Knowledge Graphs",
+            "Topical Authority",
+            "Structured Data",
+        ],
+        "takeaways": [
+            "Search engines evaluate entities and their relationships, not just ungrounded keywords.",
+            "Structuring content into explicit triplets (Subject -> Predicate -> Object) powers clear extraction by LLMs and Google Knowledge Graph.",
+            "EAV modeling prevents internal content cannibalization by maintaining strict entity scopes across pillar-cluster networks.",
+        ],
+    },
+    {
+        "slug": "aeo-geo-playbook",
+        "title": "AEO & GEO: Engineering Content for LLM Extraction & AI Overviews",
+        "short": "Engineering Content for LLMs & AEO",
+        "chip": "AI Search & AEO",
+        "date": "2026-10-02",
+        "read_time": "12 min read",
+        "author": "Bibek Khatiwada",
+        "summary": "Technical formatting, structured citations, schema grounding, and machine-readable llms.txt endpoints designed to maximize citation rate in Google AI Overviews, Perplexity, and ChatGPT.",
+        "tags": ["aeo", "geo", "ai-search", "llms-txt", "citations"],
+        "disciplines": [
+            "Answer Engine Optimization (AEO)",
+            "Generative Engine Optimization (GEO)",
+            "llms.txt Standard",
+            "Schema Grounding",
+            "LLM Prompt Tracking",
+        ],
+        "takeaways": [
+            "LLMs prioritize content structured with clean semantic headers, explicit definitions, and answer-first summaries.",
+            "Publishing a standardized /llms.txt file gives AI crawlers direct access to core entity summaries and authoritative markdown links.",
+            "Entity grounding via JSON-LD schema increases direct brand citation probability in AI search engines.",
+        ],
+    },
+    {
+        "slug": "130k-page-ymyl-recovery-mechanics",
+        "title": "Anatomy of a 130,000-Page YMYL Recovery",
+        "short": "130k-Page YMYL Recovery Mechanics",
+        "chip": "Algorithm Recovery",
+        "date": "2026-10-02",
+        "read_time": "15 min read",
+        "author": "Bibek Khatiwada",
+        "summary": "The technical mechanics behind Case 01: crawl budget consolidation, pruning 20,000 dead/duplicate URLs, building structured topic hubs, and recovering visibility across core Google updates.",
+        "tags": ["recovery", "ymyl", "crawl-budget", "technical-seo", "taxonomy"],
+        "disciplines": [
+            "Algorithm Recovery",
+            "Crawl Budget Optimization",
+            "Content Pruning",
+            "Taxonomy Restructuring",
+            "YMYL Trust Signals",
+        ],
+        "takeaways": [
+            "YMYL recovery requires site-wide quality alignment rather than isolated page fixes.",
+            "Pruning 20,000 duplicate/thin pages freed up crawl budget for high-value medical answer hubs.",
+            "301 directory consolidation protects overall domain threshold value in zero-click search environments.",
+        ],
+    },
+]
+
+ARTICLES = FRAMEWORKS
+
+# Proprietary & Open-Source Tools Showcase
+TOOLS_SHOWCASE = [
+    {
+        "slug": "semantic-flow",
+        "name": "Content Semantic Flow Checker",
+        "chip": "NLP & Semantic Pipeline",
+        "summary": "spaCy + sentence-transformers (all-MiniLM-L6-v2) pipeline for analyzing semantic similarity, topic drift, and entity coverage between content headers and search intent.",
+        "tech_stack": ["Python 3.11", "spaCy", "sentence-transformers", "PyTorch", "Streamlit"],
+        "github": "https://github.com/bibek1223/semantic-flow-checker",
+        "demo": "https://github.com/bibek1223",
+        "features": [
+            "Cosine similarity matrix across document headings",
+            "Entity extraction and Wikidata link mapping",
+            "Sub-topic coverage scoring against top-ranking SERP competitors",
+            "Automated suggestion engine for missing semantic attributes",
+        ],
+    },
+    {
+        "slug": "automation-engine",
+        "name": "n8n & Colab GSC Anomaly Detector",
+        "chip": "Search Automation",
+        "summary": "Automated workflow engine monitoring daily Google Search Console API data for unexpected click/impression drops, cannibalization flags, and SERP layout shifts.",
+        "tech_stack": ["n8n", "Python", "Google Colab", "Search Console API", "Slack Webhooks"],
+        "github": "https://github.com/bibek1223/gsc-anomaly-detector",
+        "demo": "https://github.com/bibek1223",
+        "features": [
+            "Daily statistical Z-score anomaly alerts sent to Slack/Email",
+            "Page-level vs query-level drop isolation",
+            "Automated Google Sheets dashboard sync via Apps Script",
+            "AI Overview zero-click loss tracking",
+        ],
+    },
+    {
+        "slug": "llms-txt",
+        "name": "Automated llms.txt & Markdown Generator",
+        "chip": "AI Search Readiness",
+        "summary": "Static generator module that automatically parses HTML site structure and builds a standardized, clean markdown /llms.txt file for AI web crawlers.",
+        "tech_stack": ["Python", "BeautifulSoup4", "Jinja2", "Markdown"],
+        "github": "https://github.com/bibek1223",
+        "demo": "/llms.txt",
+        "features": [
+            "Automatic extraction of core site entities and case study metrics",
+            "Strip out tracking scripts, CSS, and navigation bloat for clean LLM ingestion",
+            "Hierarchical markdown formatting with canonical link attribution",
+            "Seamless integration with Python static site build scripts",
+        ],
+    },
+]
+
+# Industry Matrix Hubs
+INDUSTRIES_MATRIX = [
+    {
+        "slug": "home-services-hvac-plumbing",
+        "title": "Home Trades & Multi-Location Services",
+        "chip": "Local & Multi-Location",
+        "summary": "HVAC, Plumbing, Electrical, Roofing, and Emergency Services. Optimizing local service-area pages, GBP listings, citation consistency, and hyper-local intent.",
+        "niches": ["HVAC & Cooling", "Plumbing & Drainage", "Electrical Services", "Roofing & Exterior", "Emergency Restoration"],
+        "pain_points": [
+            "Duplicate content across dozens of location/city landing pages",
+            "Google Business Profile suspensions and unverified storefronts",
+            "High CPCs in Google Ads driving demand for organic local capture",
+        ],
+    },
+    {
+        "slug": "b2b-saas",
+        "title": "B2B SaaS & Enterprise Tech",
+        "chip": "SaaS & Software",
+        "summary": "Product-led SEO, documentation search, comparison pages, and high-intent bottom-of-funnel keyword capturing for software platforms.",
+        "niches": ["Developer Tools", "Workflow Automation", "Enterprise ERP/CRM", "Fintech SaaS", "Healthcare Tech"],
+        "pain_points": [
+            "Low-volume, high-value search intent requiring specialized technical content",
+            "Complex JavaScript SPA rendering causing indexation delays",
+            "High customer acquisition cost (CAC) requiring scalable organic acquisition",
+        ],
+    },
+    {
+        "slug": "programmatic-directories",
+        "title": "Programmatic & Large Inventories",
+        "chip": "Programmatic & E-commerce",
+        "summary": "Automotive marketplaces, directory portals, real estate listings, and large e-commerce catalogs with hundreds of thousands of dynamic URLs.",
+        "niches": ["Vehicle Scrapping & Auto Parts", "Property Listings", "Service Directories", "E-commerce Catalogs"],
+        "pain_points": [
+            "Crawl budget waste on thin, dynamic parameter URLs",
+            "Template-level quality issues scaling into site-wide penalties",
+            "Facet and filter indexation bloat",
+        ],
+    },
+]
+

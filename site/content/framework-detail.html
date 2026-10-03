@@ -1,0 +1,46 @@
+<section class="fw-detail-section">
+  <div class="wrap fw-detail-layout">
+    <article class="fw-article">
+      <div class="fw-meta-bar">
+        <span class="fw-date">{{date}}</span>
+        <span class="fw-readtime">{{read_time}}</span>
+        <span class="fw-author">By {{author}}</span>
+      </div>
+
+      <div class="fw-takeaways">
+        <div class="mini-note">Key Engineering Takeaways</div>
+        <ul>
+          {{takeaways_list}}
+        </ul>
+      </div>
+
+      <div class="fw-body-content">
+        {{body_html}}
+      </div>
+
+      <div class="fw-disciplines">
+        <div class="mini-note">Core Disciplines</div>
+        <div class="skill-cloud">
+          {{disciplines_cloud}}
+        </div>
+      </div>
+    </article>
+
+    <aside class="fw-sidebar">
+      <nav class="toc" aria-label="Article navigation">
+        <div class="mini-note">On this page</div>
+        <a href="#overview">Overview &amp; Context</a>
+        <a href="#technical-mechanics">Technical Mechanics</a>
+        <a href="#execution-code">Implementation &amp; Code</a>
+        <a href="#takeaways">Key Takeaways</a>
+      </nav>
+      
+      <div class="side-card">
+        <div class="mini-note">Author</div>
+        <strong>Bibek Khatiwada</strong>
+        <p class="tiny">Computer Science (BCA) trained SEO strategist specializing in technical SEO, NLP content flow, and automated search systems.</p>
+        <a class="btn btn-secondary" href="{{root}}contact/">Discuss this framework →</a>
+      </div>
+    </aside>
+  </div>
+</section>

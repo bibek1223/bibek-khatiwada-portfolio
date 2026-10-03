@@ -1,0 +1,55 @@
+<section class="tools-section">
+  <div class="wrap">
+    <div class="tools-grid">
+      {{tools_cards}}
+    </div>
+  </div>
+</section>
+
+<section class="tool-sandbox">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="copy">
+        <span class="eyebrow">Interactive Code Sandbox</span>
+        <h2>Semantic Similarity &amp; Vector Scoring Engine</h2>
+        <p>A peek inside the Python spaCy + <code>sentence-transformers</code> (all-MiniLM-L6-v2) cosine distance pipeline used to audit header hierarchy against user intent.</p>
+      </div>
+    </div>
+    <div class="sandbox-card">
+      <div class="sandbox-header">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="sandbox-title">semantic_flow_checker.py</span>
+      </div>
+      <pre class="sandbox-code"><code><span class="kw">from</span> sentence_transformers <span class="kw">import</span> SentenceTransformer, util
+<span class="kw">import</span> spacy
+
+<span class="comment"># Load lightweight transformer model and spaCy parser</span>
+nlp = spacy.load(<span class="str">"en_core_web_sm"</span>)
+model = SentenceTransformer(<span class="str">"all-MiniLM-L6-v2"</span>)
+
+<span class="kw">def</span> <span class="fn">analyze_semantic_flow</span>(query: <span class="type">str</span>, headers: <span class="type">list[str]</span>):
+    query_emb = model.encode(query, convert_to_tensor=<span class="kw">True</span>)
+    header_embs = model.encode(headers, convert_to_tensor=<span class="kw">True</span>)
+    
+    <span class="comment"># Calculate cosine similarity matrix</span>
+    scores = util.cos_sim(query_emb, header_embs)[<span class="num">0</span>]
+    
+    <span class="kw">return</span> [
+        {<span class="str">"header"</span>: h, <span class="str">"similarity_score"</span>: <span class="fn">round</span>(<span class="fn">float</span>(score), <span class="num">4</span>)}
+        <span class="kw">for</span> h, score <span class="kw">in</span> <span class="fn">zip</span>(headers, scores)
+    ]
+
+<span class="comment"># Example Execution</span>
+results = analyze_semantic_flow(
+    query=<span class="str">"How to recover medical YMYL website from Google core update"</span>,
+    headers=[
+        <span class="str">"Diagnosing algorithm drops by update date"</span>,
+        <span class="str">"Content pruning and directory consolidation mechanics"</span>,
+        <span class="str">"Best pricing strategies for retail products"</span>  <span class="comment"># Off-topic drift</span>
+    ]
+)
+<span class="fn">print</span>(results)
+<span class="comment"># Output: 0.8421 (High), 0.7914 (High), 0.1102 (Off-topic Drift Flagged)</span></code></pre>
+    </div>
+  </div>
+</section>

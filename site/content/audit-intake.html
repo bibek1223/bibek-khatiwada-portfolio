@@ -1,0 +1,132 @@
+<section class="audit-section">
+  <div class="wrap">
+    <div class="audit-card">
+      <div class="audit-progress">
+        <div class="step-indicator active" data-step-dot="1"><span>1</span> Site Health &amp; Scale</div>
+        <div class="step-indicator" data-step-dot="2"><span>2</span> Primary Symptom</div>
+        <div class="step-indicator" data-step-dot="3"><span>3</span> Diagnostic Brief</div>
+      </div>
+
+      <form id="audit-form" class="audit-form">
+        <!-- Step 1 -->
+        <div class="audit-step active" data-step="1">
+          <h2>Step 1: Tell me about your website infrastructure</h2>
+          <p class="tiny">This helps isolate crawl budget boundaries, CMS rendering bottlenecks, and scale limits.</p>
+          
+          <div class="form-row">
+            <label for="audit-url">Website URL *</label>
+            <input type="url" id="audit-url" placeholder="https://example.com" required>
+          </div>
+
+          <div class="form-grid">
+            <div>
+              <label for="audit-cms">CMS / Architecture *</label>
+              <select id="audit-cms" required>
+                <option value="">Select CMS platform...</option>
+                <option value="WordPress">WordPress / Custom Theme</option>
+                <option value="Shopify">Shopify / Liquid / Headless</option>
+                <option value="Webflow">Webflow</option>
+                <option value="NextJS">Next.js / React SSR</option>
+                <option value="Custom">Custom PHP / Python / Node</option>
+                <option value="Other">Other / Legacy CMS</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="audit-traffic">Monthly Organic Clicks Tier *</label>
+              <select id="audit-traffic" required>
+                <option value="">Select click volume...</option>
+                <option value="Under 5k">Under 5,000 clicks/mo</option>
+                <option value="5k - 50k">5,000 - 50,000 clicks/mo</option>
+                <option value="50k - 250k">50,000 - 250,000 clicks/mo</option>
+                <option value="250k - 1M+">250,000 - 1M+ clicks/mo (Large Scale)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-primary btn-next" data-next="2">Next: Select Primary Symptom →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="audit-step" data-step="2">
+          <h2>Step 2: What is the primary search symptom you are facing?</h2>
+          <p class="tiny">Isolate algorithm drops, zero-click AI Overview leaks, or crawl waste before diagnosing.</p>
+
+          <div class="symptom-grid">
+            <label class="symptom-card">
+              <input type="radio" name="symptom" value="Google Core Update Drop" checked>
+              <span class="radio-custom"></span>
+              <div>
+                <strong>Google Core / Spam Update Loss</strong>
+                <p>Abrupt visibility loss coinciding with a recent Google algorithm rollout.</p>
+              </div>
+            </label>
+
+            <label class="symptom-card">
+              <input type="radio" name="symptom" value="AI Overview Zero-Click Loss">
+              <span class="radio-custom"></span>
+              <div>
+                <strong>AI Overview / Zero-Click Drop-off</strong>
+                <p>Impressions remain stable, but organic clicks have dropped due to AI snippet traps.</p>
+              </div>
+            </label>
+
+            <label class="symptom-card">
+              <input type="radio" name="symptom" value="Indexation & Crawl Bloat">
+              <span class="radio-custom"></span>
+              <div>
+                <strong>Indexation &amp; Crawl Budget Bloat</strong>
+                <p>Thousands of thin, duplicate, or dynamic parameter URLs wasting crawler resources.</p>
+              </div>
+            </label>
+
+            <label class="symptom-card">
+              <input type="radio" name="symptom" value="New Launch Stagnation">
+              <span class="radio-custom"></span>
+              <div>
+                <strong>New Launch Stagnation</strong>
+                <p>New domain or product platform struggling to earn initial topical authority and rankings.</p>
+              </div>
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary btn-prev" data-prev="1">← Back</button>
+            <button type="button" class="btn btn-primary btn-next" data-next="3">Next: Generate Brief →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="audit-step" data-step="3">
+          <h2>Step 3: Review Diagnostic Brief &amp; Send Direct</h2>
+          <p class="tiny">Your diagnostic brief is auto-compiled below. Enter your email to receive Bibek's initial findings within 24 hours.</p>
+
+          <div class="brief-preview">
+            <div class="brief-head">Auto-Compiled Diagnostic Brief</div>
+            <div id="brief-content" class="brief-content">
+              Select choices above to compile brief...
+            </div>
+          </div>
+
+          <div class="form-grid" style="margin-top:1.5rem">
+            <div>
+              <label for="audit-email">Your Work Email *</label>
+              <input type="email" id="audit-email" placeholder="you@company.com" required>
+            </div>
+            <div>
+              <label for="audit-notes">Additional Context (Optional)</label>
+              <input type="text" id="audit-notes" placeholder="e.g. Lost 30% clicks in August core update...">
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary btn-prev" data-prev="2">← Back</button>
+            <button type="submit" class="btn btn-primary">Send Diagnostic Brief to Bibek →</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

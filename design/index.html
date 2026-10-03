@@ -106,7 +106,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/site.css?v=1e722c98">
+  <link rel="stylesheet" href="assets/css/site.css?v=4ec94106">
 </head>
 <body class="page-home">
   <a class="skip" href="#main">Skip to content</a>
@@ -129,7 +129,10 @@
         <a href="about/">About</a>
         <a href="services/">Services</a>
         <a href="case-studies/">Case studies</a>
-        <a href="./#process">Process</a>
+        <a href="tools/">Tools</a>
+        <a href="frameworks/">Frameworks</a>
+        <a href="industries/">Industries</a>
+        <a href="audit/">Audit</a>
         <a href="contact/">Contact</a>
         <a class="nav-cta" href="https://wa.me/9779860411440" target="_blank" rel="noreferrer">WhatsApp</a>
       </nav>
@@ -826,6 +829,136 @@
         </div>
       </div>
     </section>
+<section class="calculator-section" id="economics-calculator">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="copy">
+        <span class="eyebrow">Search Economics</span>
+        <h2>Search Leakage &amp; AEO Risk Calculator</h2>
+        <p>Estimate how much monthly revenue your site is losing to zero-click AI Overviews, unoptimized intent matching, and crawl waste.</p>
+      </div>
+    </div>
+
+    <div class="calc-card">
+      <div class="calc-presets">
+        <span class="preset-label">Industry Presets:</span>
+        <button type="button" class="calc-btn active" data-preset="hvac">Plumbing / HVAC ($800 ticket, 15% close)</button>
+        <button type="button" class="calc-btn" data-preset="saas">B2B SaaS ($2,500 LTV, 3% trial)</button>
+        <button type="button" class="calc-btn" data-preset="ecom">E-commerce ($85 AOV, 2.5% CR)</button>
+      </div>
+
+      <div class="calc-grid">
+        <div class="calc-inputs">
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label for="calc-traffic">Monthly Organic Visitors</label>
+              <span class="calc-val" id="val-traffic">25,000</span>
+            </div>
+            <input type="range" id="calc-traffic" min="1000" max="250000" step="1000" value="25000">
+          </div>
+
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label for="calc-value">Customer LTV / Ticket Size ($)</label>
+              <span class="calc-val" id="val-value">$800</span>
+            </div>
+            <input type="range" id="calc-value" min="20" max="10000" step="10" value="800">
+          </div>
+
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label for="calc-cr">Lead / Conversion Rate (%)</label>
+              <span class="calc-val" id="val-cr">15.0%</span>
+            </div>
+            <input type="range" id="calc-cr" min="0.5" max="30.0" step="0.5" value="15.0">
+          </div>
+
+          <div class="calc-field">
+            <div class="calc-label-row">
+              <label for="calc-leak">Estimated AEO / Zero-Click Drop-off (%)</label>
+              <span class="calc-val" id="val-leak">25.0%</span>
+            </div>
+            <input type="range" id="calc-leak" min="5.0" max="60.0" step="1.0" value="25.0">
+          </div>
+        </div>
+
+        <div class="calc-display">
+          <div class="calc-display-head">Estimated Monthly Leakage</div>
+          <div class="calc-hero-number" id="calc-result-monthly">$75,000</div>
+          <p class="tiny">Monthly revenue lost to AI answers, snippet traps, and lost organic clicks.</p>
+          <div class="calc-stat-pair">
+            <div>
+              <span>Annualized Leakage</span>
+              <strong id="calc-result-annual">$900,000</strong>
+            </div>
+            <div>
+              <span>Lost Monthly Leads</span>
+              <strong id="calc-result-leads">94 leads</strong>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="audit/" style="margin-top:1.5rem;width:100%;text-align:center">Diagnose Your Search Leakage →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="funnel-section" id="aeo-funnel">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="copy">
+        <span class="eyebrow">Zero-Click Trap Breakdown</span>
+        <h2>Where Visitors Drop Off in Modern AI Search</h2>
+        <p>Traditional SEO tracked rank #1. Today, Google AI Overviews and answer engines capture queries right at the top of the SERP.</p>
+      </div>
+    </div>
+
+    <div class="funnel-card">
+      <div class="funnel-step f-step-1">
+        <div class="funnel-info">
+          <span class="step-num">01</span>
+          <div>
+            <strong>100% — Search Impressions</strong>
+            <p>User enters intent query into Google, Perplexity, or ChatGPT.</p>
+          </div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%">100%</div></div>
+      </div>
+
+      <div class="funnel-step f-step-2">
+        <div class="funnel-info">
+          <span class="step-num">02</span>
+          <div>
+            <strong>65% — AI Overview Zero-Click Trap</strong>
+            <p>Searcher receives answer directly inside SERP snippet or LLM summary without clicking.</p>
+          </div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:65%">65% Leakage</div></div>
+      </div>
+
+      <div class="funnel-step f-step-3">
+        <div class="funnel-info">
+          <span class="step-num">03</span>
+          <div>
+            <strong>35% — Traditional Organic SERP Clicks</strong>
+            <p>Searcher clicks through to your landing page or structured article hub.</p>
+          </div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:35%">35% Clicks</div></div>
+      </div>
+
+      <div class="funnel-step f-step-4">
+        <div class="funnel-info">
+          <span class="step-num">04</span>
+          <div>
+            <strong>5% — High-Intent Lead Captured</strong>
+            <p>Qualified visitor completes inquiry or purchases via optimized entity path.</p>
+          </div>
+        </div>
+        <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:12%">5% Conversion</div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
   </main>
 
@@ -842,6 +975,10 @@
         <a href="about/">About</a>
         <a href="services/">Services</a>
         <a href="case-studies/">Case studies</a>
+        <a href="tools/">Tools</a>
+        <a href="frameworks/">Frameworks</a>
+        <a href="industries/">Industries</a>
+        <a href="audit/">Audit Diagnostic</a>
         <a href="contact/">Contact</a>
       </nav>
       <nav aria-label="Elsewhere">
@@ -864,5 +1001,6 @@
     </div>
   </footer>
   <script src="assets/js/site.js?v=8e290946" defer></script>
+  <script src="assets/js/calculator.js?v=20eb8380" defer></script>
 </body>
 </html>

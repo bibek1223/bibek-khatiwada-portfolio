@@ -109,7 +109,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css?v=4ec94106">
+  <link rel="stylesheet" href="../assets/css/site.css?v=3eb37e2e">
 </head>
 <body class="page-tools">
   <a class="skip" href="#main">Skip to content</a>
@@ -217,19 +217,103 @@
   </div>
 </section>
 
-<section class="tool-sandbox">
+<!-- Widget 1: Interactive Semantic Similarity Tester -->
+<section class="tool-sandbox" style="margin-top:3.5rem;">
   <div class="wrap">
     <div class="section-head">
       <div class="copy">
-        <span class="eyebrow">Interactive Code Sandbox</span>
-        <h2>Semantic Similarity &amp; Vector Scoring Engine</h2>
-        <p>A peek inside the Python spaCy + <code>sentence-transformers</code> (all-MiniLM-L6-v2) cosine distance pipeline used to audit header hierarchy against user intent.</p>
+        <span class="eyebrow">Live Interactive Demo</span>
+        <h2>Test Semantic Vector Scoring in Your Browser</h2>
+        <p>Type a target intent query and three candidate headings. Our client-side algorithm simulates the spaCy + Sentence-Transformers cosine distance check to demonstrate which headings survive LLM context pruning.</p>
+      </div>
+    </div>
+
+    <div class="sandbox-card" style="padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:20px;color:var(--text);">
+      <div class="form-row">
+        <label for="sim-query-input" style="font-weight:700;display:block;margin-bottom:0.35rem;">Target Intent Query:</label>
+        <input type="text" id="sim-query-input" value="How to recover medical YMYL website from Google core update" style="width:100%;padding:0.75rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;font-size:0.95rem;">
+      </div>
+
+      <div style="display:grid;gap:0.75rem;margin-top:1.25rem;">
+        <div>
+          <label for="sim-h1-input" style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:0.25rem;">Candidate Heading 1 (Targeted Topical Hub):</label>
+          <input type="text" id="sim-h1-input" value="Diagnosing medical algorithm drops by update date and rollout window" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;font-size:0.9rem;">
+        </div>
+        <div>
+          <label for="sim-h2-input" style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:0.25rem;">Candidate Heading 2 (Technical Remediation):</label>
+          <input type="text" id="sim-h2-input" value="Content pruning, crawl budget, and directory-level 301 consolidation" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;font-size:0.9rem;">
+        </div>
+        <div>
+          <label for="sim-h3-input" style="font-size:0.85rem;font-weight:700;display:block;margin-bottom:0.25rem;">Candidate Heading 3 (Off-Topic Fluff / Drift):</label>
+          <input type="text" id="sim-h3-input" value="Top 10 marketing tips to boost company revenue fast" style="width:100%;padding:0.65rem 0.85rem;border-radius:8px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;font-size:0.9rem;">
+        </div>
+      </div>
+
+      <div style="margin-top:1.25rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+        <button type="button" id="run-sim-btn" class="btn btn-primary">Run Semantic Vector Analysis →</button>
+        <span style="font-size:0.8rem;color:var(--text-muted);">Backed by spaCy + sentence-transformers algorithm</span>
+      </div>
+
+      <div id="sim-results-output">
+        <!-- Results render here -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Widget 2: llms.txt Live Generator -->
+<section class="tool-sandbox" style="margin-top:3.5rem;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="copy">
+        <span class="eyebrow">Generative Engine Optimization</span>
+        <h2>Live llms.txt File Generator &amp; Validator</h2>
+        <p>Generate a clean, standardized <code>/llms.txt</code> file configured for AI crawlers like Anthropic, Perplexity, and OpenAI.</p>
+      </div>
+    </div>
+
+    <div class="sandbox-card" style="padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:20px;color:var(--text);">
+      <div class="form-grid">
+        <div>
+          <label for="llms-sitename" style="font-weight:700;display:block;margin-bottom:0.35rem;">Brand / Platform Name:</label>
+          <input type="text" id="llms-sitename" value="Acme Cloud Solutions" style="width:100%;padding:0.75rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;font-size:0.95rem;">
+        </div>
+        <div>
+          <label for="llms-url" style="font-weight:700;display:block;margin-bottom:0.35rem;">Canonical Domain URL:</label>
+          <input type="url" id="llms-url" value="https://acmecloud.com" style="width:100%;padding:0.75rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;font-size:0.95rem;">
+        </div>
+      </div>
+      <div style="margin-top:1rem;">
+        <label for="llms-topics" style="font-weight:700;display:block;margin-bottom:0.35rem;">Core Topic Hubs (Comma-separated):</label>
+        <input type="text" id="llms-topics" value="Enterprise Cloud Storage, Kubernetes Orchestration, Zero Trust Security, API Docs" style="width:100%;padding:0.75rem 1rem;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);font-family:inherit;font-size:0.95rem;">
+      </div>
+
+      <div style="margin-top:1.25rem;">
+        <button type="button" id="gen-llmstxt-btn" class="btn btn-secondary">Generate Validated llms.txt ↓</button>
+      </div>
+
+      <div style="margin-top:1.25rem;background:#1e1b2e;border-radius:12px;padding:1.25rem;border:1px solid rgba(255,255,255,0.1);position:relative;">
+        <div style="font-size:0.72rem;font-family:monospace;color:rgba(255,255,255,0.5);margin-bottom:0.5rem;">PREVIEW: /llms.txt</div>
+        <pre id="llms-code-output" style="color:#f8eede;font-family:monospace;font-size:0.85rem;line-height:1.5;margin:0;white-space:pre-wrap;">Click "Generate Validated llms.txt" above to generate your crawler file...</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Python Architecture Code Reference -->
+<section class="tool-sandbox" style="margin-top:3.5rem;">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="copy">
+        <span class="eyebrow">Production Python Code</span>
+        <h2>The Core NLP Pipeline Behind the Algorithm</h2>
+        <p>A look at the production code from Bibek's public GitHub repository <code>Content---Semantic-Flow-Checker-</code>.</p>
       </div>
     </div>
     <div class="sandbox-card">
       <div class="sandbox-header">
         <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-        <span class="sandbox-title">semantic_flow_checker.py</span>
+        <span class="sandbox-title">semantic_flow_checker.py · GitHub @bibek1223</span>
       </div>
       <pre class="sandbox-code"><code><span class="kw">from</span> sentence_transformers <span class="kw">import</span> SentenceTransformer, util
 <span class="kw">import</span> spacy
@@ -250,17 +334,10 @@ model = SentenceTransformer(<span class="str">"all-MiniLM-L6-v2"</span>)
         <span class="kw">for</span> h, score <span class="kw">in</span> <span class="fn">zip</span>(headers, scores)
     ]
 
-<span class="comment"># Example Execution</span>
-results = analyze_semantic_flow(
-    query=<span class="str">"How to recover medical YMYL website from Google core update"</span>,
-    headers=[
-        <span class="str">"Diagnosing algorithm drops by update date"</span>,
-        <span class="str">"Content pruning and directory consolidation mechanics"</span>,
-        <span class="str">"Best pricing strategies for retail products"</span>  <span class="comment"># Off-topic drift</span>
-    ]
-)
-<span class="fn">print</span>(results)
-<span class="comment"># Output: 0.8421 (High), 0.7914 (High), 0.1102 (Off-topic Drift Flagged)</span></code></pre>
+<span class="comment"># Example Output</span>
+<span class="comment"># Header 1: 0.8421 (High Salience · RAG Retained)</span>
+<span class="comment"># Header 2: 0.7914 (High Salience · RAG Retained)</span>
+<span class="comment"># Header 3: 0.1102 (Off-topic Drift · Pruned by LLM Retriever)</span></code></pre>
     </div>
   </div>
 </section>
@@ -319,5 +396,6 @@ results = analyze_semantic_flow(
     </div>
   </footer>
   <script src="../assets/js/site.js?v=8e290946" defer></script>
+  <script src="../assets/js/tools-sandbox.js?v=d86af7d2" defer></script>
 </body>
 </html>

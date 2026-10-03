@@ -1,0 +1,93 @@
+<section class="diff-viewer-section" id="serp-evolution">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="copy">
+        <span class="eyebrow">Search Mechanics Shift</span>
+        <h2>How Search Results Changed Beneath Your Website</h2>
+        <p>Traditional SEO chased rank #1. Today, AI Overviews synthesize multi-source answers right at the top of the SERP, capturing clicks before visitors ever reach traditional blue links.</p>
+      </div>
+    </div>
+
+    <div class="diff-viewer-wrap">
+      <div class="diff-nav" role="tablist" aria-label="Search Evolution Eras">
+        <button type="button" class="diff-mode-btn active" data-mode="classic">2020: Traditional 10 Blue Links</button>
+        <button type="button" class="diff-mode-btn" data-mode="snippet">2023: Featured Snippets Era</button>
+        <button type="button" class="diff-mode-btn" data-mode="aio">2026: AI Overviews &amp; RAG Citations</button>
+      </div>
+
+      <!-- Mode 1: Classic 10 Blue Links -->
+      <div class="diff-view-panel" data-view="classic">
+        <div class="diff-mockup">
+          <div class="mockup-header">Google Desktop SERP · 2020 Model · Position 1 Clicks: ~32%</div>
+          <div class="serp-snippet" style="border-left: 3px solid #10b981; padding-left: 1rem;">
+            <div class="serp-url">https://yourbrand.com › guides › hvac-costs</div>
+            <div class="serp-title">Complete HVAC Replacement Cost Guide [2020 Updated]</div>
+            <div class="serp-desc">Average cost to replace an HVAC system ranges from $4,850 to $9,200 depending on tonnage, efficiency rating, and ductwork requirements...</div>
+            <div style="margin-top:0.5rem; font-size:0.75rem; color:#10b981; font-weight:700;">★ Position 1: Direct click-through to site</div>
+          </div>
+          <div class="serp-snippet" style="opacity:0.6; padding-left: 1rem;">
+            <div class="serp-url">https://competitor.com › blog › ac-unit-price</div>
+            <div class="serp-title">How Much Does a New AC Unit Cost? - Competitor Guide</div>
+            <div class="serp-desc">Compare top unit brands, SEER ratings, and local contractor installation pricing...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode 2: Featured Snippets -->
+      <div class="diff-view-panel" data-view="snippet" hidden>
+        <div class="diff-mockup">
+          <div class="mockup-header">Google Desktop SERP · 2023 Model · Position 0 Displacement</div>
+          <div class="serp-snippet" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1.25rem; margin-bottom:1.5rem;">
+            <div style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:#64748b; margin-bottom:0.4rem;">Featured Snippet from the web</div>
+            <p style="font-size:0.95rem; color:#1e293b; margin:0 0 0.8rem 0;">The national average cost to replace an entire HVAC system is <strong>$7,500</strong>, with most homeowners spending between <strong>$5,000 and $12,500</strong>.</p>
+            <div class="serp-url">https://aggregator.com › home-repair-costs</div>
+            <div class="serp-title" style="font-size:1rem;">HVAC System Replacement Cost - Pricing Table</div>
+          </div>
+          <div class="serp-snippet" style="opacity:0.7; padding-left: 1rem;">
+            <div class="serp-url">https://yourbrand.com › guides › hvac-costs</div>
+            <div class="serp-title">Complete HVAC Replacement Cost Guide</div>
+            <div class="serp-desc">Pushed below the fold. CTR dropped by 18% as snippet answered simple pricing queries.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mode 3: Modern AI Overview & Citations -->
+      <div class="diff-view-panel" data-view="aio" hidden>
+        <div class="diff-mockup">
+          <div class="mockup-header">Google SGE / AI Overview · 2026 Model · RAG Multi-Source Synthesis</div>
+          <div class="aio-box">
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+              <span style="font-size:0.75rem; font-weight:800; text-transform:uppercase; color:var(--purple); letter-spacing:0.08em;">✦ AI Overview</span>
+              <span style="font-size:0.72rem; background:rgba(124,58,237,0.12); color:var(--purple); padding:0.15rem 0.5rem; border-radius:999px; font-weight:700;">Synthesized from 8 sources</span>
+            </div>
+            <div class="aio-text">
+              Replacing an HVAC system in 2026 typically costs between $5,800 and $14,000, depending on heat pump efficiency (SEER2 ratings) and electrical panel capacity<span class="cite-num">[1]</span>. For dual-fuel systems in colder climates, expect installation bids averaging $9,200 to $16,500<span class="cite-num">[2]</span>.
+            </div>
+            <div class="aio-carousel">
+              <div class="aio-source-pill highlight">
+                <span>[1] CITED SOURCE</span>
+                <div>yourbrand.com</div>
+                <div style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">EAV Entity Grounded</div>
+              </div>
+              <div class="aio-source-pill">
+                <span>[2] CITED SOURCE</span>
+                <div>energy.gov</div>
+                <div style="font-size:0.7rem; color:var(--text-muted); font-weight:normal;">SEER2 Standard</div>
+              </div>
+              <div class="aio-source-pill" style="opacity:0.5;">
+                <span style="color:#ef4444;">DISCARDED</span>
+                <div>unstructured-blog.com</div>
+                <div style="font-size:0.7rem; color:#ef4444; font-weight:normal;">Fluff Pruned by RAG</div>
+              </div>
+            </div>
+          </div>
+          <div class="serp-snippet" style="opacity:0.5; padding-left: 1rem;">
+            <div class="serp-url">https://legacy-competitor.com › hvac-cost</div>
+            <div class="serp-title" style="font-size:0.95rem;">Traditional Organic Result #1</div>
+            <div class="serp-desc" style="font-size:0.82rem;">Pushed 850px down the page. Captures less than 4% of total query attention without AI citation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -58,10 +58,59 @@ def case_card(cs):
         headline = f'<strong>{cs["clicks_delta"]}</strong><span>clicks, year over year</span>'
     else:
         headline = f'<strong>{cs["clicks_d"]}</strong><span>clicks · {cs["window"]}</span>'
+    
+    sparkline = ""
+    if cs["n"] == "01":
+        sparkline = """<div class="cs-sparkline" aria-hidden="true">
+            <svg viewBox="0 0 200 44" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-cs-01" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0 34 C 40 42, 70 36, 100 24 C 130 14, 160 8, 200 4" fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 0 34 C 40 42, 70 36, 100 24 C 130 14, 160 8, 200 4 L 200 44 L 0 44 Z" fill="url(#grad-cs-01)"/>
+              <circle cx="200" cy="4" r="3.5" fill="#7c3aed"/>
+            </svg>
+            <span class="sparkline-label">16-Mo Trajectory · +1.47B Impressions</span>
+          </div>"""
+    elif cs["n"] == "02":
+        sparkline = """<div class="cs-sparkline" aria-hidden="true">
+            <svg viewBox="0 0 200 44" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-cs-02" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#0284c7" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#0284c7" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0 40 C 50 38, 90 26, 130 16 C 160 10, 180 6, 200 4" fill="none" stroke="#0284c7" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 0 40 C 50 38, 90 26, 130 16 C 160 10, 180 6, 200 4 L 200 44 L 0 44 Z" fill="url(#grad-cs-02)"/>
+              <circle cx="200" cy="4" r="3.5" fill="#0284c7"/>
+            </svg>
+            <span class="sparkline-label">Programmatic Scaling · 117M Impr / 1.12M Clicks</span>
+          </div>"""
+    elif cs["n"] == "03":
+        sparkline = """<div class="cs-sparkline" aria-hidden="true">
+            <svg viewBox="0 0 200 44" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="grad-cs-03" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#059669" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#059669" stop-opacity="0.0"/>
+                </linearGradient>
+              </defs>
+              <path d="M 0 38 C 50 40, 95 30, 135 18 C 165 12, 185 6, 200 4" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M 0 38 C 50 40, 95 30, 135 18 C 165 12, 185 6, 200 4 L 200 44 L 0 44 Z" fill="url(#grad-cs-03)"/>
+              <circle cx="200" cy="4" r="3.5" fill="#059669"/>
+            </svg>
+            <span class="sparkline-label">Post-SSR Surge · 449K Clicks / 40.8M Impr</span>
+          </div>"""
+
     return f"""<a class="cs-card" href="{{{{root}}}}case-studies/{cs['slug']}/" data-n="{cs['n']}">
           <span class="cs-card-top"><span class="case-id">Case {cs['n']}</span><span class="chipline">{escape(cs['chip'])}</span></span>
           <span class="cs-card-title">{escape(cs['card'])}</span>
           <span class="cs-card-metric">{headline}</span>
+          {sparkline}
           <span class="cs-card-meta"><span>{cs['impr_d']} impr.</span><span>{cs['ctr']}% CTR</span><span>Pos. {cs['pos']:g}</span></span>
           <span class="cs-card-go" aria-hidden="true">→</span>
         </a>"""
@@ -125,8 +174,13 @@ def build_home():
     meta = {"path": "", "slug": "home", "og_type": "profile", "graph": graph,
             "title": "Bibek Khatiwada | SEO Strategist, Automation & AI Search",
             "description": "Bibek Khatiwada is an SEO strategist specializing in technical SEO, content systems, automation, AI search visibility, and Search Console-led growth."}
-    body = fragment("home.html") + fragment("calculator.html") + fragment("leakage-funnel.html")
-    return write("", page(meta, body, "", ["calculator.js"]))
+    diff_viewer = fragment("diff-viewer.html")
+    calculator = fragment("calculator.html")
+    leakage_funnel = fragment("leakage-funnel.html")
+    peer_proof = fragment("peer-proof.html")
+    body = fragment("home.html", diff_viewer=diff_viewer, calculator=calculator,
+                    leakage_funnel=leakage_funnel, peer_proof=peer_proof)
+    return write("", page(meta, body, "", ["calculator.js", "llm-interactive.js", "entity-graph.js"]))
 
 
 def build_about():
@@ -455,7 +509,7 @@ def build_tools():
     meta = {"path": "tools/", "slug": "tools", "graph": graph,
             "title": "Open-Source & Custom SEO Tools | Bibek Khatiwada",
             "description": "Custom SEO automation tools built by Bibek Khatiwada: spaCy semantic flow checker, n8n GSC anomaly detector, and automated llms.txt generator."}
-    return write("tools/", page(meta, body, "tools"))
+    return write("tools/", page(meta, body, "tools", ["tools-sandbox.js"]))
 
 
 def build_audit():

@@ -121,9 +121,14 @@
             </div>
           </div>
 
-          <div class="form-actions">
+          <div class="form-actions" style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
             <button type="button" class="btn btn-secondary btn-prev" data-prev="2">← Back</button>
-            <button type="submit" class="btn btn-primary">Send Diagnostic Brief to Bibek →</button>
+            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+              <a id="audit-wa-btn" href="https://wa.me/9779860411440" target="_blank" rel="noreferrer" class="btn" style="background:#25D366;color:#fff;border-color:#25D366;text-decoration:none;">
+                <span>Chat Brief via WhatsApp</span>
+              </a>
+              <button type="submit" class="btn btn-primary">Send via Email →</button>
+            </div>
           </div>
         </div>
       </form>

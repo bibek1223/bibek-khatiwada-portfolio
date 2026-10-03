@@ -551,6 +551,16 @@ section.about-facts{padding:1.6rem 0;background:#fff}
 .tab-panel .svc-list{grid-template-columns:repeat(2,minmax(0,1fr));max-width:720px}
 @media (max-width:560px){.tab-panel .svc-list{grid-template-columns:1fr}}
 
+/* contrast table */
+.contrast-table-wrap{margin-top:1.5rem;overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+.contrast-table{width:100%;border-collapse:collapse;text-align:left;font-size:.92rem}
+.contrast-table th{background:rgba(124,58,237,.06);padding:1rem 1.2rem;font-family:var(--display);font-weight:800;color:var(--text);border-bottom:2px solid var(--line-strong)}
+.contrast-table th:last-child{color:var(--purple);background:rgba(124,58,237,.1)}
+.contrast-table td{padding:1rem 1.2rem;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6}
+.contrast-table td:last-child{background:rgba(124,58,237,.02);font-weight:600;color:var(--text)}
+.contrast-table tr:last-child td{border-bottom:0}
+@media (max-width:768px){.contrast-table{min-width:600px}}
+
 /* faq */
 .faq-layout{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(1.5rem,4vw,3rem);align-items:start}
 @media (max-width:900px){.faq-layout{grid-template-columns:1fr}}
@@ -598,6 +608,9 @@ section.cta-band{background:linear-gradient(135deg,rgba(255,138,101,.16),rgba(12
 .cs-card-meta span{font-size:.74rem;font-weight:700;padding:.3rem .55rem;border-radius:8px;background:rgba(20,184,166,.1);color:#0f766e}
 .cs-card-go{position:absolute;right:1.2rem;top:1.2rem;font-weight:900;color:var(--orange-2);transition:transform .25s}
 .cs-card:hover .cs-card-go{transform:translateX(4px)}
+.cs-sparkline{margin:0.2rem 0;padding:0.45rem 0.6rem;background:rgba(124,58,237,.03);border:1px solid rgba(124,58,237,.1);border-radius:12px;display:flex;flex-direction:column;gap:.25rem}
+.cs-sparkline svg{width:100%;height:38px;overflow:visible;display:block}
+.sparkline-label{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
 
 /* charts */
 .chart-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:clamp(1rem,2.5vw,1.6rem);box-shadow:var(--shadow)}
@@ -881,6 +894,33 @@ section.cta-band{background:linear-gradient(135deg,rgba(255,138,101,.16),rgba(12
 .copy-code-btn { position: absolute; top: 0.8rem; right: 0.8rem; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: #f8eede; font-size: 0.72rem; font-weight: 800; padding: 0.35rem 0.65rem; border-radius: 8px; cursor: pointer; transition: all 0.2s ease; z-index: 5; }
 .copy-code-btn:hover { background: rgba(255,255,255,0.22); color: #fff; }
 .copy-code-btn.copied { background: #10b981; border-color: #10b981; color: #fff; }
+
+/* ---- Peer Proof & Practitioner Recognition ---- */
+.peer-proof-section { margin-top: 3.5rem; margin-bottom: 2rem; }
+.peer-proof-card { background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%); border: 1px solid var(--line-strong); border-radius: 24px; padding: 2.5rem; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.peer-proof-card::before { content: ""; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: linear-gradient(180deg, var(--purple), #3b82f6); }
+.peer-proof-badge { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--purple); background: rgba(124, 58, 237, 0.08); padding: 0.35rem 0.85rem; border-radius: 999px; margin-bottom: 1.2rem; }
+.peer-proof-badge::before { content: "★"; color: var(--purple); font-size: 0.8rem; }
+.peer-proof-card blockquote { font-family: var(--display); font-size: clamp(1.15rem, 2.2vw, 1.45rem); font-weight: 600; line-height: 1.45; color: var(--text); margin: 0 0 1.5rem 0; }
+.peer-proof-meta { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--line); padding-top: 1.2rem; }
+.peer-author { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); }
+.peer-author strong { color: var(--text); }
+.peer-link { font-size: 0.86rem; font-weight: 800; color: var(--purple); text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem; transition: color 0.2s ease; }
+.peer-link:hover { color: #3b82f6; text-decoration: underline; }
+
+/* ---- Entity Knowledge Graph Canvas in Hero ---- */
+.dashboard-photo-card { position: relative; overflow: hidden; }
+.entity-graph-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; opacity: 0.45; mix-blend-mode: multiply; transition: opacity 0.3s ease; }
+.dashboard-photo-card:hover .entity-graph-canvas { opacity: 0.85; }
+
+/* ---- Case Study Filter Bar & Trajectory Sparklines ---- */
+.cs-filter-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; align-items: center; }
+.cs-filter-btn { padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--text); font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; }
+.cs-filter-btn.active, .cs-filter-btn:hover { background: var(--purple); color: #fff; border-color: var(--purple); }
+.cs-card.hidden { display: none !important; }
+.sparkline-svg { width: 100%; height: 38px; stroke: var(--purple); stroke-width: 2.5; fill: none; margin-top: 0.75rem; }
+.sparkline-fill { fill: rgba(124, 58, 237, 0.08); stroke: none; }
+
 
 
 

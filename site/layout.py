@@ -4,6 +4,7 @@ import json
 from html import escape
 from pathlib import Path
 
+from extra_content import CANONICAL_TO, SEO_META
 from data import (ARTICLES, CASE_STUDIES, FRAMEWORKS, INDUSTRIES_MATRIX, PERSON,
                   SERVICES, SITE_URL, TOOLS_SHOWCASE)
 
@@ -66,7 +67,9 @@ def breadcrumbs(trail):
 
 
 def head(meta, root):
-    url = f"{SITE_URL}/{meta['path']}"
+    title, desc = SEO_META.get(meta["path"], (None, None))
+    meta = {**meta, "title": title or meta["title"], "description": desc or meta["description"]}
+    url = f"{SITE_URL}/{CANONICAL_TO.get(meta['path'], meta['path'])}"
     title = escape(meta["title"])
     desc = escape(meta["description"])
     image = f"{SITE_URL}/assets/bibek-khatiwada-profile.webp"
@@ -132,9 +135,9 @@ def header(active, root):
       <nav class="nav" id="site-nav" aria-label="Primary">
         {nav}
         <button class="search-trigger" type="button" data-search-open aria-haspopup="dialog"><span aria-hidden="true">⌕</span> Search <kbd>⌘K</kbd></button>
-        <a class="nav-cta" href="{PERSON['whatsapp']}" target="_blank" rel="noreferrer">WhatsApp</a>
+        <a class="nav-cta" href="{root}audit/">Request an SEO audit</a>
       </nav>
-      <a class="cta" href="{PERSON['whatsapp']}" target="_blank" rel="noreferrer">WhatsApp</a>
+      <a class="cta" href="{root}audit/">Request an SEO audit</a>
       <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false">
         <span class="nav-toggle-bars" aria-hidden="true"></span><span class="sr-only">Menu</span>
       </button>

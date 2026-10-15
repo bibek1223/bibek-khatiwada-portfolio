@@ -12,7 +12,7 @@ from pathlib import Path
 from data import (ACHIEVEMENTS, ARTICLES, CASE_STUDIES, COUNTRIES, FILTERS, FRAMEWORKS,
                   GLOSSARY_TERMS, INDUSTRIES_MATRIX, PERSON, PLATFORMS, ROI_PRESETS,
                   SERVICES, SITE_URL, TIMELINE, TOOLS, TOOLS_SHOWCASE)
-from extra_content import (BLOG_INDEX, FRAMEWORK_EXTRA, FRAMEWORK_INDEX, INDUSTRY_EXTRA, INDUSTRY_INDEX,
+from extra_content import (BLOG_INDEX, CANONICAL_TO, CASE_CHARTS, RELATED_LINKS, FRAMEWORK_EXTRA, FRAMEWORK_INDEX, INDUSTRY_EXTRA, INDUSTRY_INDEX,
                            PROCESS_EXTRA, ROI_EXTRA)
 from layout import breadcrumbs, page, person_node, person_ref
 
@@ -154,6 +154,27 @@ def info_section(eyebrow, title, intro, cards=(), faq=(), section_id=None):
     </section>"""
 
 
+def evidence_html(cs):
+    """Search Console screenshot (where cleared for use) plus a source line for every case."""
+    chart = ""
+    if cs["n"] in CASE_CHARTS:
+        src, w, h, alt = CASE_CHARTS[cs["n"]]
+        chart = (f'<figure class="case-chart"><img src="{{{{root}}}}assets/{src}" width="{w}" height="{h}" '
+                 f'alt="{escape(alt)}" loading="lazy"><figcaption>Performance report exported from Google Search Console. '
+                 f'Domain and query data removed.</figcaption></figure>')
+    window = f", {escape(cs['window'][0].lower() + cs['window'][1:])}" if cs.get("window") else ""
+    return chart + (f'<p class="case-source"><b>Source:</b> Google Search Console, web search{window}. '
+                    f'Client name withheld.</p>')
+
+
+def related_links_html(slug, heading="Related reading"):
+    links = RELATED_LINKS.get(slug)
+    if not links:
+        return ""
+    items = "".join(f'<li><a href="{{{{root}}}}{path}">{escape(text)}</a></li>' for text, path in links)
+    return f'<h3 style="margin-top:2rem">{heading}</h3><ul class="svc-list related-links">{items}</ul>'
+
+
 def industry_extra_html(slug):
     x = INDUSTRY_EXTRA.get(slug)
     if not x:
@@ -169,7 +190,8 @@ def industry_extra_html(slug):
     <h3 style="margin-top:2rem">Mistakes I look for first</h3>
     <ul class="svc-list">{mistakes}</ul>
     <h3 style="margin-top:2rem">Common questions</h3>
-    <div class="faq">{faq_html(x["faq"])}</div>"""
+    <div class="faq">{faq_html(x["faq"])}</div>
+    {related_links_html(slug)}"""
 
 
 def framework_extra_html(slug):
@@ -184,10 +206,22 @@ def framework_extra_html(slug):
     <h2 id="pitfalls">Common mistakes</h2>
     <ul>{pitfalls}</ul>
     <h2 id="faq">Questions people ask</h2>
-    <div class="faq">{faq_html(x["faq"])}</div>"""
+    <div class="faq">{faq_html(x["faq"])}</div>
+    {related_links_html(slug).replace("<h3", '<h2 id="related"').replace("</h3>", "</h2>")}"""
 
 
-def cta_band(title, text, primary=("Write me a brief", "contact/"), secondary=None):
+PRIMARY_CTA = ("Request an SEO audit", "audit/")
+
+
+def cta_band(title, text, primary=None, secondary=None, is_audit_page=False):
+    """Every band leads with the one site-wide action; a page-specific action becomes the secondary."""
+    if not is_audit_page:
+        if secondary and secondary[1].endswith("audit/"):
+            secondary = None  # the primary already goes there
+        if primary and primary != PRIMARY_CTA and not secondary:
+            secondary = primary
+        primary = PRIMARY_CTA
+
     def href(path):
         return path if path.startswith("{{root}}") or re.match(r"^(?:https?:|mailto:|tel:)", path) else "{{root}}" + path
     sec = f'<a class="btn btn-secondary" href="{href(secondary[1])}">{secondary[0]}</a>' if secondary else ""
@@ -444,7 +478,7 @@ def build_case_index():
     graph[2]["@type"] = "CollectionPage"
     meta = {"path": "case-studies/", "slug": "cases", "graph": graph,
             "title": "SEO Case Studies with Search Console Data | Bibek Khatiwada",
-            "description": "Nine anonymized SEO case studies (YMYL recovery, programmatic scale, Shopify rendering, SaaS launches and more) with real Search Console clicks, impressions, CTR and position."}
+            "description": "Nine anonymized SEO case studies with real Search Console clicks, impressions, CTR and position: YMYL recovery, programmatic, Shopify and SaaS."}
     return write("case-studies/", page(meta, body, "work", ["tabs.js", "case-explorer.js"]))
 
 
@@ -504,6 +538,7 @@ def build_case_detail(i, cs):
         <article class="cs-main">
           <h2 id="results">Results</h2>
           {metric_block(cs)}
+          {evidence_html(cs)}
 
           <h2 id="situation">The situation</h2>
           {situation}
@@ -592,9 +627,9 @@ def build_case_detail(i, cs):
                 f"impressions {cs['impr_delta']}, average position {cs['pos']:g} from {cs['pos_prev']}.")
     else:
         desc = (f"{cs['short']}: {cs['clicks_d']} clicks and {cs['impr_d']} impressions in {cs['window']} "
-                f"({cs['ctr']}% CTR, average position {cs['pos']:g}). The situation, what I did, and the results.")
+                f"({cs['ctr']}% CTR, average position {cs['pos']:g}). Search Console data.")
     meta = {"path": path, "slug": "case", "graph": graph, "og_type": "article",
-            "title": f"Case {cs['n']}: {cs['short']} | Bibek Khatiwada", "description": desc}
+            "title": f"Case {cs['n']}: {cs['short']}", "description": desc}
     return write(path, page(meta, body, "work", ["case-detail.js", "case-stepper.js"]))
 
 
@@ -644,7 +679,7 @@ def build_audit():
         [("Home", ""), ("Audit", None)])
     body += fragment("audit-intake.html")
     body += cta_band("Prefer a direct conversation?", "Send an email or message on WhatsApp for immediate strategy discussion.",
-                     primary=("Chat on WhatsApp", PERSON["whatsapp"]))
+                     primary=("Chat on WhatsApp", PERSON["whatsapp"]), is_audit_page=True)
     graph = webpage("audit/", "Qualifying SEO Audit Diagnostic", [("Home", ""), ("Audit", "audit/")])
     meta = {"path": "audit/", "slug": "audit", "graph": graph,
             "title": "3-Step SEO Diagnostic Audit | Bibek Khatiwada",
@@ -738,6 +773,12 @@ that cite a brand or domain for a defined prompt set and time window.&lt;/p&gt;<
     <h2 id="takeaways">Protect the site while simplifying it</h2><p>Pruning is not a volume target. Each merge, redirect, removal, and template rule needs a reason, a destination where relevant, and a post-release check. In YMYL, editorial trust and medical accuracy remain separate workstreams from technical consolidation.</p>""",
     }
     body_prose = framework_bodies[f["slug"]]
+    if f["slug"] in [p.split("/")[1] for p in CANONICAL_TO if p.startswith("frameworks/")]:
+        full = CANONICAL_TO[f"frameworks/{f['slug']}/"]
+        body_prose = (f'<aside class="callout callout-quiet"><div class="mini-note">Short version</div>'
+                      f'<p>This page summarises the method. The <a href="{{{{root}}}}{full}">full guide</a> covers '
+                      f'prompt design, scoring and worked examples.</p></aside>') + body_prose
+
 
     # Inject interactive framework widget
     if f["slug"] == "llm-tracking":
@@ -1387,6 +1428,7 @@ def build_404():
 
 
 def build_sitemap(paths):
+    paths = [p for p in paths if p not in CANONICAL_TO]
     urls = "\n".join(f"  <url>\n    <loc>{SITE_URL}/{p}</loc>\n    <lastmod>{TODAY}</lastmod>\n  </url>"
                      for p in paths)
     (OUT / "sitemap.xml").write_text(

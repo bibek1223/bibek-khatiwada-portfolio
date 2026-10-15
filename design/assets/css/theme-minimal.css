@@ -227,3 +227,8 @@
 .theme-minimal :is(.ind-main,.cs-main,.fw-body-content,.prose) h3{font-size:1.1rem}
 .theme-minimal .ind-main>h2{font-size:clamp(1.4rem,2.2vw,1.9rem);letter-spacing:-.025em}
 .theme-minimal .fw-body-content h2{margin-top:2rem}
+.theme-minimal .case-chart{margin:1.4rem 0 .4rem;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:#fff}
+.theme-minimal .case-chart img{width:100%;height:auto;display:block}
+.theme-minimal .case-chart figcaption{padding:.6rem .9rem;font-size:.78rem;color:var(--muted);border-top:1px solid var(--line)}
+.theme-minimal .case-source{margin-top:.6rem;font-size:.82rem;color:var(--muted)}
+.theme-minimal .related-links a{color:var(--accent-ink);font-weight:600;text-decoration-thickness:1px;text-underline-offset:3px}

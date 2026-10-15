@@ -269,3 +269,107 @@ PROCESS_EXTRA = {
         ("Measure", "A report that compares results with the baseline, explains what changed and why, and names the next experiments."),
     ],
 }
+
+# ---------------------------------------------------------------- title / meta overrides
+# Applied in layout.head() by path. Titles <= 60 chars, descriptions 110-160 chars.
+SEO_META = {
+    "blog/llm-tracking/": ("LLM Tracking: Measure Brand Visibility in AI Search",
+                           "How to track brand mentions and citations in ChatGPT, Perplexity and Google AI Overviews with a stable prompt set, repeat runs and clear scoring."),
+    "frameworks/llm-tracking/": ("LLM Tracking Framework: The Evaluation Loop",
+                                 "The short version of the LLM tracking method: prompt matrix, repeat runs, citation extraction and how to read movement in AI answers."),
+    "frameworks/": ("SEO Frameworks & AI Search Playbooks | Bibek Khatiwada",
+                    "Technical essays by Bibek Khatiwada: Entity-Attribute-Value search modeling, AEO/GEO engineering, and 130k-page YMYL recovery mechanics."),
+    "frameworks/130k-page-ymyl-recovery-mechanics/": (
+        "Anatomy of a 130,000-Page YMYL Recovery | Bibek Khatiwada",
+        "How a 130,000-page health site was diagnosed and restructured: segmentation, pruning duplicate URLs, topic hubs and recovery across core updates."),
+    "frameworks/aeo-geo-playbook/": (
+        "AEO & GEO Playbook for AI Overviews | Bibek Khatiwada",
+        "Answer-first structure, explicit entities, schema grounding and llms.txt: how to make pages easier for AI Overviews, Perplexity and ChatGPT to cite."),
+    "frameworks/entity-attribute-value-search/": (
+        "EAV Model for Semantic SEO | Bibek Khatiwada",
+        "Use the Entity-Attribute-Value model to scope pages, find missing attributes and stop cannibalization, with a worked example and checklist."),
+    "industries/": ("Industry SEO Blueprints | Bibek Khatiwada",
+                    "SEO blueprints for home services, B2B SaaS, programmatic directories and healthcare: the page types, risks and order of work each sector needs."),
+    "industries/b2b-saas/": ("B2B SaaS SEO Blueprint | Bibek Khatiwada", None),
+    "industries/healthcare-ymyl/": ("Healthcare & YMYL SEO Blueprint | Bibek Khatiwada",
+                                    "SEO for medical, telehealth and health tech sites: E-E-A-T signals, topic hubs, content consolidation and resilience through Google core updates."),
+    "industries/home-services-hvac-plumbing/": ("Local SEO for Home Services & Trades | Bibek Khatiwada", None),
+    "industries/programmatic-directories/": ("Programmatic SEO for Large Sites | Bibek Khatiwada", None),
+    "process/": ("How I Work: SEO Process & Delivery | Bibek Khatiwada", None),
+    "services/": ("SEO Services by Bibek Khatiwada: Technical, Content, AI",
+                  "Technical SEO, content architecture, automation, AI search, local and e-commerce SEO: what each service includes and the case studies behind it."),
+}
+
+# Pages whose content is a subset of another page: canonical points at the fuller page,
+# and they are left out of the sitemap.
+CANONICAL_TO = {"frameworks/llm-tracking/": "blog/llm-tracking/"}
+
+# ---------------------------------------------------------------- contextual links
+# (anchor text, site-relative path). Rendered as a "Related reading" block in the article body.
+RELATED_LINKS = {
+    "home-services-hvac-plumbing": [
+        ("Algorithm recovery service", "services/#algorithm-recovery"),
+        ("Entity-based architecture for service hubs", "services/#entity-architecture"),
+        ("Case 05: broad core update recovery", "case-studies/broad-core-update-recovery/"),
+        ("What keyword cannibalization means", "glossary/#keyword-cannibalization"),
+        ("Model the value of a better click-through rate", "roi-calculator/"),
+    ],
+    "b2b-saas": [
+        ("Technical infrastructure and rendering", "services/#technical-infrastructure"),
+        ("JavaScript rendering and SSR, explained", "glossary/#javascript-rendering-ssr"),
+        ("Case 07: new SaaS platform ramp", "case-studies/saas-fast-ramp/"),
+        ("The EAV model for planning product pages", "frameworks/entity-attribute-value-search/"),
+        ("AEO and GEO for software comparisons", "frameworks/aeo-geo-playbook/"),
+    ],
+    "programmatic-directories": [
+        ("Case 02: programmatic pages at scale", "case-studies/programmatic-vehicle-scrapping/"),
+        ("Case 03: Shopify rendering and crawl budget", "case-studies/shopify-rendering-crawl-budget/"),
+        ("What crawl budget is", "glossary/#crawl-budget"),
+        ("Programmatic SEO, defined", "glossary/#programmatic-seo"),
+        ("Technical infrastructure service", "services/#technical-infrastructure"),
+    ],
+    "healthcare-ymyl": [
+        ("Anatomy of a 130,000-page YMYL recovery", "frameworks/130k-page-ymyl-recovery-mechanics/"),
+        ("Case 09: topical authority for medical research", "case-studies/medical-research-topical-authority/"),
+        ("What E-E-A-T covers", "glossary/#eeat"),
+        ("Directory consolidation, explained", "glossary/#directory-consolidation"),
+        ("Algorithm recovery service", "services/#algorithm-recovery"),
+    ],
+    "llm-tracking": [
+        ("Read the full LLM tracking guide", "blog/llm-tracking/"),
+        ("Citation share of voice, defined", "glossary/#citation-share-of-voice"),
+        ("AEO and GEO playbook", "frameworks/aeo-geo-playbook/"),
+        ("AEO, GEO and AI search service", "services/#aeo-geo-search"),
+    ],
+    "entity-attribute-value-search": [
+        ("Entity-based architecture service", "services/#entity-architecture"),
+        ("Topical authority, defined", "glossary/#topical-authority"),
+        ("Keyword cannibalization, defined", "glossary/#keyword-cannibalization"),
+        ("B2B SaaS blueprint", "industries/b2b-saas/"),
+        ("Case 08: SaaS organic growth from launch", "case-studies/saas-organic-from-launch/"),
+    ],
+    "aeo-geo-playbook": [
+        ("LLM tracking guide", "blog/llm-tracking/"),
+        ("The llms.txt standard", "glossary/#llms-txt-standard"),
+        ("Schema and JSON-LD", "glossary/#schema-json-ld"),
+        ("AEO, GEO and AI search service", "services/#aeo-geo-search"),
+        ("llms.txt generator on the tools page", "tools/"),
+    ],
+    "130k-page-ymyl-recovery-mechanics": [
+        ("Healthcare and YMYL blueprint", "industries/healthcare-ymyl/"),
+        ("Case 05: broad core update recovery", "case-studies/broad-core-update-recovery/"),
+        ("Crawl budget, defined", "glossary/#crawl-budget"),
+        ("Log file forensics, defined", "glossary/#log-file-forensics"),
+        ("Algorithm recovery service", "services/#algorithm-recovery"),
+    ],
+}
+
+# ---------------------------------------------------------------- case evidence
+# Search Console screenshots in design/assets/gsc/, keyed by case number. Totals in each image
+# were checked against CASE_STUDIES. Case 01 is held back until its attribution is settled.
+CASE_CHARTS = {
+    "02": ("gsc/programmatic-scale.jpg", 1100, 468,
+           "Google Search Console performance report, 16 months: 1.12M clicks, 117M impressions, 1% CTR, average position 14.8"),
+    "03": ("gsc/shopify-rendering.jpg", 1100, 475,
+           "Google Search Console performance report, 16 months: 449K clicks, 40.8M impressions, 1.1% CTR, average position 8.2"),
+}

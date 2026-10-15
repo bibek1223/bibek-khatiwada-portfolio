@@ -12,7 +12,7 @@ from pathlib import Path
 from data import (ACHIEVEMENTS, ARTICLES, CASE_STUDIES, COUNTRIES, FILTERS, FRAMEWORKS,
                   GLOSSARY_TERMS, INDUSTRIES_MATRIX, PERSON, PLATFORMS, ROI_PRESETS,
                   SERVICES, SITE_URL, TIMELINE, TOOLS, TOOLS_SHOWCASE)
-from extra_content import (BLOG_INDEX, CANONICAL_TO, CASE_CHARTS, RELATED_LINKS, FRAMEWORK_EXTRA, FRAMEWORK_INDEX, INDUSTRY_EXTRA, INDUSTRY_INDEX,
+from extra_content import (BLOG_INDEX, BLOG_POSTS, CANONICAL_TO, CASE_CHARTS, EXTRA_INDUSTRIES, EXTRA_INDUSTRY_CASES, PROOF_EXCLUDE, SERVICE_PAGES, RELATED_LINKS, FRAMEWORK_EXTRA, FRAMEWORK_INDEX, INDUSTRY_EXTRA, INDUSTRY_INDEX,
                            PROCESS_EXTRA, ROI_EXTRA)
 from layout import breadcrumbs, page, person_node, person_ref
 
@@ -332,7 +332,7 @@ def build_services():
           <div class="svc-head">
             <div class="icon">{i + 1:02d}</div>
             <div>
-              <h2>{escape(s['name'])}</h2>
+              <h2><a href="{{{{root}}}}services/{s['id']}/">{escape(s['name'])}</a></h2>
               <p>{escape(s['summary'])}</p>
             </div>
           </div>
@@ -341,6 +341,7 @@ def build_services():
             <ul class="svc-list">{items}</ul>
             {related}
           </details>
+          <a class="case-link" href="{{{{root}}}}services/{s['id']}/">Full service details <span aria-hidden="true">→</span></a>
         </article>""")
     body = page_hero(
         "Services",
@@ -361,7 +362,7 @@ def build_services():
                      countries=", ".join(COUNTRIES[:-1]) + ", and " + COUNTRIES[-1])
     body += cta_band("Not sure which service you need?",
                      "Describe the symptom—traffic drop, new launch, messy site, slow reporting—and I will tell you where I would start.")
-    services_ld = [{"@type": "Service", "@id": f"{SITE_URL}/services/#{s['id']}", "name": s["name"],
+    services_ld = [{"@type": "Service", "@id": f"{SITE_URL}/services/{s['id']}/#service", "name": s["name"],
                     "description": s["summary"], "provider": person_ref(), "areaServed": "Worldwide"}
                    for s in SERVICES]
     graph = webpage("services/", "SEO Services", [("Home", ""), ("Services", "services/")], services_ld)
@@ -369,6 +370,81 @@ def build_services():
             "title": "SEO Services: Technical, Content, Automation & AI Search | Bibek Khatiwada",
             "description": "Technical SEO, content architecture, automation, on-page, off-page, reporting, AI search and LLM tracking, local and e-commerce SEO: what each service includes and where it was used."}
     return write("services/", page(meta, body, "services", ["tabs.js", "services-scope.js"]))
+
+
+def build_service_detail(s):
+    x = SERVICE_PAGES[s["id"]]
+    by_id = {svc["id"]: svc for svc in SERVICES}
+    path = f"services/{s['id']}/"
+    signs = "".join(f'<article class="service compact"><h3>{escape(t)}</h3><p>{escape(d)}</p></article>'
+                    for t, d in x["signs"])
+    covered = "".join(f"<li>{escape(i)}</li>" for i in s["includes"])
+    method_name, steps = x["method"]
+    steps_html = "".join(f'<article class="step"><div class="num">{i}</div><p>{escape(st)}</p></article>'
+                         for i, st in enumerate(steps, 1))
+    deliverables = "".join(f"<li>{escape(d)}</li>" for d in x["deliverables"])
+    proof_cases = [n for n in s["cases"] if n not in PROOF_EXCLUDE]
+    if proof_cases:
+        proof = '<div class="cs-grid">' + "".join(case_card(BY_N[n]) for n in proof_cases) + "</div>"
+    elif s["id"] == "automation-tools":
+        proof = ('<aside class="callout callout-quiet"><div class="mini-note">Where to see it</div>'
+                 '<p>There is no client case study for this service yet. The <a href="{{root}}tools/">tools page</a> '
+                 'shows the automations and NLP pipelines I have built, with live demos.</p></aside>')
+    else:
+        proof = ('<aside class="callout callout-quiet"><div class="mini-note">No standalone case yet</div>'
+                 '<p>I do not publish a case study for this service on its own yet, and I will not show results '
+                 'I cannot back with Search Console data. Ask for a walkthrough of the method instead.</p></aside>')
+    related = "".join(
+        f'<a class="mini-case" href="{{{{root}}}}services/{rid}/"><b>Related service</b>{escape(by_id[rid]["name"])}</a>'
+        for rid in x["related"])
+    body = page_hero("Service", escape(s["name"]), escape(s["summary"]),
+                     [("Home", ""), ("Services", "services/"), (s["name"], None)])
+    body += f"""
+    <section>
+      <div class="wrap">
+        <div class="section-head"><div class="copy"><span class="eyebrow">Signs</span>
+          <h2>Signs this is what is holding you back</h2></div></div>
+        <div class="card-grid two-up">{signs}</div>
+      </div>
+    </section>
+    <section>
+      <div class="wrap about-grid">
+        <article class="panel"><h3>What this service covers</h3><ul class="svc-list">{covered}</ul></article>
+        <article class="panel"><h3>What lands on your desk</h3><ul class="svc-list">{deliverables}</ul></article>
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
+        <div class="section-head"><div class="copy"><span class="eyebrow">Method</span>
+          <h2>{escape(method_name)}</h2><p>The same sequence every time, so each step can be checked.</p></div></div>
+        <div class="process steps-{len(steps)}">{steps_html}</div>
+      </div>
+    </section>
+    <section>
+      <div class="wrap">
+        <div class="section-head"><div class="copy"><span class="eyebrow">Proof</span>
+          <h2>Where this has been applied</h2><p>Search Console data. Client names withheld.</p></div>
+          <a class="btn btn-secondary" href="{{{{root}}}}case-studies/">All case studies <span aria-hidden="true">→</span></a></div>
+        {proof}
+      </div>
+    </section>
+    <section>
+      <div class="wrap faq-layout">
+        <div class="section-head" style="display:block"><div class="copy"><span class="eyebrow">Questions</span>
+          <h2>Common questions</h2></div>
+          <div class="svc-related" style="margin-top:1.5rem">{related}</div></div>
+        <div class="faq">{faq_html(x["faq"])}</div>
+      </div>
+    </section>"""
+    body += cta_band("Want this scoped for your site?",
+                     "Start with the 3-step diagnostic. I reply with where I would begin and why.",
+                     primary=("Write me a brief", f"contact/?topic={s['id']}"))
+    service_ld = {"@type": "Service", "@id": f"{SITE_URL}/{path}#service", "name": s["name"],
+                  "description": s["summary"], "provider": person_ref(), "areaServed": "Worldwide",
+                  "serviceType": s["name"], "url": f"{SITE_URL}/{path}"}
+    graph = webpage(path, s["name"], [("Home", ""), ("Services", "services/"), (s["name"], path)], [service_ld])
+    meta = {"path": path, "slug": "service", "graph": graph, "title": x["seo_title"], "description": x["desc"]}
+    return write(path, page(meta, body, "services"))
 
 
 def build_process():
@@ -945,7 +1021,7 @@ that cite a brand or domain for a defined prompt set and time window.&lt;/p&gt;<
 
 def build_industries():
     cards = []
-    for ind in INDUSTRIES_MATRIX:
+    for ind in INDUSTRIES_MATRIX + EXTRA_INDUSTRIES:
         niches = "".join(f'<span class="skill">{escape(n)}</span>' for n in ind["niches"])
         pains = "".join(f'<li>{escape(p)}</li>' for p in ind["pain_points"])
         cards.append(f"""
@@ -1139,6 +1215,7 @@ def build_industry_detail(ind):
         "programmatic-directories": ["02", "03", "01"],
         "healthcare-ymyl": ["01", "09", "05"],
     }
+    industry_cases.update(EXTRA_INDUSTRY_CASES)
     rel_cases = "\n".join(case_card(BY_N[n]) for n in industry_cases[ind["slug"]])
 
     body = page_hero(
@@ -1241,7 +1318,7 @@ def build_glossary():
 
 
 def build_blog():
-    published = [art for art in ARTICLES if (SRC / "content" / f"{art['slug']}.html").exists()]
+    published = [art for art in BLOG_POSTS + ARTICLES if (SRC / "content" / f"{art['slug']}.html").exists()]
     cards = "\n        ".join(article_card(art) for art in published)
     body = page_hero(
         "Blog & Frameworks",
@@ -1287,7 +1364,7 @@ def build_blog():
 
 
 def build_article_detail(i, art):
-    published = [item for item in ARTICLES if (SRC / "content" / f"{item['slug']}.html").exists()]
+    published = [item for item in BLOG_POSTS + ARTICLES if (SRC / "content" / f"{item['slug']}.html").exists()]
     prev_art = published[i - 1] if i > 0 else None
     next_art = published[i + 1] if i + 1 < len(published) else None
     disciplines = "".join(f'<span class="skill">{escape(d)}</span>' for d in art["disciplines"])
@@ -1302,6 +1379,26 @@ def build_article_detail(i, art):
     glance_html = "".join(f"<div><dt>{k}</dt><dd>{escape(v)}</dd></div>" for k, v in glance)
 
     article_content = fragment(f"{art['slug']}.html")
+    if art["slug"] == "llm-tracking":
+        toc_html = """          <nav class="toc" aria-label="On this page">
+            <div class="mini-note">Contents</div>
+            <a href="#paradigm-shift">The Paradigm Shift</a>
+            <a href="#what-is-llm-tracking">What is LLM Tracking?</a>
+            <a href="#tracking-metrics">Core Tracking Metrics</a>
+            <a href="#interactive-simulator">Citation Calculator</a>
+            <a href="#proof-benchmarks">Empirical Proof & GSC Data</a>
+            <a href="#diff-visualizer">SERP vs. AIO vs. LLM</a>
+            <a href="#prompt-matrix">Interactive Prompt Matrix</a>
+            <a href="#pipeline-architecture">Pipeline Architecture</a>
+            <a href="#failure-modes">Why Sites Get Dropped</a>
+            <a href="#optimization-blueprint">Optimization Blueprint</a>
+            <a href="#reconciling-gsc">Search Console & RAG</a>
+          </nav>"""
+    else:
+        heads = re.findall(r'<h2 id="([^"]+)">(.*?)</h2>', article_content)
+        toc_html = ('<nav class="toc" aria-label="On this page"><div class="mini-note">Contents</div>'
+                    + "".join(f'<a href="#{hid}">{text}</a>' for hid, text in heads) + "</nav>")
+
 
     body = '    <div class="progress" aria-hidden="true"><i></i></div>\n'
     body += page_hero(f"{escape(art['chip'])} · {escape(art['date'])}", escape(art["title"]), escape(art["summary"]),
@@ -1322,21 +1419,8 @@ def build_article_detail(i, art):
           </aside>
         </article>
         <aside class="cs-side">
-          <nav class="toc" aria-label="On this page">
-            <div class="mini-note">Contents</div>
-            <a href="#paradigm-shift">The Paradigm Shift</a>
-            <a href="#what-is-llm-tracking">What is LLM Tracking?</a>
-            <a href="#tracking-metrics">Core Tracking Metrics</a>
-            <a href="#interactive-simulator">Citation Calculator</a>
-            <a href="#proof-benchmarks">Empirical Proof & GSC Data</a>
-            <a href="#diff-visualizer">SERP vs. AIO vs. LLM</a>
-            <a href="#prompt-matrix">Interactive Prompt Matrix</a>
-            <a href="#pipeline-architecture">Pipeline Architecture</a>
-            <a href="#failure-modes">Why Sites Get Dropped</a>
-            <a href="#optimization-blueprint">Optimization Blueprint</a>
-            <a href="#reconciling-gsc">Search Console & RAG</a>
-          </nav>
-          <a class="btn btn-primary side-cta" href="{{{{root}}}}contact/?topic=llm-tracking">Consult on AI Search</a>
+{toc_html}
+          <a class="btn btn-primary side-cta" href="{{{{root}}}}audit/">Request an SEO audit</a>
         </aside>
       </div>
     </section>
@@ -1346,9 +1430,14 @@ def build_article_detail(i, art):
         <nav class="pager" aria-label="Article navigation">{pager}</nav>
       </div>
     </section>"""
-    body += cta_band("Want to build LLM tracking into your search stack?",
-                     "Let's evaluate how your brand currently appears in Google AI Overviews and ChatGPT Search.",
-                     primary=("Get in touch", "contact/?topic=ai-search"))
+    if art["slug"] == "llm-tracking":
+        body += cta_band("Want to build LLM tracking into your search stack?",
+                         "Let's evaluate how your brand currently appears in Google AI Overviews and ChatGPT Search.",
+                         primary=("Get in touch", "contact/?topic=ai-search"))
+    else:
+        body += cta_band("Want a second pair of eyes on your site?",
+                         "Start with the 3-step diagnostic. I reply with where I would begin and why.")
+
     path = f"blog/{art['slug']}/"
     article_schema = {
         "@type": "BlogPosting",
@@ -1368,7 +1457,7 @@ def build_article_detail(i, art):
     graph = webpage(path, art["title"], [("Home", ""), ("Blog", "blog/"), (art["short"], path)],
                     [article_schema])
     meta = {"path": path, "slug": "article", "graph": graph, "og_type": "article",
-            "title": f"{art['title']} | Bibek Khatiwada", "description": art["summary"]}
+            "title": art.get("seo_title") or f"{art['title']} | Bibek Khatiwada", "description": art["summary"]}
     return write(path, page(meta, body, "blog", ["case-detail.js", "tabs.js", "llm-interactive.js"]))
 
 
@@ -1441,7 +1530,7 @@ def build_llms_txt():
         + (f"clicks {cs['clicks_delta']} year over year ({cs['clicks_d']} vs {cs['clicks_prev_d']})" if cs.get("yoy")
            else f"{cs['clicks_d']} clicks, {cs['impr_d']} impressions, {cs['ctr']}% CTR, average position {cs['pos']:g} over {cs['window']}")
         for cs in CASE_STUDIES)
-    services = "\n".join(f"- [{s['name']}]({SITE_URL}/services/#{s['id']}): {s['summary']}" for s in SERVICES)
+    services = "\n".join(f"- [{s['name']}]({SITE_URL}/services/{s['id']}/): {s['summary']}" for s in SERVICES)
     frameworks = "\n".join(
         f"- [{fw['title']}]({SITE_URL}/frameworks/{fw['slug']}/): {fw['summary']}"
         for fw in FRAMEWORKS)
@@ -1450,7 +1539,7 @@ def build_llms_txt():
         for t in TOOLS_SHOWCASE)
     industries = "\n".join(
         f"- [{ind['title']}]({SITE_URL}/industries/{ind['slug']}/): {ind['summary']}"
-        for ind in INDUSTRIES_MATRIX)
+        for ind in INDUSTRIES_MATRIX + EXTRA_INDUSTRIES)
 
     (OUT / "llms.txt").write_text(f"""# Bibek Khatiwada, SEO Strategist
 
@@ -1491,14 +1580,15 @@ Case-study figures are Google Search Console data. Client names are confidential
 
 
 def main():
-    published_articles = [art for art in ARTICLES if (SRC / "content" / f"{art['slug']}.html").exists()]
+    published_articles = [art for art in BLOG_POSTS + ARTICLES if (SRC / "content" / f"{art['slug']}.html").exists()]
     paths = [build_home(), build_about(), build_services(), build_process(), build_case_index(), build_blog()]
     paths += [build_case_detail(i, cs) for i, cs in enumerate(CASE_STUDIES)]
     paths += [build_article_detail(i, art) for i, art in enumerate(published_articles)]
+    paths += [build_service_detail(s) for s in SERVICES if s["id"] in SERVICE_PAGES]
     paths += [build_tools(), build_audit(), build_frameworks()]
     paths += [build_framework_detail(f) for f in FRAMEWORKS]
     paths += [build_industries()]
-    paths += [build_industry_detail(ind) for ind in INDUSTRIES_MATRIX]
+    paths += [build_industry_detail(ind) for ind in INDUSTRIES_MATRIX + EXTRA_INDUSTRIES]
     paths += [build_roi_calculator(), build_glossary()]
     paths += [build_contact(), build_privacy()]
     build_404()

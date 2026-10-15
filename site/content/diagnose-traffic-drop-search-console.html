@@ -1,0 +1,89 @@
+<p class="lede">To diagnose a sudden organic traffic drop in Google Search Console, first confirm the drop is real, then split the loss by page, query, country, device, and search appearance to find where it is concentrated. Line the timing up with Google's announced updates and your own releases, check the indexing reports, and work out whether you lost rankings, click-through rate, or demand. The cause usually becomes clear once you know which pages lost what.</p>
+<aside class="callout callout-quiet"><div class="mini-note">Key takeaways</div><ul>
+<li>Rule out tracking errors, seasonality, and unfair date comparisons before you look for a cause.</li>
+<li>A drop is rarely spread evenly. Filtering by page, query, country, device, and search appearance shows where it is concentrated.</li>
+<li>Compare the first day of the decline with Google's update history and your own release log.</li>
+<li>Position, CTR, and impressions read together tell you whether you lost rankings, clicks, or demand, and each needs a different fix.</li>
+<li>Fix the confirmed cause behind the most lost clicks on valuable pages first, then track those same pages to confirm recovery.</li>
+</ul></aside>
+<h2 id="confirm-the-drop">Step 1: Confirm the drop is real</h2>
+<p>Before diagnosing anything, check that the decline is a real loss of search traffic and not a measurement problem, a seasonal pattern, or an unfair date comparison. A surprising number of "drops" end at this step.</p>
+<ul class="svc-list">
+<li><strong>Compare Search Console with analytics.</strong> If analytics shows organic sessions falling but Search Console clicks are steady, suspect tracking: a removed tag, a consent banner change, or a redirect that strips referrer data.</li>
+<li><strong>Check data freshness.</strong> Search Console data lags by a couple of days, and the most recent days can look low until they fill in.</li>
+<li><strong>Use the compare feature properly.</strong> In the Performance report, compare equal-length periods. Compare against the same period last year as well as the previous period, so seasonality shows up.</li>
+<li><strong>Match weekdays.</strong> Many sites have weekly cycles. Comparing a period with two weekends to one with a single weekend creates changes that are not real.</li>
+<li><strong>Check the property.</strong> Make sure you are looking at the right property (domain versus URL-prefix, www versus non-www, http versus https) and that a migration has not moved traffic somewhere you are not looking.</li>
+</ul>
+<h2 id="segment-the-loss">Step 2: Find where the loss is concentrated</h2>
+<p>Split the drop by dimension until you find where most of the lost clicks sit. Sitewide drops and narrow drops have very different causes.</p>
+<p>In the Performance report, compare the two periods and sort each tab by the difference in clicks.</p>
+<ul class="svc-list">
+<li><strong>Pages:</strong> is the loss spread across the site, or concentrated in one directory, one template, or a handful of URLs?</li>
+<li><strong>Queries:</strong> did you lose branded queries, non-branded queries, or one topic cluster? Branded losses often point to demand or reputation; non-branded losses more often point to rankings.</li>
+<li><strong>Countries:</strong> a drop in one country can mean a hreflang or localization problem, or a market-specific change.</li>
+<li><strong>Devices:</strong> a mobile-only drop suggests a mobile rendering, layout, or speed issue.</li>
+<li><strong>Search appearance:</strong> losing rich results or other features can cut clicks while rankings hold.</li>
+<li><strong>Search type:</strong> check Web, Image, Video, and News separately if the site gets traffic from more than one.</li>
+</ul>
+<p>Write what you find as one plain sentence, for example: "Most lost clicks are non-branded queries to the product template, on all devices, in all countries." That sentence narrows the list of possible causes more than any chart.</p>
+<h2 id="line-up-dates">Step 3: Line the drop up with updates and releases</h2>
+<p>Find the first day of the decline and check what happened then, both at Google and on your own site. Timing does not prove a cause, but it narrows the options quickly.</p>
+<ul class="svc-list">
+<li><strong>Google updates:</strong> check the Google Search Status Dashboard for ranking updates rolling out at the time. Core updates roll out over days or weeks, so a gradual decline across that window fits better than a single-day cliff.</li>
+<li><strong>Site releases:</strong> check deploy logs, CMS change history, and anyone who touched the site. Template changes, plugin updates, migrations, robots.txt edits, and new consent or script setups are frequent culprits.</li>
+<li><strong>Infrastructure:</strong> outages, CDN or firewall rules blocking crawlers, and spikes in server errors.</li>
+</ul>
+<p>A single-day cliff concentrated on one template usually points to something on your side. A gradual decline across many pages during an announced update points toward Google reassessing the site, which is a different kind of problem and the focus of <a href="{{root}}services/algorithm-recovery/">algorithm recovery</a> work.</p>
+<h2 id="indexing-and-experience">Step 4: Check indexing and page experience reports</h2>
+<p>Next, rule out pages that dropped out of the index or became unreachable. These are usually the most fixable causes, so check them before assuming a ranking problem.</p>
+<ul class="svc-list">
+<li><strong>Page indexing:</strong> did the count of indexed pages fall, or did a "not indexed" reason spike (noindex, redirect, not found, server error, crawled but not indexed, duplicate with a different canonical)?</li>
+<li><strong>URL Inspection:</strong> inspect a few of the URLs that lost the most clicks. Check that they are indexed, that the Google-selected canonical matches yours, and that the rendered HTML contains the main content. Mismatched canonicals are a common <a href="{{root}}glossary/#canonicalization">canonicalization failure</a> after template changes.</li>
+<li><strong>Crawl stats:</strong> look for a rise in server errors, slower response times, or a sudden change in crawl requests.</li>
+<li><strong>Manual actions and security issues:</strong> rare, but quick to check and serious if present.</li>
+<li><strong>Core Web Vitals:</strong> check whether a template moved into a poor status around the same time. Page experience is rarely the sole cause of a large drop, but a regression that coincides with a release is worth noting.</li>
+</ul>
+<h2 id="ranking-ctr-demand">Step 5: Separate ranking loss, CTR loss, and demand loss</h2>
+<p>Read position, click-through rate, and impressions together for the affected pages and queries. The pattern tells you whether you lost rankings, lost clicks at the same rankings, or lost searchers.</p>
+<table>
+<thead><tr><th>Pattern</th><th>Likely meaning</th><th>Where to look next</th></tr></thead>
+<tbody>
+<tr><td>Position worse, impressions down, CTR down</td><td>Ranking loss</td><td>Content quality, competitors, update timing, indexing and canonical issues</td></tr>
+<tr><td>Position steady, impressions steady, CTR down</td><td>CTR loss</td><td>Changed titles or snippets, lost rich results, new search features above your listing</td></tr>
+<tr><td>Position steady, CTR steady, impressions down</td><td>Demand loss</td><td>Seasonality, market changes, fewer searches for the topic or brand</td></tr>
+<tr><td>Search Console steady, analytics down</td><td>Measurement problem</td><td>Tracking tags, consent setup, referrer handling</td></tr>
+</tbody>
+</table>
+<p>Keep in mind that average position is averaged across all impressions. A page that starts appearing for many new, low-ranking queries can show a worse average position without losing anything. Check position at the query level for the queries that actually lost clicks.</p>
+<h2 id="fix-and-confirm">Step 6: Decide what to fix first and confirm recovery</h2>
+<p>Fix the cause that explains the largest share of lost clicks on your most valuable pages, starting with anything that is confirmed and reversible. Then measure recovery on those same pages and queries, not on sitewide totals.</p>
+<p>A practical order:</p>
+<ol>
+<li>Reverse confirmed technical regressions: wrong noindex, broken redirects, bad canonicals, blocked rendering resources.</li>
+<li>Restore lost rich results if markup broke.</li>
+<li>Address CTR losses on high-impression pages with clearer titles and descriptions.</li>
+<li>For ranking losses tied to an update, compare the affected content with what now ranks and improve it properly rather than making surface edits.</li>
+</ol>
+<p>To confirm recovery, save the filtered comparison you used in the diagnosis (the same pages, queries, and dimensions) and recheck it once the fixed pages have been recrawled. Use URL Inspection to confirm Google has seen the changes. For technical fixes, recovery often follows recrawling. For update-related losses, it may not show until Google reassesses the site. If you want a second pair of eyes on the data, my <a href="{{root}}audit/">three-step SEO diagnostic</a> starts from this kind of breakdown.</p>
+<h2 id="diagnosis-checklist">Traffic drop diagnosis checklist</h2>
+<p>Work through these in order; most drops are explained before you reach the end.</p>
+<ol>
+<li>Confirm the drop appears in Search Console, not only in analytics.</li>
+<li>Compare equal periods, matched by weekday, and the same period last year.</li>
+<li>Check that you are looking at the correct property.</li>
+<li>Sort pages, queries, countries, devices, and search appearance by lost clicks.</li>
+<li>Write a one-sentence summary of where the loss is concentrated.</li>
+<li>Note the first day of the decline and compare it with Google updates and your release log.</li>
+<li>Review Page indexing, URL Inspection, Crawl stats, Manual actions, and Security issues.</li>
+<li>Classify the loss as ranking, CTR, demand, or measurement.</li>
+<li>Fix the confirmed cause with the most lost clicks on valuable pages first.</li>
+<li>Recheck the same filtered view after recrawling to confirm recovery.</li>
+</ol>
+<h2 id="faq">Common questions</h2>
+<div class="faq">
+<details><summary>How long after a fix should traffic come back?</summary><p>It depends on the cause. Technical fixes usually show up after the affected pages are recrawled, which depends on site size and how often Google visits those URLs. Losses tied to a core update may not reverse until Google reassesses the site, which can mean waiting for a later update.</p></details>
+<details><summary>If the drop started during a core update, is the update the cause?</summary><p>Not necessarily. Updates roll out over days or weeks, so plenty of unrelated changes overlap with them. Check your release log and the indexing reports first, because a technical regression during an update window is easy to misread as an algorithm problem.</p></details>
+<details><summary>Should I request indexing for every affected page?</summary><p>Requesting indexing is useful for a handful of important URLs after a fix. For template-wide changes, rely on normal crawling and an accurate XML sitemap; requests are limited and do not speed up a whole site.</p></details>
+<details><summary>What if the drop only shows in analytics?</summary><p>If Search Console clicks and impressions are steady, search performance probably did not change. Look at tracking instead: tag removal, consent settings, cross-domain setup, or redirects that drop referrer information.</p></details>
+</div>

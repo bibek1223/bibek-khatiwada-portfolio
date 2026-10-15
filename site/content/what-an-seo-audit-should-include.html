@@ -1,0 +1,91 @@
+<p class="lede">A useful SEO audit finds the specific things stopping search engines from crawling, understanding, and ranking your important pages, proves each one with evidence, and tells you what to fix first. It covers crawling and indexation, rendering, site structure, content, on-page signals, structured data, and your own Search Console data. If a finding cannot be tied to a page, a cause, and a fix, it does not belong in the report.</p>
+<aside class="callout callout-quiet"><div class="mini-note">Key takeaways</div><ul>
+<li>An audit should answer one question: what is holding back the pages that matter to the business, and what should change first.</li>
+<li>Crawling, indexation, and rendering come first, because nothing else matters if Google cannot see the page.</li>
+<li>Tool health scores and issue counts are not findings. Evidence from Search Console, server logs, and the live page is.</li>
+<li>Every finding should be labeled confirmed or hypothesis, with its evidence, a priority, an owner, and a way to verify the fix.</li>
+<li>Judge an audit you are sold by how many of its findings you could act on next week, not by its page count.</li>
+</ul></aside>
+<h2 id="what-an-audit-is-for">What is an SEO audit actually for?</h2>
+<p>An SEO audit exists to explain the gap between how your site performs in search and how it could perform, and to turn that gap into a ranked list of work. It is a diagnosis, not an inventory.</p>
+<p>That distinction matters because most sites have hundreds of small imperfections. A missing alt attribute on a decorative image and a template that blocks every product page from indexing are both "issues," but only one of them changes anything. A good audit spends its time on the second kind.</p>
+<p>Before any crawling starts, I want to know three things: which pages earn money or leads, which searches the business needs to appear for, and what has changed recently (a migration, a redesign, a traffic drop). Those answers decide where the audit looks hardest.</p>
+<h2 id="crawl-indexation-rendering">Crawling, indexation, and rendering</h2>
+<p>The first job is to confirm that search engines can reach your important pages, render them as users see them, and choose to index them. If that chain breaks, nothing else on the page can help.</p>
+<h3>Crawl and indexation</h3>
+<ul class="svc-list">
+<li><strong>Robots.txt and meta robots:</strong> are any important sections blocked or set to noindex by mistake, often left over from a staging site?</li>
+<li><strong>Status codes:</strong> do important URLs return 200, and are redirects single hops to the final URL rather than chains?</li>
+<li><strong>Canonical tags:</strong> do they point where you intend, or are pages canonicalized to the wrong version? This is where <a href="{{root}}glossary/#canonicalization">canonicalization problems</a> usually surface.</li>
+<li><strong>XML sitemaps:</strong> do they list only indexable, canonical URLs, and do they match what the site actually links to?</li>
+<li><strong>Crawl waste:</strong> on large sites, are faceted filters, parameters, or internal search pages consuming crawling that should go to real content? Crawl budget is rarely a concern for small sites, but it is for large catalogs.</li>
+</ul>
+<h3>Rendering</h3>
+<p>Google can render JavaScript, but the audit should still check that the rendered page contains the main content, the internal links, and the metadata. Compare the raw HTML with the rendered HTML from the URL Inspection tool. If product descriptions, navigation links, or canonical tags only appear after scripts run, or not at all, that is a finding worth confirming page by page.</p>
+<h2 id="structure-and-content">Site structure, content, and on-page signals</h2>
+<p>Once pages can be seen, the audit checks whether they are organized and written so a search engine can tell what each page is about and which page should rank for which query.</p>
+<h3>Information architecture and internal links</h3>
+<p>Look at how many clicks it takes to reach important pages from the homepage, which pages receive the most internal links, and whether that matches business priority. Orphan pages (indexable pages with no internal links pointing to them) and important pages buried deep in pagination are common. Anchor text matters too: links labeled "learn more" tell a search engine very little.</p>
+<h3>Content quality and cannibalization</h3>
+<p>Check whether key pages answer the query better than what currently ranks, whether thin or near-duplicate pages are diluting the site, and whether several pages compete for the same query. <a href="{{root}}glossary/#keyword-cannibalization">Keyword cannibalization</a> shows up in Search Console as multiple URLs trading impressions for one query over time. It is not always a problem, so the audit should show the data before recommending a merge.</p>
+<h3>On-page elements</h3>
+<p>Titles, headings, and meta descriptions should describe the page in the words searchers use. The audit should flag templates that produce duplicate titles at scale, not list every title a few characters over a length limit.</p>
+<h3>Structured data</h3>
+<p>Check that markup is valid, matches the visible content, and uses types that fit the page. Structured data helps search engines interpret entities and can make pages eligible for rich results, but eligibility is not a guarantee. If the relationships between your brand, people, services, and locations are unclear across the site, that is a larger <a href="{{root}}services/entity-architecture/">entity architecture</a> question than a markup fix.</p>
+<h2 id="search-console-evidence">Using Search Console and analytics as evidence</h2>
+<p>Search Console and analytics data turn suspicions into findings. A crawler tells you what the site looks like; performance data tells you whether it matters.</p>
+<ul class="svc-list">
+<li><strong>Performance report:</strong> which pages and queries carry the site, which lost clicks, and whether the losses come from position, click-through rate, or impressions.</li>
+<li><strong>Page indexing:</strong> trends in indexed versus not indexed pages, whether important templates are affected, and whether the exclusion reasons match what the crawl shows.</li>
+<li><strong>Crawl stats:</strong> response times, error spikes, and how crawling is split between page types.</li>
+<li><strong>Analytics:</strong> whether organic landing pages convert, so the audit prioritizes pages that produce value, not just traffic.</li>
+<li><strong>Server logs (where available):</strong> what Googlebot actually requests, which is the most direct evidence of crawl behavior.</li>
+</ul>
+<p>An audit that never opens Search Console is guessing. Third-party tools estimate; your own property data measures.</p>
+<h2 id="what-to-ignore">What an audit should ignore</h2>
+<p>Ignore vanity scores and raw issue counts. They measure how many rules a tool checked, not how much a problem costs you.</p>
+<p>Site health percentages, "SEO scores," and headlines like "1,248 issues found" come from tools applying generic rules to every URL. The tool does not know which pages matter, which warnings are intentional, or which issues have no practical effect on your site. A site can score well and still have its main category pages canonicalized to the wrong URL.</p>
+<p>Other common padding:</p>
+<ul class="svc-list">
+<li>Meta description and title length warnings presented as ranking problems.</li>
+<li>Generic page speed scores with no link to real user data or a specific template.</li>
+<li>Keyword density targets.</li>
+<li>Recommendations to "add more content" without saying which page, which query, and what is missing.</li>
+</ul>
+<h2 id="the-deliverable">What the deliverable should look like</h2>
+<p>The deliverable should be a short, ranked list of findings, each with the evidence behind it, how sure you are, who owns the fix, and how you will know it worked. Length is not a measure of quality.</p>
+<p>The most useful habit is separating what is confirmed from what is suspected. A confirmed finding has direct evidence: the noindex tag is in the source, the redirect chain is visible, Search Console shows the pages excluded. A hypothesis is a reasonable explanation that still needs testing, such as "these pages may be losing to competitors because their content is thinner." Mixing the two leads teams to spend weeks on guesses presented as facts.</p>
+<table>
+<thead><tr><th>Field</th><th>What it contains</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>Finding</td><td>One specific problem on named URLs or templates</td><td>Product template canonicalizes to the category page</td></tr>
+<tr><td>Status</td><td>Confirmed or hypothesis</td><td>Confirmed</td></tr>
+<tr><td>Evidence</td><td>Source code, Search Console reports, log lines, screenshots</td><td>URL Inspection shows the Google-selected canonical differs from the declared one</td></tr>
+<tr><td>Priority</td><td>Based on affected pages, their value, and effort</td><td>High: affects every product page</td></tr>
+<tr><td>Owner</td><td>The person or team who can make the change</td><td>Development</td></tr>
+<tr><td>Verification</td><td>How to confirm the fix worked</td><td>Re-inspect sample URLs; watch the indexed count for the template</td></tr>
+</tbody>
+</table>
+<p>Prioritization should weigh how many important pages a problem touches, how directly it blocks ranking, and how much work the fix takes. A one-line template fix that affects every product page beats a rewrite of one blog post. If you want a structured starting point, my <a href="{{root}}audit/">three-step SEO diagnostic</a> follows this format.</p>
+<h2 id="judging-an-audit">How to judge an audit you are sold</h2>
+<p>Judge an audit by whether you could start work from it tomorrow and know when each item is done. Use this checklist.</p>
+<ol>
+<li>Does it start from your business goals and priority pages, not from a generic crawl?</li>
+<li>Does it use your Search Console data, not only third-party estimates?</li>
+<li>Is each finding tied to specific URLs or templates?</li>
+<li>Are confirmed findings separated from hypotheses?</li>
+<li>Does each finding show its evidence?</li>
+<li>Is the list ranked, with a clear reason for the order?</li>
+<li>Does each item name an owner and a verification step?</li>
+<li>Does it avoid headline scores and issue counts as the main message?</li>
+<li>Does it say what it did not check, and why?</li>
+<li>Could your developer act on the top five items without a follow-up call?</li>
+</ol>
+<p>If an audit fails most of these, it is a tool export with a cover page.</p>
+<h2 id="faq">Common questions</h2>
+<div class="faq">
+<details><summary>How long should an SEO audit take?</summary><p>It depends on the number of page templates, the size of the site, how quickly you can grant access to Search Console and analytics, and whether server logs are available. A small brochure site can often be reviewed in a few days. A large ecommerce or multi-language site can take several weeks.</p></details>
+<details><summary>How often should a site be audited?</summary><p>Run a full audit before and after major changes such as a migration, redesign, or platform switch, and whenever traffic drops without an obvious reason. Between those, regular checks of the Search Console indexing and performance reports catch most regressions early.</p></details>
+<details><summary>Can I run an SEO audit myself with a tool?</summary><p>A crawler will collect the raw data, and that is a good start. The work an audit adds is interpretation: deciding which issues affect pages that matter, confirming them against Search Console, and ranking the fixes.</p></details>
+<details><summary>Should an audit include backlinks?</summary><p>It should review the link profile as context, including which pages attract links. Treat automated "toxic link" scores the same way as other vanity scores: as prompts to look, not as findings.</p></details>
+</div>

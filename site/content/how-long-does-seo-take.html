@@ -1,0 +1,73 @@
+<p class="lede">There is no single answer: some SEO changes show results as soon as Google recrawls the affected pages, while others take many months and depend on things you only partly control. The timeline depends on your site's age, the competition, how often Google crawls you, how fast your team ships changes, and how much is broken to begin with. The honest way to plan is to set measurable milestones for each stage, not to promise rankings by a date.</p>
+<aside class="callout callout-quiet"><div class="mini-note">Key takeaways</div><ul>
+<li>Fixes that remove a barrier on pages Google already crawls tend to show up soonest, often within a few crawl cycles.</li>
+<li>Authority, new content on a new domain, and recovery from core updates are slow, because they need search engines to reassess the site.</li>
+<li>Site age, competition, crawl frequency, release speed, and how much is broken explain most of the difference between projects.</li>
+<li>Anyone promising specific rankings by a specific date is guessing.</li>
+<li>Set milestones you can measure at each stage: work shipped, pages indexed, impressions, then clicks and conversions.</li>
+</ul></aside>
+<h2 id="why-no-fixed-timeline">Why is there no fixed SEO timeline?</h2>
+<p>Because results depend on three parties that each run on their own schedule: your team shipping changes, Google crawling and reassessing pages, and competitors improving their own sites at the same time. You control only the first.</p>
+<p>When someone asks how long SEO takes, they usually mean "when will I get more traffic from search." That depends on what is holding the site back. A site with a broken robots.txt rule can recover quickly once the rule is fixed. A new site in a crowded market has no broken thing to fix; it has to earn trust over time.</p>
+<p>So the useful question is not "how long does SEO take" but "how long will this specific change take to show up, and how will we know it is working before it shows up in revenue."</p>
+<h2 id="what-moves-fast">What can move fast</h2>
+<p>Changes that remove a barrier on pages Google already crawls and values tend to show results soonest, often once those pages are recrawled and reprocessed. The common thread is that the page already had the standing to rank; something was stopping it.</p>
+<ul class="svc-list">
+<li><strong>Indexing blockers:</strong> removing an accidental noindex, fixing a robots.txt rule, or correcting a canonical that pointed important pages elsewhere.</li>
+<li><strong>Broken redirects and status codes:</strong> restoring pages that were returning errors or redirecting to the wrong place after a migration.</li>
+<li><strong>Rendering problems:</strong> making content or links available in the HTML when they were previously hidden behind scripts that failed.</li>
+<li><strong>Titles and snippets:</strong> rewriting titles on pages that already rank on page one but earn few clicks. Click-through rate can change once Google shows the new title, with no change in position. Google sometimes rewrites titles, so check what is actually displayed.</li>
+<li><strong>Internal links to existing pages:</strong> linking to a strong but buried page from relevant, frequently crawled pages.</li>
+</ul>
+<p>"Fast" here means days to weeks, depending on how often Google crawls the affected URLs. You can request indexing for a few key URLs in Search Console, but for template-wide fixes the pace is set by normal crawling. This is the kind of work I group under <a href="{{root}}services/technical-infrastructure/">technical infrastructure</a>.</p>
+<h2 id="what-is-slow">What is slow</h2>
+<p>Anything that requires search engines to change their overall assessment of your site is slow. That includes authority, rankings for new content on a new domain, and recovery from broad core updates.</p>
+<h3>Authority and trust</h3>
+<p>Links, mentions, and a reputation for expertise accumulate gradually. You cannot ship authority in a release. Content that shows real experience and clear authorship supports <a href="{{root}}glossary/#eeat">E-E-A-T</a>, but the signals that come from other people (citations, links, reviews, people searching for your brand) build on their own schedule.</p>
+<h3>New content on a new domain</h3>
+<p>A new site has little history for Google to go on. Pages may be crawled and indexed quickly yet sit low in results for competitive queries for a long time. Starting with specific, less contested queries, where the site can clearly be the best answer, usually shows progress earlier than going straight after the broadest terms.</p>
+<h3>Recovery from core updates</h3>
+<p>If a site lost visibility in a broad core update, fixing pages does not usually produce an immediate rebound. Google's public guidance on core updates says improvements can take time to be reflected, and some sites do not see significant change until a later update. That makes recovery hard to put a date on. The sensible response is to diagnose what the update likely reassessed, improve it properly, and track leading indicators while you wait. I cover that process under <a href="{{root}}services/algorithm-recovery/">algorithm recovery</a>.</p>
+<h2 id="timeline-factors">The factors that change the timeline</h2>
+<p>Five factors explain most of the difference between a project that shows progress quickly and one that takes much longer. Knowing where your site sits on each one is more useful than any generic estimate.</p>
+<table>
+<thead><tr><th>Factor</th><th>Tends to shorten the timeline</th><th>Tends to lengthen it</th></tr></thead>
+<tbody>
+<tr><td>Site age and history</td><td>Established domain with existing links and rankings</td><td>New domain, or one with a history of spam or penalties</td></tr>
+<tr><td>Competition</td><td>Niche or local queries with few strong competitors</td><td>Queries dominated by large, well-known brands</td></tr>
+<tr><td>Crawl frequency</td><td>Important pages crawled often</td><td>Large sites where crawling is spread thin across low-value URLs</td></tr>
+<tr><td>Release speed</td><td>Team can ship SEO changes within days</td><td>Changes wait months in a development backlog</td></tr>
+<tr><td>How much is broken</td><td>A few clear blockers with obvious fixes</td><td>Many overlapping problems, or problems that need a rebuild</td></tr>
+</tbody>
+</table>
+<p>Release speed is the factor people underestimate most. An SEO plan cannot move faster than the slowest step in shipping it. If every template change needs a quarter of planning, that is the real timeline, however quickly Google responds.</p>
+<p>These factors also interact. An established site with a slow release process may still move faster than a new site with an agile team, because the established site only needs barriers removed. A new site with fast releases has to build standing first, and no release speed shortens that.</p>
+<h2 id="measurable-milestones">How to set milestones you can measure</h2>
+<p>Replace "rank number one by a date" with a sequence of milestones that each have a measurable signal. Early milestones are things you control; later ones are things you influence.</p>
+<ol>
+<li><strong>Work shipped:</strong> the fixes and content in the plan are live. Measured by release notes and spot checks of the live pages.</li>
+<li><strong>Pages crawled and indexed:</strong> target pages are indexed with the intended canonical. Measured with URL Inspection and the Page indexing report.</li>
+<li><strong>Impressions:</strong> target pages begin appearing for relevant queries. Measured in the Search Console Performance report, filtered by page.</li>
+<li><strong>Position and click-through rate:</strong> average position improves for the query groups you care about, and titles earn clicks. Measured in the same report against a recorded baseline.</li>
+<li><strong>Clicks and conversions:</strong> organic visits to target pages increase and convert. Measured in Search Console and analytics.</li>
+</ol>
+<p>Each milestone should have a baseline recorded before work starts, a date to review it, and a note on what you will do if it has not moved. That way a slow stage becomes a question to investigate, not a surprise at the end. If you want to check whether the expected gains justify the effort before committing, the <a href="{{root}}roi-calculator/">SEO ROI calculator</a> lets you test different assumptions.</p>
+<h2 id="expectations-checklist">A checklist for setting expectations</h2>
+<p>Before agreeing to any SEO timeline, work through these points with whoever is doing the work.</p>
+<ol>
+<li>Name the pages and query groups the plan is meant to improve.</li>
+<li>Record a baseline for impressions, clicks, position, and conversions for those pages.</li>
+<li>Separate barrier fixes (likely faster) from authority and content work (likely slower).</li>
+<li>Confirm how quickly your team can ship changes, and plan around that.</li>
+<li>Check how often Google crawls the affected pages using Crawl stats and URL Inspection.</li>
+<li>Agree on the milestone sequence and the signal for each one.</li>
+<li>Set review dates, and decide in advance what happens if a milestone stalls.</li>
+<li>Treat any promise of specific rankings by a specific date as a warning sign.</li>
+</ol>
+<h2 id="faq">Common questions</h2>
+<div class="faq">
+<details><summary>Can anyone guarantee rankings by a certain date?</summary><p>No. Nobody outside Google controls its ranking systems, and competitors are changing their sites at the same time. What someone can commit to is the work, how it will be measured, and honest reporting on each milestone.</p></details>
+<details><summary>Why did traffic dip right after we made changes?</summary><p>Some changes, such as migrations or merging pages, often cause a temporary dip while Google recrawls and reprocesses the URLs. Whether it stays temporary depends on redirects and canonicals being correct, so check those first before assuming the change was wrong.</p></details>
+<details><summary>Is SEO worth it if results take this long?</summary><p>That depends on how much search demand exists for what you offer, your margins, and what other channels cost you. Barrier fixes tend to pay back sooner, while authority and content work compound over time. Modeling both against your own numbers gives a better answer than a general rule.</p></details>
+<details><summary>How often should progress be reviewed?</summary><p>Leading indicators such as indexing and impressions can be checked every week or two. Judge rankings and traffic over longer windows, and compare matching days of the week, because daily numbers fluctuate for reasons that have nothing to do with your work.</p></details>
+</div>

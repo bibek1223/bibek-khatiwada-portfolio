@@ -232,3 +232,16 @@
 .theme-minimal .case-chart figcaption{padding:.6rem .9rem;font-size:.78rem;color:var(--muted);border-top:1px solid var(--line)}
 .theme-minimal .case-source{margin-top:.6rem;font-size:.82rem;color:var(--muted)}
 .theme-minimal .related-links a{color:var(--accent-ink);font-weight:600;text-decoration-thickness:1px;text-underline-offset:3px}
+.theme-minimal .card-grid.two-up{grid-template-columns:repeat(2,minmax(0,1fr))}
+.theme-minimal .card-grid.two-up .service{grid-column:auto}
+@media (min-width:981px){.theme-minimal .process.steps-5{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@media (max-width:640px){.theme-minimal .card-grid.two-up{grid-template-columns:1fr}}
+
+/* Mobile overflow: grid children must be allowed to shrink below their content width */
+.theme-minimal :is(.cs-layout,.fw-detail-layout,.ind-detail-layout,.res-grid,.scale-nav,.scale-box)>*{min-width:0}
+.theme-minimal .scale-nav{flex-wrap:wrap}
+@media (max-width:560px){.theme-minimal .res-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.theme-minimal .cs-main table{display:block;max-width:100%;overflow-x:auto}
+.theme-minimal .scale-btn{white-space:normal;max-width:100%;text-align:left}
+.theme-minimal .scale-btn:hover,.theme-minimal .scale-btn.active{transform:none;background:var(--text);border-color:var(--text);color:#fff}
+@media (max-width:560px){.theme-minimal .scale-box{padding:1rem;gap:1rem}}

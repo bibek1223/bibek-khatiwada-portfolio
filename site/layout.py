@@ -4,7 +4,7 @@ import json
 from html import escape
 from pathlib import Path
 
-from extra_content import CANONICAL_TO, SEO_META
+from extra_content import BLOG_POSTS, CANONICAL_TO, EXTRA_INDUSTRIES, SEO_META
 from data import (ARTICLES, CASE_STUDIES, FRAMEWORKS, INDUSTRIES_MATRIX, PERSON,
                   SERVICES, SITE_URL, TOOLS_SHOWCASE)
 
@@ -162,10 +162,10 @@ def search_overlay(root):
     ]
     entries += [(f"Case {c['n']}: {c['short']}", c['chip'], f"case-studies/{c['slug']}/", "case study") for c in CASE_STUDIES]
     entries += [(f["title"], f["summary"], f"frameworks/{f['slug']}/", "framework") for f in FRAMEWORKS]
-    entries += [(i["title"], i["summary"], f"industries/{i['slug']}/", "industry") for i in INDUSTRIES_MATRIX]
-    entries += [(a["title"], a["summary"], f"blog/{a['slug']}/", "insight") for a in ARTICLES
+    entries += [(i["title"], i["summary"], f"industries/{i['slug']}/", "industry") for i in INDUSTRIES_MATRIX + EXTRA_INDUSTRIES]
+    entries += [(a["title"], a["summary"], f"blog/{a['slug']}/", "insight") for a in BLOG_POSTS + ARTICLES
                 if (Path(__file__).parent / "content" / f"{a['slug']}.html").exists()]
-    entries += [(s["name"], s["summary"], f"services/#{s['id']}", "service") for s in SERVICES]
+    entries += [(s["name"], s["summary"], f"services/{s['id']}/", "service") for s in SERVICES]
     entries += [(t["name"], t["summary"], "tools/", "tool") for t in TOOLS_SHOWCASE]
     payload = json.dumps([
         {"title": title, "description": description, "url": root + path, "type": kind}

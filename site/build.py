@@ -12,6 +12,8 @@ from pathlib import Path
 from data import (ACHIEVEMENTS, ARTICLES, CASE_STUDIES, COUNTRIES, FILTERS, FRAMEWORKS,
                   GLOSSARY_TERMS, INDUSTRIES_MATRIX, PERSON, PLATFORMS, ROI_PRESETS,
                   SERVICES, SITE_URL, TIMELINE, TOOLS, TOOLS_SHOWCASE)
+from extra_content import (BLOG_INDEX, FRAMEWORK_EXTRA, FRAMEWORK_INDEX, INDUSTRY_EXTRA, INDUSTRY_INDEX,
+                           PROCESS_EXTRA, ROI_EXTRA)
 from layout import breadcrumbs, page, person_node, person_ref
 
 SRC = Path(__file__).parent
@@ -125,6 +127,64 @@ def article_card(art):
           <span class="cs-card-meta" style="margin-top:auto;padding-top:1rem"><span>{escape(art['read_time'])}</span><span>{escape(art['author'])}</span></span>
           <span class="cs-card-go" aria-hidden="true">→</span>
         </a>"""
+
+
+def faq_html(items):
+    return "".join(f"<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>" for q, a in items)
+
+
+def info_section(eyebrow, title, intro, cards=(), faq=(), section_id=None):
+    """Plain supporting-copy section: optional intro, a card grid, and an FAQ list."""
+    sid = f' id="{section_id}"' if section_id else ""
+    grid = ""
+    if cards:
+        grid = '<div class="card-grid">' + "".join(
+            f'<article class="service compact"><h3>{escape(t)}</h3><p>{escape(d)}</p></article>' for t, d in cards) + "</div>"
+    faq_block = f'<div class="faq" style="margin-top:2rem">{faq_html(faq)}</div>' if faq else ""
+    return f"""
+    <section{sid}>
+      <div class="wrap">
+        <div class="section-head"><div class="copy">
+          <span class="eyebrow">{escape(eyebrow)}</span>
+          <h2>{escape(title)}</h2>
+          {f"<p>{escape(intro)}</p>" if intro else ""}
+        </div></div>
+        {grid}{faq_block}
+      </div>
+    </section>"""
+
+
+def industry_extra_html(slug):
+    x = INDUSTRY_EXTRA.get(slug)
+    if not x:
+        return ""
+    page_types = "".join(f"<li><b>{escape(t)}:</b> {escape(d)}</li>" for t, d in x["intent"])
+    steps = "".join(f"<li>{escape(s)}</li>" for s in x["sequence"])
+    mistakes = "".join(f"<li>{escape(m)}</li>" for m in x["mistakes"])
+    return f"""
+    <h3 style="margin-top:2rem">Page types this sector needs</h3>
+    <ul class="svc-list">{page_types}</ul>
+    <h3 style="margin-top:2rem">A sensible order of work</h3>
+    <ol>{steps}</ol>
+    <h3 style="margin-top:2rem">Mistakes I look for first</h3>
+    <ul class="svc-list">{mistakes}</ul>
+    <h3 style="margin-top:2rem">Common questions</h3>
+    <div class="faq">{faq_html(x["faq"])}</div>"""
+
+
+def framework_extra_html(slug):
+    x = FRAMEWORK_EXTRA.get(slug)
+    if not x:
+        return ""
+    checklist = "".join(f"<li>{escape(c)}</li>" for c in x["checklist"])
+    pitfalls = "".join(f"<li>{escape(p)}</li>" for p in x["pitfalls"])
+    return f"""
+    <h2 id="checklist">Implementation checklist</h2>
+    <ol>{checklist}</ol>
+    <h2 id="pitfalls">Common mistakes</h2>
+    <ul>{pitfalls}</ul>
+    <h2 id="faq">Questions people ask</h2>
+    <div class="faq">{faq_html(x["faq"])}</div>"""
 
 
 def cta_band(title, text, primary=("Write me a brief", "contact/"), secondary=None):
@@ -288,6 +348,9 @@ def build_process():
           <div><dt>03</dt><dd>Implement</dd></div><div><dt>04</dt><dd>Verify</dd></div>
         </dl>""")
     body += fragment("process-page.html")
+    body += info_section("What you receive", "The output of each stage",
+                         "Every stage ends with a written deliverable, so progress can be checked and reused.",
+                         PROCESS_EXTRA["deliverables"])
     body += cta_band("Have a problem that does not fit a neat category?",
                      "Bring the symptom, the evidence you have, and the business constraint. We can shape the right first investigation together.",
                      primary=("Build a project brief", "contact/?topic=strategy"),
@@ -608,6 +671,9 @@ def build_frameworks():
         "In-depth technical essays on Entity-Attribute-Value (EAV) modeling, Generative Engine Optimization (GEO), and algorithm recovery mechanics.",
         [("Home", ""), ("Frameworks", None)])
     body += fragment("framework-index.html", framework_cards=cards_html)
+    body += info_section("About these essays", "Reasoning you can test on your own site",
+                         "Short technical essays that explain why a method works, show a minimal example and state its limits.",
+                         FRAMEWORK_INDEX["how"])
     body += cta_band("Have a complex search architecture question?",
                      "Discuss entity modeling, LLM retrieval readiness, or taxonomy structuring.")
     graph = webpage("frameworks/", "Technical Frameworks Hub", [("Home", ""), ("Frameworks", "frameworks/")])
@@ -813,6 +879,7 @@ that cite a brand or domain for a defined prompt set and time window.&lt;/p&gt;<
         </div>
         """
 
+    body_prose += framework_extra_html(f["slug"])
     body = page_hero(
         f"Framework · {escape(f['chip'])}",
         escape(f["title"]),
@@ -864,6 +931,9 @@ def build_industries():
         "Tailored search strategies, crawl budget management, and topical authority blueprints across 20+ verified industry verticals.",
         [("Home", ""), ("Industries", None)])
     body += fragment("industry-index.html", industry_cards=cards_html)
+    body += info_section("How I approach any sector", "The method is shared. The constraints are not.",
+                         "Each blueprint above applies the same three steps to a different business model.",
+                         INDUSTRY_INDEX["how"], INDUSTRY_INDEX["faq"])
     body += cta_band("Don't see your exact vertical?", "I have delivered search campaigns across 20+ industries. Contact me to discuss your specific domain.")
     graph = webpage("industries/", "Industry Search Blueprints", [("Home", ""), ("Industries", "industries/")])
     meta = {"path": "industries/", "slug": "industries", "graph": graph,
@@ -884,6 +954,7 @@ def build_industry_detail(ind):
       <li><b>Technical Hardening:</b> Ensuring crawl budget is spent on high-converting landing pages rather than dynamic parameters.</li>
       <li><b>Entity &amp; Brand Grounding:</b> Aligned schema markup to establish clear domain authority.</li>
     </ul>
+    """ + industry_extra_html(ind["slug"]) + """
     """
 
     # Inject interactive industry calculator
@@ -1056,6 +1127,9 @@ def build_roi_calculator():
         "Model the incremental pipeline, leads, and annual revenue driven by fixing technical crawl bottlenecks, building entity topic hubs, and winning high-intent search real estate.",
         [("Home", ""), ("ROI Calculator", None)])
     body += fragment("roi-calculator.html")
+    body += info_section("How it works", "What the calculator does, and what it leaves out",
+                         "A simple model is useful only if its assumptions are visible.", ROI_EXTRA["how"])
+    body += info_section("Your inputs", "Where to find each number", "", ROI_EXTRA["inputs"], ROI_EXTRA["faq"])
     body += cta_band("Ready to build this pipeline for your domain?",
                      "Send me your site URL and current Search Console numbers. I will prepare a customized forensic strategy roadmap.",
                      primary=("Get Strategic Forecast", "contact/?topic=roi-forecast"))
@@ -1153,6 +1227,11 @@ def build_blog():
       </div>
     </section>
 """
+    body += info_section("Topics", "What I write about",
+                         "Each article starts from a real measurement or implementation problem.",
+                         BLOG_INDEX["topics"], section_id="blog-topics")
+    body += info_section("Reading paths", "Where to start, depending on your problem", "",
+                         BLOG_INDEX["paths"])
     body += cta_band("Have a complex search or AI-visibility challenge?",
                      "From LLM brand tracking to corpus-level technical recoveries, let's look at the data.")
     items = [{"@type": "ListItem", "position": i + 1, "url": f"{SITE_URL}/blog/{art['slug']}/",

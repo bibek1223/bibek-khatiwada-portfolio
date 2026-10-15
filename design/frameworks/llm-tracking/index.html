@@ -130,7 +130,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/site.css?v=c62b3783">
-  <link rel="stylesheet" href="../../assets/css/theme-minimal.css?v=3e232e81">
+  <link rel="stylesheet" href="../../assets/css/theme-minimal.css?v=7ace0da8">
 </head>
 <body class="page-framework theme-minimal">
   <div class="site-progress" aria-hidden="true"><i></i></div>
@@ -271,6 +271,12 @@
           </div>
         </div>
         
+    <h2 id="checklist">Implementation checklist</h2>
+    <ol><li>Write a prompt set that reflects real customer questions, grouped by intent.</li><li>Record the engine, date, location and settings for every run so results can be compared.</li><li>Store the raw answer, not only a summary, so extraction rules can be improved later.</li><li>Track mentions and citations separately; being named is not the same as being linked.</li><li>Repeat runs on a schedule and report ranges, not single results.</li><li>Review which of your pages and third-party sources are being cited, and fix the weak ones.</li></ol>
+    <h2 id="pitfalls">Common mistakes</h2>
+    <ul><li>Treating one screenshot of one answer as a trend.</li><li>Changing the prompt wording between runs and comparing the results.</li><li>Reporting an AI visibility score without explaining how it was calculated.</li><li>Ignoring third-party sources, which are often what the model actually cites.</li></ul>
+    <h2 id="faq">Questions people ask</h2>
+    <div class="faq"><details><summary>Is LLM tracking the same as rank tracking?</summary><p>No. Rankings come from a mostly stable results page, while generated answers vary by prompt, model and time. The measurement has to sample and report variation.</p></details><details><summary>How many prompts do I need?</summary><p>Enough to cover your main intents and entities, and few enough to run consistently. Start small, keep the set stable and expand only when the process is reliable.</p></details><details><summary>Can I influence what an AI answer says about my brand?</summary><p>You can improve the sources it can retrieve: clear pages, consistent entity information and credible third-party coverage. There is no switch that guarantees a mention.</p></details></div>
       </div>
 
       <div class="fw-disciplines">
@@ -288,6 +294,9 @@
         <a href="#technical-mechanics">Technical Mechanics</a>
         <a href="#execution-code">Implementation &amp; Code</a>
         <a href="#takeaways">Key Takeaways</a>
+        <a href="#checklist">Implementation Checklist</a>
+        <a href="#pitfalls">Common Mistakes</a>
+        <a href="#faq">Questions</a>
       </nav>
       
       <div class="side-card">

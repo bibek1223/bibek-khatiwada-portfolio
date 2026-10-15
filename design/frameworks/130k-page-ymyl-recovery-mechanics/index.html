@@ -130,7 +130,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/site.css?v=c62b3783">
-  <link rel="stylesheet" href="../../assets/css/theme-minimal.css?v=3e232e81">
+  <link rel="stylesheet" href="../../assets/css/theme-minimal.css?v=7ace0da8">
 </head>
 <body class="page-framework theme-minimal">
   <div class="site-progress" aria-hidden="true"><i></i></div>
@@ -265,6 +265,12 @@
           </div>
         </div>
         
+    <h2 id="checklist">Implementation checklist</h2>
+    <ol><li>Overlay performance changes with known update dates and site release events.</li><li>Segment URLs by directory and template before opening any single page.</li><li>Separate pages that need improvement from pages that should be consolidated.</li><li>Map every removed or merged URL to the best matching destination.</li><li>Document author, reviewer and sourcing standards and apply them to priority hubs first.</li><li>Check crawl, indexing and impressions by segment after each change batch.</li></ol>
+    <h2 id="pitfalls">Common mistakes</h2>
+    <ul><li>Fixing individual pages while the template or directory problem remains.</li><li>Mass-deleting content without redirect mapping or a way to measure the effect.</li><li>Expecting immediate recovery instead of waiting for later evaluations.</li><li>Changing too many things at once to learn which change mattered.</li></ul>
+    <h2 id="faq">Questions people ask</h2>
+    <div class="faq"><details><summary>How long does a recovery take?</summary><p>It varies widely and tends to track the timing of later updates and re-evaluations, so plan in months and report progress by segment.</p></details><details><summary>Is pruning always the answer?</summary><p>No. Pruning helps where pages are duplicate or empty. Where pages are thin but valuable, improving or consolidating them can be better.</p></details><details><summary>Does this apply to smaller sites?</summary><p>The sequence applies, but a smaller site can often be reviewed page by page, which makes segmentation less important.</p></details></div>
       </div>
 
       <div class="fw-disciplines">
@@ -282,6 +288,9 @@
         <a href="#technical-mechanics">Technical Mechanics</a>
         <a href="#execution-code">Implementation &amp; Code</a>
         <a href="#takeaways">Key Takeaways</a>
+        <a href="#checklist">Implementation Checklist</a>
+        <a href="#pitfalls">Common Mistakes</a>
+        <a href="#faq">Questions</a>
       </nav>
       
       <div class="side-card">

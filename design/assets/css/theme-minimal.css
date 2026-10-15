@@ -221,3 +221,9 @@
 .theme-minimal .svc-head .icon{background:var(--accent-soft);color:var(--accent-ink);border-radius:10px}
 .theme-minimal .sim-kpi-val.highlight{color:#2f7a5c}
 .theme-minimal :is(.peer-proof-card,.scale-card,.svc,.scope-output-box,.planner-output,.res){background:var(--surface);border-color:var(--line);box-shadow:none}
+
+/* Long-form pages: section headings should not compete with the page title */
+.theme-minimal :is(.ind-main,.cs-main,.fw-body-content,.prose) h2{font-size:clamp(1.4rem,2.2vw,1.9rem);letter-spacing:-.025em;margin-bottom:.8rem}
+.theme-minimal :is(.ind-main,.cs-main,.fw-body-content,.prose) h3{font-size:1.1rem}
+.theme-minimal .ind-main>h2{font-size:clamp(1.4rem,2.2vw,1.9rem);letter-spacing:-.025em}
+.theme-minimal .fw-body-content h2{margin-top:2rem}

@@ -116,7 +116,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/site.css?v=c62b3783">
-  <link rel="stylesheet" href="../../assets/css/theme-minimal.css?v=3e232e81">
+  <link rel="stylesheet" href="../../assets/css/theme-minimal.css?v=7ace0da8">
 </head>
 <body class="page-industry theme-minimal">
   <div class="site-progress" aria-hidden="true"><i></i></div>
@@ -209,6 +209,15 @@
       <li><b>Technical Hardening:</b> Ensuring crawl budget is spent on high-converting landing pages rather than dynamic parameters.</li>
       <li><b>Entity &amp; Brand Grounding:</b> Aligned schema markup to establish clear domain authority.</li>
     </ul>
+    
+    <h3 style="margin-top:2rem">Page types this sector needs</h3>
+    <ul class="svc-list"><li><b>Category and hub page:</b> Groups listings by a real attribute (make, region, type) and gives the reader a reason to choose a sub-category, not just a list of links.</li><li><b>Listing or entity page:</b> One URL per genuine item, with unique attributes, current status and enough original detail to justify existing.</li><li><b>Filter and facet combinations:</b> Indexed only when a combination matches real search demand and has meaningful inventory; everything else stays crawlable but not indexable.</li><li><b>Template-level content:</b> The introduction, FAQs and supporting copy that make a template page more than a database record.</li></ul>
+    <h3 style="margin-top:2rem">A sensible order of work</h3>
+    <ol><li>Segment the URL inventory by template, parameter and status, and measure which segments earn clicks and which only consume crawl.</li><li>Decide the indexation rule for each segment: index, noindex, canonicalise, block or remove.</li><li>Define a quality floor for template pages (minimum unique data points, content depth, internal links) and enforce it at build time.</li><li>Strengthen hubs with real content and link them to the best listings, so crawl and authority flow to valuable URLs.</li><li>Monitor crawl stats and indexed-page counts after each release, and roll back templates that increase low-value URLs.</li></ol>
+    <h3 style="margin-top:2rem">Mistakes I look for first</h3>
+    <ul class="svc-list"><li>Generating a page for every filter combination and letting crawlers find all of them.</li><li>Filling templates with boilerplate that varies by one word.</li><li>Leaving expired or out-of-stock listings live with no status, redirect or alternative.</li><li>Changing a template site-wide without a staged rollout and a way to measure the effect.</li></ul>
+    <h3 style="margin-top:2rem">Common questions</h3>
+    <div class="faq"><details><summary>How do I know if I have too many indexable URLs?</summary><p>Compare the number of indexed URLs with the number that receive impressions or clicks. A large gap, especially in one template or parameter, is the first thing to investigate.</p></details><details><summary>Should thin pages be deleted or improved?</summary><p>It depends on whether the page has a reason to exist. Pages with demand and real data can be improved; pages with neither are usually better consolidated, redirected or noindexed.</p></details><details><summary>Is programmatic SEO risky?</summary><p>It is when scale is the strategy. It works when each page answers a real query with real data, and when quality rules are built into the template.</p></details><details><summary>How is crawl budget affected?</summary><p>On large sites, crawlers spend time on whatever they find first. Cutting low-value URLs and improving internal links helps crawlers reach the pages that matter sooner.</p></details></div>
     
         <div class="interactive-widget-box" style="margin:2.5rem 0;padding:1.75rem;background:var(--surface);border:1px solid var(--line);border-radius:18px;">
           <span class="eyebrow">Catalog Diagnostics</span>
